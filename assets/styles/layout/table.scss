@@ -1,0 +1,75 @@
+table {
+    color: #808080;
+    font-weight: 600;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #e7e6e6fb;
+    box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
+    -webkit-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
+    -moz-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
+   
+    th {
+        min-width: 200px;
+        padding: 25px 20px;
+        background-color: #6C7AE0;
+        color: white;
+        text-align: left;
+        font-size: 1.2rem;
+    }
+}
+
+td {
+    padding: 30px 20px;
+
+    a {
+        color: #808080;
+        font-weight: 600;
+
+        i {
+            border: 1px solid gray;
+            border-radius: 80px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    }
+}
+
+
+
+tbody:nth-child(even) {
+    background-color: #eeeeeefb;
+}
+
+tbody:nth-child(odd) {
+    background-color: #fff;
+}
+
+.edit:hover {
+    color: #0275d8;
+    background-color: rgb(239, 236, 236);
+}
+
+.delete:hover {
+    color: red;
+    background-color: rgb(239, 236, 236);
+}
+
+.infos:hover {
+    color: black;
+    background-color: rgb(239, 236, 236);
+}
+
+.addCompanySheet {
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 80px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.addCompanySheet:hover{
+    filter: brightness(105%);
+    transform: translateX(2px);
+}

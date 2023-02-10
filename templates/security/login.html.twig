@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.form-login {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background: rgb(237, 239, 239);
+		}
+
+		.form-content {
+			width: 50%;
+			min-width: 360px;
+			max-width: 600px;
+			border-radius: 60px;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+			padding: 60px 45px 30px;
+		}
+
+		.form-content div {
+			display: flex;
+			flex-direction: column;
+		}
+
+		label {
+			font-size: 1.3rem;
+			letter-spacing: 1px;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 2.4rem;
+			margin-bottom: 20px;
+		}
+
+		input {
+			margin: 14px 0;
+			border: 1px solid transparent;
+			border-radius: 9px;
+			background: rgb(235, 236, 244);
+			height: 36px;
+			width: 100%;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+			font-size: 1.1rem;
+			padding-left: 10px;
+			transition: 0.2s;
+			outline: none;
+		}
+
+		input:focus {
+			border: 1px solid #6C7AE0;
+		}
+
+		.form-content button {
+			display: block;
+			width: 50%;
+			margin: 30px auto 0;
+			padding: 10px;
+			border: none;
+			border-radius: 150px;
+			background: linear-gradient(65deg, #a9a9ca, #6C7AE0);
+			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+			font-size: 1.2rem;
+			transition: 0.3s ease;
+			color: white;
+			cursor: pointer;
+		}
+
+		.form-content button:hover {
+			filter: brightness(105%);
+			transform: translateX(2px);
+		}
+	</style>
+
+	<div class="form-login">
+		<div class="form-content">
+			<form method="post">
+
+				{% if error %}
+					<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				{% if app.user %}
+					<div>
+						Vous êtes connectez en tant que
+						{{ app.user.userIdentifier }},
+						<a href="{{ path('app_logout') }}">Déconnexion</a>
+					</div>
+				{% endif %}
+
+				<h1>Veuillez vous connecter</h1>
+				<label for="inputEmail">Email</label>
+				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" required autofocus>
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+				<button class="btn-login" type="submit">
+					Connexion
+				</button>
+			</form>
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% block body %}
+	<table class="table-content">
+		<thead>
+			<tr>
+				<th>Association</th>
+				<th>Société</th>
+				<th>Nom Prénom</th>
+				<th>Montant FNI Total engagé</th>
+				<th>Montant FNI Total versé</th>
+				<th>
+					<button class="addCompanySheet" type="submit" onclick="location.href='{{path('app_companysheet_create')}}'">
+
+						<i class="fa-solid fa-plus"></i>
+						Créer une fiche projet</button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for company in companySheet %}
+				<tr>
+					<td class="associationName">{{company.association.name}}</td>
+					<td>{{company.companyName}}</td>
+					<td>{{company.ProjectLeaderName1}}</td>
+					<td>{{company.FniAmountRequested}}
+						€</td>
+					<td>{{company.FniAmountPaid}}
+						€</td>
+
+					<td>
+						<a href="{{ path("app_companysheet_show", {id: company.id}) }}">
+							<i class="fa-sharp fa-solid fa-circle-info infos"></i>
+						</a>
+						<a href="{{ path("app_companysheet_edit", {id: company.id}) }}">
+							<i class="fa-solid fa-pen-to-square edit"></i>
+						</a>
+						<a href="{{ path("app_companysheet_delete", {id: company.id}) }}">
+							<i class="fa-sharp fa-solid fa-trash-can delete"></i>
+						</a>
+
+					</td>
+				</tr>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une fiche Société
+{% endblock %}
+
+
+{% block body %}
+	<div class="form-container">
+		<div class="form-content">
+			{{form_row(formView.LoanStatus) }}
+			{{form_row(formView.Association) }}
+			{{form_row(formView.DateOfCE) }}
+			{{form_row(formView.RepaymentStartDate) }}
+			{{form_row(formView.RepaymentEndDate) }}
+			{{form_row(formView.CompanyName) }}
+			{{form_row(formView.FNIAmountRequested) }}
+			{{form_row(formView.FniAmountPaid) }}
+			{{form_row(formView.PaymentOne) }}
+			{{form_row(formView.PaymentOneDate) }}
+			{{form_row(formView.PaymentTwo) }}
+			{{form_row(formView.PaymentTwoDate) }}
+			{{form_row(formView.RemainsToBePaid) }}
+			{{form_row(formView.TotalAmountRepaidToDate) }}
+			{{form_row(formView.ProjectLeaderName1)}}
+			{{form_row(formView.ProjectLeaderName2)}}
+			{{form_row(formView.ProjectLeaderName3)}}
+			{{form_row(formView.ProjectLeaderName4)}}
+			{{form_row(formView.Button) }}
+		</div>
+	</div>
+{% endblock %}
