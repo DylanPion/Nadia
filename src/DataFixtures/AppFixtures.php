@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
         $randomDate = new DateTime('@' . $randomTimestamp);
 
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
             $manager->persist($association);
@@ -31,14 +31,14 @@ class AppFixtures extends Fixture
                 ->setDateOfCE($randomDate)
                 ->setRepaymentStartDate($randomDate)
                 ->setRepaymentEndDate($randomDate)
-                ->setFNIAmountRequested(mt_rand(1, 10000000))
+                ->setFNIAmountRequested(mt_rand(1, 200))
                 ->setFniAmountPaid(mt_rand(1, 10000000))
-                ->setPaymentOne(mt_rand(1, 10000))
-                ->setPaymentTwo(mt_rand(1, 10000))
+                ->setPaymentOne(mt_rand(1, 50))
+                ->setPaymentTwo(mt_rand(1, 50))
                 ->setPaymentOneDate($randomDate)
                 ->setPaymentTwoDate($randomDate)
-                ->setRemainsToBePaid(mt_rand(1, 10000))
                 ->setTotalAmountRepaidToDate(mt_rand(1, 100000))
+                ->setRemainsToBePaid()
                 ->setProjectLeaderName1("Dylan")
                 ->setProjectLeaderName2("Elias")
                 ->setProjectLeaderName3("Nassim")

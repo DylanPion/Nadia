@@ -1,0 +1,22 @@
+<div class="navbar">
+	<a href="{{ path('app_association') }}">
+		<img src="/img/logo-re.png" alt="">
+	</a>
+
+	<div class="search-bar">
+		<i class="fa-solid fa-magnifying-glass"></i>
+		<input type="text" class="search" placeholder="Rechercher une valeur dans le tableau">
+	</div>
+
+	<div class="nav-log">
+		{% if app.user %}
+			<ul>
+				<li>
+					<a href=" {{ path('app_logout') }}">Déconnexion</a>
+				</li>
+			{% else %}
+				<li><a href=" {{ path('app_login') }}">Connexion</a></li>
+			</ul>
+		{% endif %}
+	</div>
+</div>

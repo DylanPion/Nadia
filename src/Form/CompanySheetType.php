@@ -40,14 +40,17 @@ class CompanySheetType extends AbstractType
             ])
             ->add('DateOfCE', DateType::class, [
                 'label' => 'Date du CE',
+                'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => 'Entrez la Date du CE', "class" => "date"]
             ])
             ->add('RepaymentStartDate', DateType::class, [
                 'label' => 'Date du début du remboursement',
+                'format' => 'dd MMM yyyy',
                 "attr" => ["placeholder" => "Entrez la Date du début du remboursement", "class" => "date"]
             ])
             ->add('RepaymentEndDate', DateType::class, [
                 'label' => 'Date de fin du remboursement',
+                'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => "Entrez la Date de fin du remboursement", "class" => "date"]
             ])
             ->add('FNIAmountRequested', IntegerType::class, [
@@ -64,6 +67,7 @@ class CompanySheetType extends AbstractType
             ])
             ->add('PaymentOneDate', DateType::class, [
                 'label' => 'Date du versement',
+                'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => "Entrez la Date du versement effectué", "class" => "date"]
             ])
             ->add('PaymentTwo', IntegerType::class, [
@@ -72,6 +76,7 @@ class CompanySheetType extends AbstractType
             ])
             ->add('PaymentTwoDate', DateType::class, [
                 'label' => 'Date du Second Versemenet',
+                'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => "Entrez la Date du second versement effectué", "class" => "date"]
             ])
             ->add('RemainsToBePaid', IntegerType::class, [
@@ -99,7 +104,7 @@ class CompanySheetType extends AbstractType
                 "attr" => ['placeholder' => "Entrez le prénom et le nom d'un porteur de projet "]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer la fiche société'
+                'label' => 'Créer la fiche Société'
             ]);
     }
 

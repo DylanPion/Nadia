@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des prêts | Accueil
+{% endblock %}
+{% block body %}
+	{% include "_navbar.html.twig" %}
+
+
+	<table class="table-content">
+		<thead>
+			<tr>
+				<th>Liste des Associations</th>
+				<th>Montant FNI Total engagé</th>
+				<th>Montant FNI Total versé</th>
+				<th>
+					{# Gérer la création d'une association / suppresion / edit  #}
+					<button class="addCompanySheet" type="submit" onclick="location.href='{{path('app_association_create')}}'">
+						<i class="fa-solid fa-plus"></i>
+						Créer une nouvelle Association</button>
+
+				</th>
+			</tr>
+		</thead>
+	</button>
+</th></tr></thead><tbody>{% for association in associationList %}
+<tr>
+	<td class="associationName">{{association.name}}</td>
+	<td></td>
+	<td></td>
+	<td>
+		<a href="{{ path("app_association_show", {id: association.id}) }}">
+			<i class="fa-solid fa-diamond-turn-right"></i>
+		</a>
+		<a href="{{ path("app_association_edit", {id: association.id}) }}">
+			<i class="fa-solid fa-pen-to-square edit"></i>
+		</a>
+		<a href="{{ path("app_association_delete", {id: association.id}) }}">
+			<i class="fa-sharp fa-solid fa-trash-can delete"></i>
+		</a>
+	</td>
+</tr></tr>{% endfor %}</tbody></table>{% endblock %}

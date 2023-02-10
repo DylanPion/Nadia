@@ -8,6 +8,8 @@
 {% block body %}
 	<div class="form-container">
 		<div class="form-content">
+			<h1>Modification de la fiche Société</h1>
+			{{form_start(formView)}}
 			{{form_row(formView.LoanStatus) }}
 			{{form_row(formView.Association) }}
 			{{form_row(formView.DateOfCE) }}
@@ -27,6 +29,9 @@
 			{{form_row(formView.ProjectLeaderName3)}}
 			{{form_row(formView.ProjectLeaderName4)}}
 			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
+
+
 		</div>
 	</div>
 

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle Association
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="form-container">
+		<div class="form-content">
+			<h1>Création d'une nouvelle Association</h1>
+			{{form_start(formView)}}
+			{{form_row(formView.Name)}}
+			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
+		</div>
+	</div>
+{% endblock %}

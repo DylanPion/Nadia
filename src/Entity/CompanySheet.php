@@ -51,7 +51,7 @@ class CompanySheet
     private ?\DateTimeInterface $PaymentTwoDate = null;
 
     #[ORM\Column]
-    private ?int $RemainsToBePaid = null;
+    private int $RemainsToBePaid;
 
     #[ORM\Column]
     private ?int $TotalAmountRepaidToDate = null;
@@ -217,14 +217,14 @@ class CompanySheet
         return $this;
     }
 
-    public function getRemainsToBePaid(): ?int
+    public function getRemainsToBePaid(): int
     {
         return $this->RemainsToBePaid;
     }
 
-    public function setRemainsToBePaid(int $RemainsToBePaid): self
+    public function setRemainsToBePaid(): self
     {
-        $this->RemainsToBePaid = $RemainsToBePaid;
+        $this->RemainsToBePaid = $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo;
 
         return $this;
     }
