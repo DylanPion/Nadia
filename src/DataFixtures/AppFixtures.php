@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
         $randomDate = new DateTime('@' . $randomTimestamp);
 
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
             $manager->persist($association);

@@ -4,45 +4,9 @@
 {% endblock %}
 {% block body %}
 
-
-	<style>
-		.card {
-			min-height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			list-style-type: none;
-			background: #EDEFED;
-
-		}
-
-		.card-content {
-			border: 1px solid black;
-			border-radius: 60px;
-			margin-bottom: 30px;
-			background-color: white;
-		}
-
-		.card-content ul {
-			list-style-type: none;
-		}
-
-		.card-content h2 {
-			font-size: 2rem;
-			text-align: center;
-		}
-
-		.card-content ul li {
-			font-size: 1.5rem;
-			padding: 10px;
-		}
-	</style>
-
-	{% include "_navbar.html.twig" %}
-
-	<div class="card">
+	<div class="companyShow">
 		<div class="card-container">
-			<div class="card-content">
+			<div class="card-company card">
 				<h2>Fiche Société</h2>
 				<ul>
 					<li>Association :</li>
@@ -50,9 +14,11 @@
 						{{company.loanStatus}}</li>
 					<li>Date CE :
 						{{company.dateOfCe | date ("d/m/Y")}}</li>
-					<li>Date du début du remboursement :
-						{{company.repaymentStartDate | date ("d/m/Y")}}</li>
-					<li>Date de fin du remboursement :{{company.repaymentEndDate | date ("d/m/Y")}}</li>
+					<div class="card-date">
+						<li>Date du début du remboursement :
+							{{company.repaymentStartDate | date ("d/m/Y")}}</li>
+						<li>Date de fin du remboursement :{{company.repaymentEndDate | date ("d/m/Y")}}</li>
+					</div>
 					<li>Nom de la société :
 						{{company.companyName}}</li>
 					<li>Noms prénoms des porteurs :</li>
@@ -63,32 +29,37 @@
 				</ul>
 			</div>
 
-			<div class="card-content">
+			<div class="card-payment card">
 				<h2>Versement</h2>
 				<ul>
 					<li>Montant versé :
 						{{company.FniAmountPaid}}
 						€</li>
+					<div class="card-date">
+						<div>
+							<li>Premier Versement :
+								{{company.paymentOne}}
+								€
+							</li>
 
-					<li>Versement :
-						{{company.paymentOne}}
-						€
-					</li>
-					<li>Date du Premier Versement :
-						{{company.paymentOneDate | date ("d/m/Y")}}</li>
-					<li>Deuxième Versement :
-						{{company.paymentTwo}}
-						€</li>
-					<li>Date du Deuxième Versement :
-						{{company.paymentTwoDate | date ("d/m/Y") }}</li>
-
+							<li>Date du Premier Versement :
+								{{company.paymentOneDate | date ("d/m/Y")}}</li>
+						</div>
+						<div>
+							<li>Deuxième Versement :
+								{{company.paymentTwo}}
+								€</li>
+							<li>Date du Deuxième Versement :
+								{{company.paymentTwoDate | date ("d/m/Y") }}</li>
+						</div>
+					</div>
 					<li>Reste à verser :
 						{{company.remainsToBePaid}}
 						€</li>
 				</ul>
 			</div>
 
-			<div class="card-content">
+			<div class="card-refund card">
 				<h2>Remboursement</h2>
 				<ul>
 					<li>Montant total remboursé à ce jour :

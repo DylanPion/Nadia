@@ -89,19 +89,19 @@ class CompanySheetType extends AbstractType
             ])
             ->add('ProjectLeaderName1', TextType::class, [
                 'label' => 'Porteur de projet',
-                "attr" => ['placeholder' => "Entrez le prénom et le nom d'un porteur de projet "]
+                "attr" => ['placeholder' => "Nom prénom d'un porteur de projet"]
             ])
             ->add('ProjectLeaderName2', TextType::class, [
                 'label' => 'Porteur de projet',
-                "attr" => ['placeholder' => "Entrez le prénom et le nom d'un porteur de projet "]
+                "attr" => ['placeholder' => "Nom prénom d'un porteur de projet "]
             ])
             ->add('ProjectLeaderName3', TextType::class, [
                 'label' => 'Porteur de projet',
-                "attr" => ['placeholder' => "Entrez le prénom et le nom d'un porteur de projet "]
+                "attr" => ['placeholder' => "Nom prénom d'un porteur de projet "]
             ])
             ->add('ProjectLeaderName4', TextType::class, [
                 'label' => 'Porteur de projet',
-                "attr" => ['placeholder' => "Entrez le prénom et le nom d'un porteur de projet "]
+                "attr" => ['placeholder' => "Nom prénom d'un porteur de projet "]
             ])
             ->add('Button', SubmitType::class, [
                 'label' => 'Créer la fiche Société'

@@ -1,55 +1,57 @@
-.navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 40px;
-}
-
-.navbar img {
-    width: 300px;
-}
-
-.search-bar{
+.navbar{
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    max-width: 375px;
-    padding: 0px 10px;
-    border-radius: 20px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    cursor: pointer;
+    justify-content: space-around;
+    width: 100%;
+    margin: 30px 0;
+
+    img{
+        width: 250px;
+    }
+
+    .nav-search-bar{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-width: 375px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+
+        .search {
+            border: none;
+            background-color: white;
+            box-shadow: none;
+        }
+        .search:focus {
+            border: none;
+        }
+
+        i{
+            background-color: white;
+            padding: 0px 10px;
+        }
+    }
+
+    .nav-log{
+        a {
+            padding: 10px 20px;
+            background: linear-gradient(65deg, #a9a9ca, #6C7AE0);            
+            text-decoration: none;
+            color: white;
+            border-radius: 35px;
+            font-size: 1.3rem;
+            letter-spacing: 2.5px;
+        }
+    }
+    .nav-log:hover {
+        filter: brightness(105%);
+        transform: translateX(2px);
+    }
 }
 
-.search {
-    height: 40px;
-    width: 500px ;
-    border: none;
-    background-color: white;
-    box-shadow: none;
-}
 
-.search:focus{
-    border: none;
-}
 
-.nav-log {
-    border-radius: 35px ;
-    padding: 10px 20px;
-    background: linear-gradient(65deg, #a9a9ca, #6C7AE0);
-    cursor: pointer;
-}
 
-.nav-log li a{
-    text-transform: none;
-    background: linear-gradient(65deg, #a9a9ca, #6C7AE0);
-    color: white;
-}
-
-.nav-log:hover {
-    filter: brightness(105%);
-    transform: translateX(2px);
-}
