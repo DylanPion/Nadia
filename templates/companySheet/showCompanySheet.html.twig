@@ -9,11 +9,15 @@
 			<div class="card-company card">
 				<h2>Fiche Société</h2>
 				<ul>
-					<li>Association :</li>
+					<li>Nom de l'Association :</li>
 					<li>Statut du prêt :
 						{{company.loanStatus}}</li>
 					<li>Date CE :
 						{{company.dateOfCe | date ("d/m/Y")}}</li>
+					<li>
+						Numéro de convention :
+						{{company.AgreementNumber}}
+					</li>
 					<div class="card-date">
 						<li>Date du début du remboursement :
 							{{company.repaymentStartDate | date ("d/m/Y")}}</li>
@@ -32,7 +36,7 @@
 			<div class="card-payment card">
 				<h2>Versement</h2>
 				<ul>
-					<li>Montant versé :
+					<li>Montant FNI versé :
 						{{company.FniAmountPaid}}
 						€</li>
 					<div class="card-date">

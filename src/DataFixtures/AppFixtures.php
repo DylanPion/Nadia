@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
 
             $companySheet = new CompanySheet();
             $companySheet->setLoanStatus("En Cours")
+                ->setAgreementNumber(mt_rand(1, 100))
                 ->setCompanyName("Société n°$i")
                 ->setDateOfCE($randomDate)
                 ->setRepaymentStartDate($randomDate)

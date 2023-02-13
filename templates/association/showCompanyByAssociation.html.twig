@@ -5,6 +5,7 @@
 	<table class="table-content">
 		<thead>
 			<tr>
+				<th>Numéro de Convention</th>
 				<th>Société</th>
 				<th>Montant FNI engagé</th>
 				<th>Montant FNI versé</th>
@@ -19,6 +20,7 @@
 		<tbody>
 			{% for company in company %}
 				<tr>
+					<td>N°{{company.AgreementNumber}}</td>
 					<td>{{company.companyName}}</td>
 					<td>{{company.FniAmountRequested}}
 						€</td>

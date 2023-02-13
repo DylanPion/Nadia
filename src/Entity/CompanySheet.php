@@ -68,6 +68,12 @@ class CompanySheet
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ProjectLeaderName4 = null;
 
+    #[ORM\Column]
+    private ?int $AgreementNumber = null;
+
+    #[ORM\Column]
+    private int $remainsToBeReceived;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -285,6 +291,30 @@ class CompanySheet
     public function setProjectLeaderName4(?string $ProjectLeaderName4): self
     {
         $this->ProjectLeaderName4 = $ProjectLeaderName4;
+
+        return $this;
+    }
+
+    public function getAgreementNumber(): ?int
+    {
+        return $this->AgreementNumber;
+    }
+
+    public function setAgreementNumber(int $AgreementNumber): self
+    {
+        $this->AgreementNumber = $AgreementNumber;
+
+        return $this;
+    }
+
+    public function getRemainsToBeReceived(): int
+    {
+        return $this->remainsToBeReceived;
+    }
+
+    public function setRemainsToBeReceived(): self
+    {
+        $this->remainsToBeReceived = $this->FniAmountRequested - $this->TotalAmountRepaidToDate;
 
         return $this;
     }
