@@ -26,16 +26,21 @@ search.addEventListener("keyup", (e) => {
 
   // On fait une boucle ou on récupère le premier et le deuxième td enfant de tr.
   for (let i = 0; i < all_tr.length; i++) {
-    var association_name = all_tr[i].getElementsByTagName("td")[0];
-    var company_name = all_tr[i].getElementsByTagName("td")[1];
-    if (association_name && company_name) {
+    var convention_name = all_tr[i].getElementsByTagName("td")[0];
+    var association_name = all_tr[i].getElementsByTagName("td")[1];
+    var company_name = all_tr[i].getElementsByTagName("td")[2];
+    if (convention_name && association_name && company_name) {
+      let convention_value =
+        convention_name.textContent || convention_name.innerText;
       let association_value =
         association_name.textContent || association_name.innerText; // extrait les valeurs de association name
       let company_value = company_name.textContent || company_name.innerText;
+      convention_value = convention_value.toUpperCase();
       association_value = association_value.toUpperCase(); // transforme en majuscule la valeur de association name
       company_value = company_value.toUpperCase();
 
       if (
+        convention_value.indexOf(keyword) > -1 ||
         association_value.indexOf(keyword) > -1 ||
         company_value.indexOf(keyword) > -1 //vérifie si que keyword est retrouvé dans association_value ou company_value sinon return false
       ) {
@@ -46,3 +51,5 @@ search.addEventListener("keyup", (e) => {
     }
   }
 });
+
+/* Note : Les noms Association Company et Convention correspondent aux noms des trois première colonnes mais la recherche marche sur tout le site donc les noms sont abstrait la recherche marche sur les trois première colonnes de chaque table du site c'est ce qu'il faut retenir. */

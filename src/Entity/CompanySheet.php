@@ -315,7 +315,6 @@ class CompanySheet
     public function setRemainsToBeReceived(): self
     {
         $this->remainsToBeReceived = $this->FniAmountRequested - $this->TotalAmountRepaidToDate;
-
         return $this;
     }
 }

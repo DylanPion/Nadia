@@ -40,6 +40,7 @@ class AppFixtures extends Fixture
                 ->setPaymentTwoDate($randomDate)
                 ->setTotalAmountRepaidToDate(mt_rand(1, 100000))
                 ->setRemainsToBePaid()
+                ->setRemainsToBeReceived()
                 ->setProjectLeaderName1("Dylan")
                 ->setProjectLeaderName2("Elias")
                 ->setProjectLeaderName3("Nassim")
