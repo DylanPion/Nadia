@@ -74,6 +74,12 @@ class CompanySheet
     #[ORM\Column]
     private int $remainsToBeReceived;
 
+    #[ORM\Column]
+    private ?int $TotalFniAmountRequested = null;
+
+    #[ORM\Column]
+    private ?int $TotalFniAmountPaid = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -315,6 +321,30 @@ class CompanySheet
     public function setRemainsToBeReceived(): self
     {
         $this->remainsToBeReceived = $this->FniAmountRequested - $this->TotalAmountRepaidToDate;
+        return $this;
+    }
+
+    public function getTotalFniAmountRequested(): ?int
+    {
+        return $this->TotalFniAmountRequested;
+    }
+
+    public function setTotalFniAmountRequested(int $TotalFniAmountRequested): self
+    {
+        $this->TotalFniAmountRequested = $TotalFniAmountRequested;
+
+        return $this;
+    }
+
+    public function getTotalFniAmountPaid(): ?int
+    {
+        return $this->TotalFniAmountPaid;
+    }
+
+    public function setTotalFniAmountPaid(int $TotalFniAmountPaid): self
+    {
+        $this->TotalFniAmountPaid = $TotalFniAmountPaid;
+
         return $this;
     }
 }
