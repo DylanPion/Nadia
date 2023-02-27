@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanySheetRepository::class)]
+
 class CompanySheet
 {
     #[ORM\Id]
@@ -51,7 +52,7 @@ class CompanySheet
     private ?\DateTimeInterface $PaymentTwoDate = null;
 
     #[ORM\Column]
-    private int $RemainsToBePaid;
+    private int $RemainsToBePaid = 0;
 
     #[ORM\Column]
     private ?int $TotalAmountRepaidToDate = null;
@@ -72,13 +73,13 @@ class CompanySheet
     private ?int $AgreementNumber = null;
 
     #[ORM\Column]
-    private int $remainsToBeReceived;
+    private int $remainsToBeReceived = 0;
 
     #[ORM\Column]
-    private ?int $TotalFniAmountRequested = null;
+    private ?int $TotalFniAmountRequested = 0;
 
     #[ORM\Column]
-    private ?int $TotalFniAmountPaid = null;
+    private ?int $TotalFniAmountPaid = 0;
 
     public function getId(): ?int
     {
@@ -234,9 +235,9 @@ class CompanySheet
         return $this->RemainsToBePaid;
     }
 
-    public function setRemainsToBePaid(): self
+    public function setRemainsToBePaid($RemainsToBePaid): self
     {
-        $this->RemainsToBePaid = $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo;
+        $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo = $RemainsToBePaid;
 
         return $this;
     }
@@ -318,9 +319,9 @@ class CompanySheet
         return $this->remainsToBeReceived;
     }
 
-    public function setRemainsToBeReceived(): self
+    public function setRemainsToBeReceived($remainsToBeReceived): self
     {
-        $this->remainsToBeReceived = $this->FniAmountRequested - $this->TotalAmountRepaidToDate;
+        $this->FniAmountRequested - $this->TotalAmountRepaidToDate = $remainsToBeReceived;
         return $this;
     }
 

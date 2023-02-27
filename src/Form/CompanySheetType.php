@@ -13,11 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class CompanySheetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('Association', EntityType::class, [
                 'label' => 'Association',
@@ -82,10 +85,6 @@ class CompanySheetType extends AbstractType
                 'label' => 'Date du Second Versemenet',
                 'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => "Entrez la Date du second versement effectué", "class" => "date"]
-            ])
-            ->add('RemainsToBePaid', IntegerType::class, [
-                'label' => 'Reste à verser',
-                "attr" => ['placeholder' => "Entrez la somme du reste à verse"]
             ])
             ->add('TotalAmountRepaidToDate', IntegerType::class, [
                 'label' => 'Montant total remboursé à ce jour ',
