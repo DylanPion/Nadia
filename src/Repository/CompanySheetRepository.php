@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\CompanySheet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\GroupBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,37 @@ class CompanySheetRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return CompanySheet[] Returns an array of CompanySheet objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return CompanySheet[] Returns an array of CompanySheet objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('c.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?CompanySheet
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?CompanySheet
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
+
+    public function getTotalFni()
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.FniAmountPaid) AS TotalFniAmountPaid', 'SUM(cs.FniAmountRequested) AS TotalFniAmountRequested')
+            ->groupBy('cs.association');
+
+        return $qb->getQuery()->getResult();
+    }
 }

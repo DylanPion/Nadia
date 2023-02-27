@@ -16,10 +16,11 @@ class AssociationController extends AbstractController
 {
     // Affichage de la Liste des Associations.
     #[Route('/association', name: 'app_association')]
-    public function index(AssociationRepository $associationRepository): Response
+    public function index(AssociationRepository $associationRepository, CompanySheetRepository $companySheetRepository): Response
     {
         return $this->render('association/associationList.html.twig', [
             'associationList' => $associationRepository->findAll(),
+            'TotalFni' => $companySheetRepository->getTotalFni(),
         ]);
     }
 

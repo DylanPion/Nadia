@@ -20,36 +20,36 @@ class AppFixtures extends Fixture
         $randomDate = new DateTime('@' . $randomTimestamp);
 
 
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
             $manager->persist($association);
-
-            $companySheet = new CompanySheet();
-            $companySheet->setLoanStatus("En Cours")
-                ->setAgreementNumber(mt_rand(1, 100))
-                ->setCompanyName("Société n°$i")
-                ->setDateOfCE($randomDate)
-                ->setRepaymentStartDate($randomDate)
-                ->setRepaymentEndDate($randomDate)
-                ->setFNIAmountRequested(mt_rand(1, 200))
-                ->setFniAmountPaid(mt_rand(1, 10000000))
-                ->setPaymentOne(mt_rand(1, 50))
-                ->setPaymentTwo(mt_rand(1, 50))
-                ->setPaymentOneDate($randomDate)
-                ->setPaymentTwoDate($randomDate)
-                ->setTotalAmountRepaidToDate(mt_rand(1, 100000))
-                ->setRemainsToBePaid()
-                ->setRemainsToBeReceived()
-                ->setProjectLeaderName1("Dylan")
-                ->setProjectLeaderName2("Elias")
-                ->setProjectLeaderName3("Nassim")
-                ->setProjectLeaderName4("Cyril")
-                ->setAssociation($association);
-
-
-            $manager->persist($association);
-            $manager->persist($companySheet);
+            for ($j = 0; $j < 5; $j++) {
+                $companySheet = new CompanySheet();
+                $companySheet->setLoanStatus("En Cours")
+                    ->setAgreementNumber(mt_rand(1, 100))
+                    ->setCompanyName("Société n°$i")
+                    ->setDateOfCE($randomDate)
+                    ->setRepaymentStartDate($randomDate)
+                    ->setRepaymentEndDate($randomDate)
+                    ->setFNIAmountRequested(mt_rand(1, 200))
+                    ->setFniAmountPaid(mt_rand(1, 1000))
+                    ->setPaymentOne(mt_rand(1, 50))
+                    ->setPaymentTwo(mt_rand(1, 50))
+                    ->setPaymentOneDate($randomDate)
+                    ->setPaymentTwoDate($randomDate)
+                    ->setTotalAmountRepaidToDate(mt_rand(1, 1000))
+                    ->setRemainsToBePaid()
+                    ->setRemainsToBeReceived()
+                    ->setProjectLeaderName1("Dylan")
+                    ->setProjectLeaderName2("Elias")
+                    ->setProjectLeaderName3("Nassim")
+                    ->setProjectLeaderName4("Cyril")
+                    ->setTotalFniAmountRequested(1)
+                    ->setTotalFniAmountPaid(1)
+                    ->setAssociation($association);
+                $manager->persist($companySheet);
+            }
         }
         $manager->flush();
     }

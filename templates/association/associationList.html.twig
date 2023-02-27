@@ -3,8 +3,8 @@
 {% block title %}Gestion des prêts | Accueil
 {% endblock %}
 {% block body %}
-	{% include "_navbar.html.twig" %}
 
+	{% include "_navbar.html.twig" %}
 
 	<table class="table-content">
 		<thead>
@@ -19,26 +19,33 @@
 				</th>
 			</tr>
 		</thead>
-	</tr>
-</thead>
 
-<tbody>
-	{% for association in associationList %}
-		<tr>
-			<td class="associationName">{{association.name}}</td>
-			<td></td>
-			<td></td>
-			<td>
-				<a href="{{ path("app_association_show", {id: association.id}) }}">
-					<i class="fa-solid fa-diamond-turn-right infos"></i>
-				</a>
-				<a href="{{ path("app_association_edit", {id: association.id}) }}">
-					<i class="fa-solid fa-pen-to-square edit"></i>
-				</a>
-				<a href="{{ path("app_association_delete", {id: association.id}) }}">
-					<i class="fa-sharp fa-solid fa-trash-can delete"></i>
-				</a>
-			</td>
-		</tr>
-	{% endfor %}
-</tbody></table>{% endblock %}
+		<tbody>
+			{% for index0,association in associationList %}
+				<tr>
+					<td class="associationName">{{ association.name }}</td>
+					{# Pour ne pas décaller mon tableau je fais en sorte que ma boucle imbriqué est le même index que la boucle du dessus #}
+					{% for Fni in TotalFni %}
+						{% if loop.index0 == loop.parent.index0 %}
+							<td>{{ Fni.TotalFniAmountRequested }}
+								€</td>
+							<td>{{ Fni.TotalFniAmountPaid }}
+								€</td>
+						{% endif %}
+					{% endfor %}
+					<td>
+						<a href="{{ path('app_association_show', {id: association.id}) }}">
+							<i class="fa-solid fa-diamond-turn-right infos"></i>
+						</a>
+						<a href="{{ path('app_association_edit', {id: association.id}) }}">
+							<i class="fa-solid fa-pen-to-square edit"></i>
+						</a>
+						<a href="{{ path('app_association_delete', {id: association.id}) }}">
+							<i class="fa-sharp fa-solid fa-trash-can delete"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
