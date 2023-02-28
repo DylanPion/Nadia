@@ -1,4 +1,19 @@
-// validation suppresion d'une ligne
+// Code permettant de choisir de faire un versement en une ou deux fois dans le formulaire de création d'une fiche société
+
+// Sélectionner tous les boutons radio
+const radioOnePayment = document.getElementById("OnePayment");
+const radioTwoPayment = document.getElementById("TwoPayment");
+const paymentTwo = document.querySelector(".paymentTwo");
+
+radioOnePayment.addEventListener("click", () => {
+  paymentTwo.style.display = "none";
+});
+
+radioTwoPayment.addEventListener("click", () => {
+  paymentTwo.style.display = "block";
+});
+
+// Validation suppresion d'une ligne
 
 document.addEventListener("DOMContentLoaded", function () {
   const deleteButtons = document.querySelectorAll(".delete");

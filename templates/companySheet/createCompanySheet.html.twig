@@ -7,46 +7,71 @@
 {% block body %}
 	<div class="form-container">
 		<div class="form-content">
+
 			<h1>Création d'une nouvelle fiche projet</h1>
+
 			{{form_start(formView)}}
 			{{form_row(formView.LoanStatus) }}
 			{{form_row(formView.Association) }}
 			{{form_row(formView.DateOfCE) }}
 			{{form_row(formView.AgreementNumber)}}
+
 			<div class="form-date">
 				{{form_row(formView.RepaymentStartDate) }}
 				{{form_row(formView.RepaymentEndDate) }}
 			</div>
+
 			{{form_row(formView.CompanyName) }}
+
 			<div class="form-fni">
 				{{form_row(formView.FNIAmountRequested) }}
 				{{form_row(formView.FniAmountPaid) }}
 			</div>
-			<div class="form-date">
+
+			<fieldset>
+				<legend>Sélectionner le nombre de versement souhaité</legend>
 				<div>
+					<label for="OnePayment">Un versement</label>
+					<input type="radio" name="payment" value="OnePayment" id="OnePayment">
+				</div>
+				<div>
+					<label for="TwoPayment">Deux versements</label>
+					<input type="radio" name="payment" value="TwoPayment" id="TwoPayment">
+				</div>
+			</fieldset>
+
+			<div class="form-date">
+				<div class="paymentOne">
 					{{form_row(formView.PaymentOne) }}
 					{{form_row(formView.PaymentOneDate) }}
 				</div>
-				<div>
+				<div class="paymentTwo">
 					{{form_row(formView.PaymentTwo) }}
 					{{form_row(formView.PaymentTwoDate) }}
 				</div>
 			</div>
-			{# {{form_row(formView.RemainsToBePaid) }}
-						{{form_row(formView.RemainsToBeReceived) }} #}
+
 			{{form_row(formView.TotalAmountRepaidToDate) }}
-			<div class="form-projectleader">
-				<div>
-					{{form_row(formView.ProjectLeaderName1)}}
-					{{form_row(formView.ProjectLeaderName2)}}
-				</div>
-				<div>
-					{{form_row(formView.ProjectLeaderName3)}}
-					{{form_row(formView.ProjectLeaderName4)}}
-				</div>
+
+			<div class="projectLeader1">
+				{{form_row(formView.ProjectLeaderName1)}}
 			</div>
+
+			<div class="projectLeader2">
+				{{form_row(formView.ProjectLeaderName2)}}
+			</div>
+
+			<div class="projectLeader3">
+				{{form_row(formView.ProjectLeaderName3)}}
+			</div>
+
+			<div class="projectLeader4">
+				{{form_row(formView.ProjectLeaderName4)}}
+			</div>
+
 			{{form_row(formView.Button) }}
 			{{form_end(formView)}}
+
 		</div>
 	</div>
 {% endblock %}
