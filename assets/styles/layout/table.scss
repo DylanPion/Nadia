@@ -1,67 +1,90 @@
-table {
-    position: relative;
-    margin: 0 auto;   
-    border: 1px solid #e7e6e6;
-    border-collapse: collapse;
-    box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-    -webkit-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-    -moz-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-    color: #808080;
-    font-weight: 600;
-    text-align: left;
+.table-asso {
+  position: relative;
+  left: 250px;
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 250px);
 
-    th{
-        position: sticky;
-        top: 0;
-        min-width: 200px;
-        padding: 25px 20px;
-        background-color: #6C7AE0;
-        font-size: 1.2rem;
-        color: white;
-    }
+  .table-content {
+    margin-top: 25px;
+    padding: 25px;
+    background: #f9f7f7;
+    border: 1px solid #f9f7f7;
+    border-radius: 12px;
+    color: var(--text-color);
 
-    td {
-        padding: 30px 20px;
-    }
-
-    a{
-        color: #808080 ;
-
-        i{
-            padding: 10px 20px;
-            border: 1px solid gray;
-            border-radius: 80px;
-            font-size: 1.2rem;
-            cursor: pointer;
+    thead {
+      tr {
+        th {
+          font-weight: 900;
+          font-size: 1.2rem;
+          padding: 15px 50px;
         }
-                .edit:hover {
-                    color: #0275d8;
-                    background-color: rgb(239, 236, 236);
-                }
-        
-                .delete:hover {
-                    color: red;
-                    background-color: rgb(239, 236, 236);
-                }
-        
-                .infos:hover {
-                    color: rgba(30, 28, 28, 0.549);
-                    background-color: rgb(239, 236, 236);
-                }
+      }
     }
+    tbody {
+      tr {
+        td {
+          padding: 15px 50px;
+          a {
+            color: white;
+            text-decoration: none;
+            border-radius: 80px;
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 1rem;
+            cursor: pointer;
+          }
+          .edit {
+            background: rgba(30, 28, 28, 0.549);            
+            color: white;
+          }
+
+          .delete {
+            background: red;
+            color: white;
+          }
+
+          .infos {
+            background: rgba(30, 28, 28, 0.549);
+            color: white;
+          }
+         a:hover{
+            transform: translateX(1.25);
+         }
+        }
+      }
+    }
+  }
 }
 
+//     th{
+//         position: sticky;
+//         top: 0;
+//         min-width: 200px;
+//         padding: 25px 20px;
+//         background-color: #6C7AE0;
+//         font-size: 1.2rem;
+//         color: white;
+//     }
 
-.addCompanySheet {
-    border: none;
-    border-radius: 80px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-}
+//     td {
+//         padding: 30px 20px;
+//     }
 
-.addCompanySheet:hover{
-    filter: brightness(105%);
-    transform: translateX(2px);
-}
+//     a{
+//         color: #808080 ;
+
+// .addCompanySheet {
+//     border: none;
+//     border-radius: 80px;
+//     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+//     padding: 10px 20px;
+//     font-size: 1rem;
+//     cursor: pointer;
+// }
+
+// .addCompanySheet:hover{
+//     filter: brightness(105%);
+//     transform: translateX(2px);
+// }

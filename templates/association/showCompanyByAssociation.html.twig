@@ -2,6 +2,7 @@
 
 {% block body %}
 	{% include "_navbar.html.twig" %}
+	<h1>{{associationName}}</h1>
 	<table class="table-content">
 		<thead>
 			<tr>
@@ -10,11 +11,7 @@
 				<th>Montant FNI engagé</th>
 				<th>Montant FNI versé</th>
 				<th>Reste à remboursé</th>
-				<th>
-					<button class="addCompanySheet" type="submit" onclick="location.href='{{path('app_companysheet_create')}}'">
-						<i class="fa-solid fa-plus"></i>
-						Créer une fiche projet</button>
-				</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>

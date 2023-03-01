@@ -77,12 +77,18 @@ class AssociationController extends AbstractController
 
     // Affichage de la liste des fiche Société par Association
     #[Route('/association/{id}/show', name: 'app_association_show')]
-    public function show($id, CompanySheetRepository $companySheetRepository): Response
+    public function show($id, CompanySheetRepository $companySheetRepository, AssociationRepository $associationRepository): Response
     {
+        // récupère l'association dans lacquel on se situe.
+        $association = $associationRepository->find($id);
+        $associationName = $association->getName();
+
+
         // association dans find by est le nom de la colonne qui établie la relation Association/Companysheet
         $company = $companySheetRepository->findBy(array('association' => $id));
         return $this->render('association/showCompanyByAssociation.html.twig', [
-            'company' => $company
+            'company' => $company,
+            'associationName' => $associationName
         ]);
     }
 }

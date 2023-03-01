@@ -1,3 +1,18 @@
+// Création du Dark Mode
+
+const body = document.querySelector("body");
+const modeSwitch = document.querySelector(".toggle-switch");
+const modeText = document.querySelector(".mode-text");
+
+modeSwitch.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  if (body.classList.contains("dark")) {
+    modeText.innerHTML = "Light Mode";
+  } else {
+    modeText.innerHTML = "Dark Mode";
+  }
+});
+
 // Code permettant de choisir de faire un versement en une ou deux fois dans le formulaire de création d'une fiche société
 
 // Sélectionner tous les boutons radio

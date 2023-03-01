@@ -4,48 +4,49 @@
 {% endblock %}
 {% block body %}
 
-	{% include "_navbar.html.twig" %}
-
-	<table class="table-content">
-		<thead>
-			<tr>
-				<th>Liste des Associations</th>
-				<th>Montant FNI Total engagé</th>
-				<th>Montant FNI Total versé</th>
-				<th>
-					<button class="addCompanySheet" type="submit" onclick="location.href='{{path('app_association_create')}}'">
-						<i class="fa-solid fa-plus"></i>
-						Créer une nouvelle Association</button>
-				</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			{% for index0,association in associationList %}
+	{% include "_sidebar.html.twig" %}
+	<div class="table-asso">
+		<table class="table-content">
+			<thead>
 				<tr>
-					<td class="associationName">{{ association.name }}</td>
-					{# Pour ne pas décaller mon tableau je fais en sorte que ma boucle imbriqué est le même index que la boucle du dessus #}
-					{% for Fni in TotalFni %}
-						{% if loop.index0 == loop.parent.index0 %}
-							<td>{{ Fni.TotalFniAmountRequested }}
-								€</td>
-							<td>{{ Fni.TotalFniAmountPaid }}
-								€</td>
-						{% endif %}
-					{% endfor %}
-					<td>
-						<a href="{{ path('app_association_show', {id: association.id}) }}">
-							<i class="fa-solid fa-diamond-turn-right infos"></i>
-						</a>
-						<a href="{{ path('app_association_edit', {id: association.id}) }}">
-							<i class="fa-solid fa-pen-to-square edit"></i>
-						</a>
-						<a href="{{ path('app_association_delete', {id: association.id}) }}">
-							<i class="fa-sharp fa-solid fa-trash-can delete"></i>
-						</a>
-					</td>
+					<th>Liste des Associations</th>
+					<th>Montant FNI Total engagé</th>
+					<th>Montant FNI Total versé</th>
+					<th></th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+
+			<tbody>
+				{% for index0,association in associationList %}
+					<tr>
+						<td class="associationName">{{ association.name }}</td>
+						{# Pour ne pas décaller mon tableau je fais en sorte que ma boucle imbriqué est le même index que la boucle du dessus #}
+						{% for Fni in TotalFni %}
+							{% if loop.index0 == loop.parent.index0 %}
+								<td>{{ Fni.TotalFniAmountRequested }}
+									€</td>
+								<td>{{ Fni.TotalFniAmountPaid }}
+									€</td>
+							{% endif %}
+						{% endfor %}
+						<td>
+							<a href="{{ path('app_association_show', {id: association.id}) }}" class="infos">
+								<i class="fa-solid fa-diamond-turn-right"></i>
+								<span>Voir plus</span>
+							</a>
+							<a href="{{ path('app_association_edit', {id: association.id}) }}" class="edit">
+								<i class="fa-solid fa-pen-to-square"></i>
+								<span>Éditer</span>
+							</a>
+							<a href="{{ path('app_association_delete', {id: association.id}) }}" class="delete">
+								<i class="fa-sharp fa-solid fa-trash-can"></i>
+								<span>Supprimer</span>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 {% endblock %}
