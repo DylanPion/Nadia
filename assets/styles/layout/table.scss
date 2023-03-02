@@ -8,10 +8,9 @@
   width: calc(100% - 250px);
 
   .table-content {
-    margin-top: 25px;
+    margin-top: 15px;
     padding: 25px;
-    background: #f9f7f7;
-    border: 1px solid #f9f7f7;
+    background: var(--card-color);
     border-radius: 12px;
     color: var(--text-color);
 
@@ -20,14 +19,16 @@
         th {
           font-weight: 900;
           font-size: 1.2rem;
-          padding: 15px 50px;
+          padding-right: 20px;
+          padding-bottom: 20px;
+          text-align: left;
         }
       }
     }
     tbody {
       tr {
         td {
-          padding: 15px 50px;
+          padding-bottom: 20px;
           a {
             text-decoration: none;
             border-radius: 80px;
@@ -36,8 +37,8 @@
             font-size: 1rem;
             cursor: pointer;
             &:hover {
-                text-decoration: underline;
-              }
+              text-decoration: underline;
+            }
           }
           .edit {
             border: 1px solid rgb(183, 182, 182);
@@ -73,10 +74,19 @@
   display: flex;
   flex-direction: column;
 
+  h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 225px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 12px;
+    background: var(--card-color);
+    color: var(--text-color);
+  }
   .table-content {
     padding: 25px;
-    background: #f9f7f7;
-    border: 1px solid #f9f7f7;
+    background: var(--card-color);
     border-radius: 12px;
     color: var(--text-color);
 
@@ -86,14 +96,14 @@
           font-weight: 900;
           font-size: 1.1rem;
           text-align: left;
-          padding-bottom: 15px;
+          padding-bottom: 20px;
         }
       }
     }
     tbody {
       tr {
         td {
-          padding-bottom: 15px;
+          padding-bottom: 20px;
           a {
             text-decoration: none;
             border-radius: 80px;
@@ -102,7 +112,7 @@
             padding: 5px 10px;
             font-size: 1rem;
             cursor: pointer;
-            &:hover{
+            &:hover {
               text-decoration: underline;
             }
           }
