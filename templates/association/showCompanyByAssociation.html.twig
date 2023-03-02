@@ -1,16 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Gestion des prêts | Association
+{% endblock %}
 {% block body %}
-	{% include "_navbar.html.twig" %}
+
+{% include "_sidebar.html.twig" %}
+
+<div class="tableCompanySheet">
 	<h1>{{associationName}}</h1>
 	<table class="table-content">
 		<thead>
 			<tr>
 				<th>Numéro de Convention</th>
-				<th>Société</th>
+				<th>Nom de la Société</th>
 				<th>Montant FNI engagé</th>
 				<th>Montant FNI versé</th>
-				<th>Reste à remboursé</th>
+				<th>Reste à rembourser</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -19,26 +24,30 @@
 				<tr>
 					<td>N°{{company.AgreementNumber}}</td>
 					<td>{{company.companyName}}</td>
-					<td>{{company.FniAmountRequested}}
+					<td>{{company.FniAmountRequested|number_format(0, '.', ' ', )}}
 						€</td>
-					<td>{{company.FniAmountPaid}}
+					<td>{{company.FniAmountPaid|number_format(0, '.', ' ', )}}
 						€</td>
-					<td>{{company.remainsToBePaid}}
+					<td>{{company.remainsToBePaid|number_format(0, '.', ' ', )}}
 						€</td>
 
 					<td>
-						<a href="{{ path("app_companysheet_show", {id: company.id}) }}">
-							<i class="fa-sharp fa-solid fa-circle-info infos"></i>
+						<a href="{{ path("app_companysheet_show", {id: company.id}) }}" class="infos">
+							<i class="fa-sharp fa-solid fa-circle-info "></i>
+							<span>Fiche Société</span>
+
 						</a>
-						<a href="{{ path("app_companysheet_edit", {id: company.id}) }}">
-							<i class="fa-solid fa-pen-to-square edit"></i>
+						<a href="{{ path("app_companysheet_edit", {id: company.id}) }}" class="edit">
+							<i class="fa-solid fa-pen-to-square "></i>
+							<span>Éditer</span>
 						</a>
-						<a href="{{ path("app_companysheet_delete", {id: company.id}) }}">
-							<i class="fa-sharp fa-solid fa-trash-can delete"></i>
-						</a>
+						<a href="{{ path("app_companysheet_delete", {id: company.id}) }}" class="delete">
+							<i class=" fa-sharp fa-solid fa-trash-can "></i>
+							<span>Supprimer</span>
+						</td>
 					</td>
 				</tr>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>{% endblock %}
+			</a>
+		</tbody>
+	</td>
+</tr></tr>{% endfor %}</tbody></table></div>{% endblock %}

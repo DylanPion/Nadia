@@ -1,4 +1,6 @@
-.table-asso {
+/* Style de la table avec la liste des associations */
+
+.tableAsso {
   position: relative;
   left: 250px;
   display: flex;
@@ -27,64 +29,102 @@
         td {
           padding: 15px 50px;
           a {
-            color: white;
             text-decoration: none;
             border-radius: 80px;
             margin-right: 5px;
             padding: 5px 10px;
             font-size: 1rem;
             cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+              }
           }
           .edit {
-            background: rgba(30, 28, 28, 0.549);            
-            color: white;
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
           }
 
           .delete {
-            background: red;
-            color: white;
+            border: 1px solid rgb(183, 182, 182);
+            color: #ff4040;
+            background: white;
           }
 
           .infos {
-            background: rgba(30, 28, 28, 0.549);
-            color: white;
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
           }
-         a:hover{
-            transform: translateX(1.25);
-         }
         }
       }
     }
   }
 }
 
-//     th{
-//         position: sticky;
-//         top: 0;
-//         min-width: 200px;
-//         padding: 25px 20px;
-//         background-color: #6C7AE0;
-//         font-size: 1.2rem;
-//         color: white;
-//     }
+/* Style de la table avec les fiches projet */
 
-//     td {
-//         padding: 30px 20px;
-//     }
+.tableCompanySheet {
+  position: relative;
+  left: 300px;
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 350px);
+  display: flex;
+  flex-direction: column;
 
-//     a{
-//         color: #808080 ;
+  .table-content {
+    padding: 25px;
+    background: #f9f7f7;
+    border: 1px solid #f9f7f7;
+    border-radius: 12px;
+    color: var(--text-color);
 
-// .addCompanySheet {
-//     border: none;
-//     border-radius: 80px;
-//     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-//     padding: 10px 20px;
-//     font-size: 1rem;
-//     cursor: pointer;
-// }
+    thead {
+      tr {
+        th {
+          font-weight: 900;
+          font-size: 1.1rem;
+          text-align: left;
+          padding-bottom: 15px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding-bottom: 15px;
+          a {
+            text-decoration: none;
+            border-radius: 80px;
+            margin-right: 5px;
+            color: var(--text-color);
+            padding: 5px 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+          .edit {
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
+          }
 
-// .addCompanySheet:hover{
-//     filter: brightness(105%);
-//     transform: translateX(2px);
-// }
+          .delete {
+            border: 1px solid rgb(183, 182, 182);
+            color: #ff4040;
+            background: white;
+          }
+
+          .infos {
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
+          }
+        }
+      }
+    }
+  }
+}
