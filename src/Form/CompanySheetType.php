@@ -31,9 +31,16 @@ class CompanySheetType extends AbstractType
                 'label' => "Nom de la société",
                 "attr" => ["placeholder" => "Entrez le nom de la société"]
             ])
-            ->add('AgreementNumber', IntegerType::class, [
+            ->add('AgreementNumber', ChoiceType::class, [
                 'label' => "Numéro de Convention",
-                "attr" => ["placeholder" => "Entrez le numéro de convention"]
+                'choices' => [
+                    '1' => 'n°1',
+                    '2' => 'n°2',
+                    '3' => 'n°3',
+                    '4' => 'n°4',
+                    '5' => 'n°5',
+                    '6' => 'n°6',
+                ]
             ])
             ->add('LoanStatus', ChoiceType::class, [
                 'label' => 'Statut du prêt',

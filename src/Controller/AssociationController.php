@@ -18,9 +18,9 @@ class AssociationController extends AbstractController
     #[Route('/association', name: 'app_association')]
     public function index(AssociationRepository $associationRepository, CompanySheetRepository $companySheetRepository): Response
     {
-        return $this->render('association/associationList.html.twig', [
+        return $this->render('association/associationTable.html.twig', [
             'associationList' => $associationRepository->findAll(),
-            'TotalFni' => $companySheetRepository->getTotalFni(),
+            'TotalFni' => $companySheetRepository->getTotalFni(), // Fonction repository qui calcul la somme FNI engagé et FNI versé
         ]);
     }
 
@@ -79,12 +79,12 @@ class AssociationController extends AbstractController
     #[Route('/association/{id}/show', name: 'app_association_show')]
     public function show($id, CompanySheetRepository $companySheetRepository, AssociationRepository $associationRepository): Response
     {
-        // récupère l'association dans lacquel on se situe.
+        // Récupère l'association dans lacquel on se situe.
         $association = $associationRepository->find($id);
         $associationName = $association->getName();
 
 
-        // association dans find by est le nom de la colonne qui établie la relation Association/Companysheet
+        // Asociation dans find by est le nom de la colonne qui établie la relation Association/Companysheet
         $company = $companySheetRepository->findBy(array('association' => $id));
         return $this->render('association/showCompanyByAssociation.html.twig', [
             'company' => $company,

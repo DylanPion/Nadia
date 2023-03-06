@@ -65,11 +65,45 @@ class CompanySheetRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    // Fonction pour calculer le Total FNI versé ainsi que le Total FNI engagé
     public function getTotalFni()
     {
         $qb = $this->createQueryBuilder('cs')
             ->select('SUM(cs.FniAmountPaid) AS TotalFniAmountPaid', 'SUM(cs.FniAmountRequested) AS TotalFniAmountRequested')
             ->groupBy('cs.association');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Fonction pour calculer le Montant Total FNI Engagé par convention 
+    public function getTotalAmountRequestedByAgreementNumber($agreementNumber)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.FniAmountRequested) as TotalAmountRequestedByAgreementNumber')
+            ->where('cs.AgreementNumber = :AgreementNumber')
+            ->setParameter('AgreementNumber', $agreementNumber);
+
+        return $qb->getQuery()->getResult(); // GetSingleScalarResultat retourne une ligne et non un array comme le fait getResult()
+    }
+
+    // Fonction pour calculer le Montant Total FNI Versé par convention 
+    public function getTotalAmountPaidByAgreementNumber($agreementNumber)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.FniAmountPaid) as TotalAmountPaidByAgreementNumber')
+            ->where('cs.AgreementNumber = :AgreementNumber')
+            ->setParameter('AgreementNumber', $agreementNumber);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Fonction pour calculer le Montant Engagé et Non Versé aux associations. 
+    public function getTotalAmountRepaidToDateByAgreementNumber($agreementNumber)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.TotalAmountRepaidToDate) as TotalAmountRepaidToDateByAgreementNumber')
+            ->where('cs.AgreementNumber = :AgreementNumber')
+            ->setParameter('AgreementNumber', $agreementNumber);
 
         return $qb->getQuery()->getResult();
     }

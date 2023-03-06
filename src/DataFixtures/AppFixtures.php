@@ -20,14 +20,14 @@ class AppFixtures extends Fixture
         $randomDate = new DateTime('@' . $randomTimestamp);
 
 
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
             $manager->persist($association);
-            for ($j = 0; $j < 5; $j++) {
+            for ($j = 0; $j < 1; $j++) {
                 $companySheet = new CompanySheet();
                 $companySheet->setLoanStatus("En Cours")
-                    ->setAgreementNumber(mt_rand(1, 100))
+                    ->setAgreementNumber(mt_rand(1, 6))
                     ->setCompanyName("Société n°$j")
                     ->setDateOfCE($randomDate)
                     ->setRepaymentStartDate($randomDate)

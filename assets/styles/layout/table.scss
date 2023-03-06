@@ -1,4 +1,4 @@
-/* Style de la table avec la liste des associations */
+// Style du Tableau pour la liste des associations 
 
 .tableAsso {
   position: relative;
@@ -63,7 +63,7 @@
   }
 }
 
-/* Style de la table avec les fiches projet */
+/* Style du table pour les fiches projet */
 
 .tableCompanySheet {
   position: relative;
@@ -133,6 +133,69 @@
             color: rgba(30, 28, 28, 0.549);
             background: white;
           }
+        }
+      }
+    }
+  }
+}
+
+/*Style du tableau Trésorerie */
+.tableTresorerie {
+  position: relative;
+  left: 300px;
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 350px);
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 225px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 12px;
+    background: var(--card-color);
+    color: var(--text-color);
+  }
+
+  .table-content {
+    padding: 25px;
+    background: var(--card-color);
+    border-radius: 12px;
+    color: var(--text-color);
+
+    thead {
+      tr {
+        th {
+          font-weight: 900;
+          font-size: 1.1rem;
+          text-align: left;
+          padding-bottom: 20px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding-bottom: 20px;
+          text-align: center;
+
+          a {
+            text-decoration: none;
+            border-radius: 80px;
+            margin-right: 5px;
+            color: var(--text-color);
+            padding: 5px 10px;
+            font-size: 1rem;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          } 
         }
       }
     }

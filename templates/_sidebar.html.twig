@@ -22,7 +22,7 @@
 			</li>
 			<ul class="menu-links">
 				<li class="nav-link">
-					<a href="#">
+					<a href="{{path('app_home')}}">
 						<i class="fa-solid fa-house icon"></i>
 						<span class="text nav-text">Dashboard</span>
 					</a>
@@ -40,32 +40,50 @@
 							Nouvelle Association</span>
 					</a>
 				</li>
-			</button>
-		</li>
-		<li class="nav-link">
-			<a href="#">
-				<i class="fa-solid fa-file icon"></i>
-				<span class="text nav-text">Feuille Société</span>
-			</a>
-		</li>
-		<li class="nav-link">
-			<a href='{{path('app_companysheet_create')}}'>
-				<i class="fa-solid fa-plus icon"></i>
-				<span class="text nav-text">
-					Nouvelle Fiche Société</span>
-			</a>
-
-		</li>
-	</button>
-</li></li><li class="nav-link">
-<a href="#">
-	<i class="fa-solid fa-coins icon"></i>
-	<span class="text nav-text">Trésorerie</span>
-</a></li></ul></div><div class="bottom-content"><li class="nav-link"><a href="#">
-<i class="fa-solid fa-right-to-bracket icon"></i>
-<span class="text nav-text">Connexion</span></a></li><li class="nav-link"><a href="#">
-<i class="fa-solid fa-right-from-bracket icon"></i>
-<span class="text nav-text">Déconnexion</span></a></li><li class="mode"><div class="moon-sun">
-<i class="fa-solid fa-moon icon moon"></i>
-<i class="fa-solid fa-sun icon sun"></i></div><span class="mode-text text">Dark Mode</span><div class="toggle-switch">
-<span class="switch"></span></div></li></div></div></nav>
+				<li class="nav-link">
+					<a href="#">
+						<i class="fa-solid fa-file icon"></i>
+						<span class="text nav-text">Feuille Société</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_companysheet_create')}}'>
+						<i class="fa-solid fa-plus icon"></i>
+						<span class="text nav-text">
+							Nouvelle Fiche Société</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href="{{path('app_treasury')}}">
+						<i class="fa-solid fa-coins icon"></i>
+						<span class="text nav-text">Trésorerie</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="bottom-content">
+			<li class="nav-link">
+				<a href="#">
+					<i class="fa-solid fa-right-to-bracket icon"></i>
+					<span class="text nav-text">Connexion</span>
+				</a>
+			</li>
+			<li class="nav-link">
+				<a href="#">
+					<i class="fa-solid fa-right-from-bracket icon"></i>
+					<span class="text nav-text">Déconnexion</span>
+				</a>
+			</li>
+			<li class="mode">
+				<div class="moon-sun">
+					<i class="fa-solid fa-moon icon moon"></i>
+					<i class="fa-solid fa-sun icon sun"></i>
+				</div>
+				<span class="mode-text text">Dark Mode</span>
+				<div class="toggle-switch">
+					<span class="switch"></span>
+				</div>
+			</li>
+		</div>
+	</div>
+</nav>

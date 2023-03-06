@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block body %}
+	{% include "_sidebar.html.twig" %}
+
 	<div class="form-container">
 		<div class="form-content">
-			<h1>Modification de :
+			<h1>Modification de l'association :
 				{{association.Name}}</h1>
 			{{form_start(formView)}}
 			{{form_row(formView.Name)}}
