@@ -15,7 +15,7 @@ class AssociationType extends AbstractType
     {
         $builder
             ->add('Name', TextType::class, [
-                'label' => 'Nom de l\'Assocation',
+                'label' => 'Nom de l\'Assocation :',
                 "attr" => ["placeholder" => "Entrez le nom de la nouvelle Association"]
             ])
             ->add('Button', SubmitType::class, [

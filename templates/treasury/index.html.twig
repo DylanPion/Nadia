@@ -26,9 +26,10 @@
 						<td>{{ TotalAmountRequestedByAgreementNumber[i][0]['TotalAmountRequestedByAgreementNumber'] }}</td>
 						<td>{{ TotalAmountPaidByAgreementNumber[i][0]['TotalAmountPaidByAgreementNumber'] }}</td>
 						<td>{{ TotalAmountRepaidToDatedByAgreementNumber[i][0]['TotalAmountRepaidToDateByAgreementNumber'] }}</td>
+						<td></td>
 					</tr>
-				</tbody>
-			{% endfor %}
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 
@@ -41,18 +42,18 @@
 		{% endfor %}
 	</div>
 	{# 
-			
-			Dans cet exemple, $results est un tableau associatif où chaque clé correspond à une valeur d'$agreementNumber allant de 1 à 6, et chaque valeur est un tableau contenant le résultat de la fonction getTotalAmountPaiddByAgreementNumber pour cette valeur d'$agreementNumber.
-			
-			La boucle for utilisée dans le contrôleur itère sur les valeurs d'$agreementNumber de 1 à 6 et stocke les résultats de chaque appel dans $results.
-			
-			Dans le template Twig, la syntaxe {{ results[i][0]['TotalAmountPaiddByAgreementNumber'] }} permet d'accéder au résultat de la fonction getTotalAmountPaiddByAgreementNumber pour chaque valeur d'$agreementNumber de 1 à 6.
-			
-			results[i] accède à l'élément $i du tableau $results, qui est lui-même un tableau contenant le résultat de la fonction pour la valeur d'$agreementNumber correspondante.
-			
-			[0] accède au premier (et unique) élément du tableau $results[i], qui est le résultat de la fonction getTotalAmountPaiddByAgreementNumber pour la valeur d'$agreementNumber correspondante.
-			
-			['TotalAmountPaiddByAgreementNumber'] accède à la clé 'TotalAmountPaiddByAgreementNumber' du tableau retourné par la fonction getTotalAmountPaiddByAgreementNumber, qui contient le montant total payé pour la valeur d'$agreementNumber correspondante.
-			
-			En somme, cette expression Twig permet d'afficher le montant total payé pour chaque valeur d'$agreementNumber de 1 à 6. #}
+										
+										Dans cet exemple, $results est un tableau associatif où chaque clé correspond à une valeur d'$agreementNumber allant de 1 à 6, et chaque valeur est un tableau contenant le résultat de la fonction getTotalAmountPaiddByAgreementNumber pour cette valeur d'$agreementNumber.
+										
+										La boucle for utilisée dans le contrôleur itère sur les valeurs d'$agreementNumber de 1 à 6 et stocke les résultats de chaque appel dans $results.
+										
+										Dans le template Twig, la syntaxe {{ results[i][0]['TotalAmountPaiddByAgreementNumber'] }} permet d'accéder au résultat de la fonction getTotalAmountPaiddByAgreementNumber pour chaque valeur d'$agreementNumber de 1 à 6.
+										
+										results[i] accède à l'élément $i du tableau $results, qui est lui-même un tableau contenant le résultat de la fonction pour la valeur d'$agreementNumber correspondante.
+										
+										[0] accède au premier (et unique) élément du tableau $results[i], qui est le résultat de la fonction getTotalAmountPaiddByAgreementNumber pour la valeur d'$agreementNumber correspondante.
+										
+										['TotalAmountPaiddByAgreementNumber'] accède à la clé 'TotalAmountPaiddByAgreementNumber' du tableau retourné par la fonction getTotalAmountPaiddByAgreementNumber, qui contient le montant total payé pour la valeur d'$agreementNumber correspondante.
+										
+										En somme, cette expression Twig permet d'afficher le montant total payé pour chaque valeur d'$agreementNumber de 1 à 6. #}
 {% endblock %}

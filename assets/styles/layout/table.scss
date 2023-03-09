@@ -142,6 +142,7 @@
 /*Style du tableau Trésorerie */
 .tableTresorerie {
   position: relative;
+  margin-top: 15px;
   left: 300px;
   display: flex;
   justify-content: center;
@@ -150,7 +151,7 @@
   flex-direction: column;
 
   h2 {
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 10px;
     max-width: 225px;
     padding: 5px;

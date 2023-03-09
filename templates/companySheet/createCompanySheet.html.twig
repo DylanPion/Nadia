@@ -5,71 +5,46 @@
 
 
 {% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
 	<div class="form-companysheet">
 		<div class="form-content">
 			<h1>Création d'une nouvelle fiche projet</h1>
-			{{form_start(formView)}}
-			<div class="form-CS-infos">
-				<div>
-					{{form_row(formView.Association) }}
-					{{form_row(formView.CompanyName) }}
-				</div>
-				<div>
-					{{form_row(formView.AgreementNumber)}}
-					{{form_row(formView.DateOfCE) }}
-				</div>
+			<div>
+				{{form_start(formView)}}
+
+				{{form_row(formView.Association) }}
+				{{form_row(formView.CompanyName) }}
+				{{form_row(formView.AgreementNumber)}}
+				{{form_row(formView.DateOfCE) }}
+
+
+				<p>Sélectionner le nombre de versement souhaité :</p>
+				<input type="radio" name="payment" value="OnePayment" id="OnePayment">
+				<label for="OnePayment">Un versement</label>
+				<input type="radio" name="payment" value="TwoPayment" id="TwoPayment">
+				<label for="TwoPayment">Deux versements</label>
+				{{form_row(formView.PaymentOne) }}
+				{{form_row(formView.PaymentOneDate) }}
+				{{form_row(formView.PaymentTwo) }}
+				{{form_row(formView.PaymentTwoDate) }}
+
+				{{form_row(formView.RepaymentStartDate) }}
+				{{form_row(formView.FniAmountPaid) }}
+				{{form_row(formView.TotalAmountRepaidToDate) }}
+				{{form_row(formView.RepaymentEndDate) }}
+				{{form_row(formView.FNIAmountRequested) }}
+				{{form_row(formView.LoanStatus) }}
+
+				{{form_row(formView.ProjectLeaderName1)}}
+				{{form_row(formView.ProjectLeaderName2)}}
+				{{form_row(formView.ProjectLeaderName3)}}
+				{{form_row(formView.ProjectLeaderName4)}}
+
+				{{form_row(formView.Button) }}
+				{{form_end(formView)}}
 			</div>
-
-
-			<p>Sélectionner le nombre de versement souhaité :</p>
-			<div class="form-paymentChoice">
-				<div>
-					<input type="radio" name="payment" value="OnePayment" id="OnePayment">
-					<label for="OnePayment">Un versement</label>
-				</div>
-				<div>
-					<input type="radio" name="payment" value="TwoPayment" id="TwoPayment">
-					<label for="TwoPayment">Deux versements</label>
-				</div>
-			</div>
-
-			<div class="form-CS-payment">
-				<div>
-					{{form_row(formView.PaymentOne) }}
-					{{form_row(formView.PaymentOneDate) }}
-				</div>
-				<div>
-					{{form_row(formView.PaymentTwo) }}
-					{{form_row(formView.PaymentTwoDate) }}
-				</div>
-			</div>
-
-			<div class="form-CS-loan">
-				<div>
-					{{form_row(formView.RepaymentStartDate) }}
-					{{form_row(formView.FniAmountPaid) }}
-					{{form_row(formView.TotalAmountRepaidToDate) }}
-				</div>
-				<div>
-					{{form_row(formView.RepaymentEndDate) }}
-					{{form_row(formView.FNIAmountRequested) }}
-					{{form_row(formView.LoanStatus) }}
-				</div>
-			</div>
-
-			<div class="form-content-PL">
-				<div>
-					{{form_row(formView.ProjectLeaderName1)}}
-					{{form_row(formView.ProjectLeaderName2)}}
-				</div>
-				<div>
-					{{form_row(formView.ProjectLeaderName3)}}
-					{{form_row(formView.ProjectLeaderName4)}}
-				</div>
-			</div>
-
-			{{form_row(formView.Button) }}
-			{{form_end(formView)}}
 		</div>
 	</div>
 {% endblock %}

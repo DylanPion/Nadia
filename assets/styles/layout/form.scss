@@ -1,53 +1,51 @@
 // Style Formulaire pour les Association ( Create / Edit )
+
 .form-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 50px;
+  left: 320px;
 
   .form-content {
-    position: relative;
-    min-width: 360px;
-    border-radius: 60px;
+    background-color: var(--card-color);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    padding: 60px 45px 30px;
-    background: var(--card-color);
+    border-radius: 25px;
+    padding: 50px 45px;
+
     h1 {
       text-align: center;
       font-size: 2.4rem;
-      margin-bottom: 20px;
       text-transform: uppercase;
+      margin-bottom: 10px;
     }
-
     label {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       letter-spacing: 1px;
     }
     input {
       font-size: 1rem;
       width: 100%;
       margin-top: 5px;
-      padding: 5px;
-      border-radius: 6px;
+      padding-left: 5px;
+      border-radius: 5px;
       border: 1px solid var(--text-color);
       outline: none;
-    }
-    input:focus {
-      border: 1px solid var(--primary-color);
+      &:focus {
+        border: 1px solid var(--primary-color);
+      }
     }
     button {
       display: block;
       border: none;
+      border-radius: 150px;
+      font-size: 1.2rem;
       background: var(--primary-color);
+      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+      color: white;
+      cursor: pointer;
       width: 50%;
       margin: 30px auto 0;
       padding: 10px;
-      border-radius: 150px;
-      font-size: 1.2rem;
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
       transition: 0.3s ease;
-      color: white;
       &:hover {
         filter: brightness(105%);
         transform: translateX(2px);
@@ -57,120 +55,78 @@
 }
 
 // Style Formulaire pour les CompanySheet ( Create / Edit )
-
 .form-companysheet {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  position: absolute;
+  top: 30px;
+  left: 320px;
 
   .form-content {
-    margin: auto auto;
-    padding: 50px;
-    border-radius: 60px;
+    padding: 40px;
+    border-radius: 25px;
+    background-color: var(--card-color);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    background: var(--card-color);
-
-    h1 {
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
-
-    .form-CS-payment,
-    .form-CS-infos,
-    .form-CS-loan,
-    .form-content-PL {
-      display: flex;
-    }
-
-    .form-CS-infos {
-        margin-bottom: 25px;
-      div {
-        margin-right: 10px;
-      }
-    }
-    .form-CS-loan {
-        margin-bottom: 25px;
-      div {
-        margin-right: 10px;
-      }
-    }
-    .form-CS-payment {
-        margin-bottom: 25px;
-      div {
-        margin-right: 30px;
-        margin-bottom: 10px;
-      }
-    }
-
-    .form-paymentChoice {
-      display: flex;
-      flex-direction: row;
-      div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 5px 0px;
-        margin-bottom: 5px;
-        margin-right: 50px;
-      }
-    }
-    p {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-    label {
+    div {
       display: flex;
       flex-direction: column;
-      font-size: 1.1rem;
     }
+  }
 
-    input,
-    select {
-      margin-top: 5px;
-      padding: 2px;
-      font-size: 1rem;
-      border: 1px solid var(--text-color);
-      border-radius: 6px;
-      transition: 0.2s;
-      outline: none;
-      color: var(--text-color);
-    }
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+  input,
+  select {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    border: 1px solid var(--text-color);
+    border-radius: 6px;
+    transition: 0.2s;
+    outline: none;
+    color: var(--text-color);
+  }
+  input:focus,
+  select:focus {
+    border: 1px solid var(--primary-color);
+  }
 
-    input:focus,
-    select:focus {
-      border: 1px solid var(--primary-color);
-    }
+  p {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  label {
+    font-size: 1.1rem;
+  }
 
-    select option {
-      background: rgb(235, 244, 242);
-    }
+  select option {
+    background: rgb(235, 244, 242);
+  }
 
-    button {
-      display: block;
-      margin: 0 auto;
-      margin-top: 20px;
-      padding: 10px;
-      width: 50%;
-      border: none;
-      border-radius: 150px;
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-      background: var(--primary-color);
-      color: white;
-      font-size: 1.2rem;
-      transition: 0.3s ease;
-      cursor: pointer;
+  button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px;
+    width: 50%;
+    background: var(--primary-color);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 150px;
+    color: white;
+    font-size: 1.2rem;
+    transition: 0.3s ease;
+    cursor: pointer;
 
-      &:hover {
-        filter: brightness(105%);
-        transform: translateX(2px);
-      }
+    &:hover {
+      filter: brightness(105%);
+      transform: translateX(2px);
     }
   }
 }
 
-// Ce style est utiliser pour réduire la largeur d'un formulaire
-.min {
-  max-width: 700px;
-  background: var(--card-color);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
+// // Ce style est utiliser pour réduire la largeur d'un formulaire
+// .min {
+//   max-width: 700px;
+//   background: var(--card-color);
+//   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+// }
