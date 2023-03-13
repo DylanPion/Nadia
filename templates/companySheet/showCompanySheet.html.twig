@@ -3,10 +3,12 @@
 	Détails Fiche Société
 {% endblock %}
 {% block body %}
+	{% include "_sidebar.html.twig" %}
 
 	<div class="companyShow">
 		<div class="card-container">
-			<div class="card-company card">
+
+			<div class="card">
 				<h2>Fiche Société</h2>
 				<ul>
 					<li>Nom de l'Association :</li>
@@ -33,11 +35,14 @@
 				</ul>
 			</div>
 
-			<div class="card-payment card">
+			<div class="card">
 				<h2>Versement</h2>
 				<ul>
 					<li>Montant FNI versé :
 						{{company.FniAmountPaid}}
+						€</li>
+					<li>Montant FNI engagé :
+						{{company.fniAmountRequested}}
 						€</li>
 					<div class="card-date">
 						<div>
@@ -60,15 +65,21 @@
 					<li>Reste à verser :
 						{{company.remainsToBePaid}}
 						€</li>
+					<li>Reste à recevoir :
+						{{company.remainsToBeReceived}}
+						€</li>
 				</ul>
 			</div>
 
-			<div class="card-refund card">
+			<div class="card">
 				<h2>Remboursement</h2>
 				<ul>
 					<li>Montant total remboursé à ce jour :
 						{{company.totalAmountRepaidToDate}}
 						€</li>
+					<li>
+						<a href="{{ path('app_companysheet_account', {id: company.id}) }}">Lien vers le Test</a>
+					</li>
 				</ul>
 			</div>
 		</div>

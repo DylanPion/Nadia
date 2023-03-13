@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Accueil | Choix de la Convention
+{% endblock %}
+{% block body %}
+	{% include "_sidebar.html.twig" %}
+	<div class="form-container">
+		<div class="form-content">
+			<h1>Choissisez la Convention à Afficher</h1>
+
+			{{ form_start(form) }}
+			{{ form_widget(form.Number) }}
+			<button type="submit">Valider</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

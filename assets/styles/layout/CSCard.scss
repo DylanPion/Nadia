@@ -3,31 +3,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-    .card{
-        margin-bottom: 10px;
-        border: 1px solid #e7e6e6;
+    .card-container{
+        padding: 20px;
+        border: 1px solid var(--text-color);
         border-radius: 15px;
-        border-collapse: collapse;
-        box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-        -webkit-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-        -moz-box-shadow: 0px -1px 32px 8px rgba(202, 200, 200, 0.68);
-            
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        background: var(--card-color);
+        .card{
             h2{
-                margin-top: 10px;
-                padding: 10px;
                 text-align: center;
                 font-weight: 600;
-        }
-            ul {
+                margin-bottom: 10px;
+            }
+            ul{
                 li{
-                    padding: 15px;
+                    padding: 5px;
                 }
             }
+        }
     }
-
-
+}
+            
 .card-date{
     display: flex;
 }

@@ -72,4 +72,13 @@ class CompanySheetController extends AbstractController
             'company' => $companySheetRepository->find($id)
         ]);
     }
+
+    // Affichage de l'historique du Total Remboursé à ce jour
+    #[Route('/companysheet/{id}/account', name: 'app_companysheet_account')]
+    public function account($id, CompanySheetRepository $companySheetRepository): Response
+    {
+        return $this->render('companySheet/account.html.twig', [
+            'company' => $companySheetRepository->find($id)
+        ]);
+    }
 }

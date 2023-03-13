@@ -2,15 +2,61 @@
 
 namespace App\Controller;
 
+use App\Entity\Agreement;
+use App\Form\AgreementCreateType;
+use App\Form\AgreementListType;
+use App\Repository\AgreementRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TreasuryController extends AbstractController
 {
-    #[Route('/treasury', name: 'app_treasury')]
-    public function index(CompanySheetRepository $companySheetRepository): Response
+
+    // Création d'une nouvelle Convention.
+    #[Route('/treasury/create', name: 'app_treasury_create')]
+    public function create(Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(AgreementCreateType::class, null, [
+            'data_class' => Agreement::class
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $agreement = $form->getData();
+            $em->persist($agreement);
+            $em->flush();
+            return $this->redirectToRoute('app_association');
+        }
+
+        return $this->render('treasury/createTreasury.html.twig', [
+            'formView' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
+    public function agreementList(Request $request): Response
+    {
+        $form = $this->createForm(AgreementListType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $id = strval($form->get('Number')->getData()); // strval convertit en une chaine de caractère
+            return $this->redirectToRoute('app_treasury_agreementCard', ['id' => $id]);
+        }
+
+        return $this->render('treasury/agreementList.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/treasury/{id}', name: 'app_treasury_agreementCard')]
+    public function agreementCard($id, CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository)
     {
 
         // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
@@ -30,11 +76,13 @@ class TreasuryController extends AbstractController
             $resultsAmountsCommittedAndNotPaid[] = $resultsTotalAmountRequestedByAgreementNumber[$i][0]['TotalAmountRequestedByAgreementNumber'] - $resultsTotalAmountPaidByAgreementNumber[$i][0]['TotalAmountPaidByAgreementNumber'];
         }
 
-        return $this->render('treasury/index.html.twig', [
+        return $this->render('treasury/agreementNumber.html.twig', [
+            'id' => $id,
             'TotalAmountRequestedByAgreementNumber' => $resultsTotalAmountRequestedByAgreementNumber,
             'TotalAmountPaidByAgreementNumber' => $resultsTotalAmountPaidByAgreementNumber,
             'TotalAmountRepaidToDatedByAgreementNumber' => $resultsTotalAmountRepaidToDatedByAgreementNumber,
-            'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid
+            'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
+            'Agreement' => $agreementRepository->find($id)
         ]);
     }
 }

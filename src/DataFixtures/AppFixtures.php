@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use DateTime;
+use App\Entity\Agreement;
 use App\Entity\Association;
 use App\Entity\CompanySheet;
 use Doctrine\Persistence\ObjectManager;
@@ -48,6 +49,10 @@ class AppFixtures extends Fixture
                     ->setTotalFniAmountRequested(1)
                     ->setTotalFniAmountPaid(1)
                     ->setAssociation($association);
+                $agreement = new Agreement();
+                $agreement->setNumber(mt_rand(1, 6))
+                    ->setCashFund(mt_rand(1, 10000));
+                $manager->persist($agreement);
                 $manager->persist($companySheet);
             }
         }

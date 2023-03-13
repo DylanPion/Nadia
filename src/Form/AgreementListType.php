@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Agreement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class AgreementListType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('Number', EntityType::class, [ // Entity permet de sélectionner une entité existante
+                'class' => Agreement::class, // L'entité choisit pour remplir la liste déroulante ici Agreement 
+                'choice_label' => 'Number', // Choix de la colonne à afficher.
+                "attr" => ["placeholder" => "Choissisez vers quel convention vous souhaitez être redirigé"],
+                'mapped' => false // Désactive le "lien" entre le champ et l'objet. Quand la valeur est == true cela signifie que lorsque le formulaire est soumis et validé, les valeurs du champ seront automatiquement stockées dans les propriétés de l'objet.
+                // Si vous définissez cette option à "false", le champ ne sera pas lié à l'objet de l'entité. Cela signifie que vous pouvez utiliser ce champ pour stocker des données supplémentaires qui ne sont pas directement liées à l'objet, comme dans votre cas où vous souhaitez stocker la valeur sélectionnée dans une variable distincte. Nous avons juste à récupérer la valeur manuellement avec getData()
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Agreement::class,
+        ]);
+    }
+}

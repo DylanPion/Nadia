@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Accueil | Convention n°{{id}}
+{% endblock %}
+
+{% block body %}
+	{% include "_sidebar.html.twig" %}
+
+	<p>Convention n°{{id}}</p>
+
+	<div class="treasury">
+		<div class="treasuryCard">
+			<p>Montant versés CDC/BPI par convention :
+				{{Agreement.cashFund ?? ''}}</p>
+			<p>Montant engagés par convention :
+				{{ TotalAmountRequestedByAgreementNumber[id][0]['TotalAmountRequestedByAgreementNumber'] }}</p>
+			<p>Montant versés aux assos par convention :
+				{{ TotalAmountPaidByAgreementNumber[id][0]['TotalAmountPaidByAgreementNumber'] }}</p>
+			<p>Montant reçus des assos par convention :
+				{{ TotalAmountRepaidToDatedByAgreementNumber[id][0]['TotalAmountRepaidToDateByAgreementNumber'] }}</p>
+			<p>Montant Engagés et non versés aux assos pour la convention n°{{id}}
+				:
+				{{ AmountCommittedAndNotPaid[id] }}</p>
+
+		</div>
+	</div>
+{% endblock %}
+
+{# Note mette ?? suivit de '' permet de mettre une donnée par défaut à une variable de notre Base de donnée. #}

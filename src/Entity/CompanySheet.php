@@ -21,6 +21,9 @@ class CompanySheet
     #[ORM\ManyToOne(inversedBy: 'Company')]
     private ?Association $association = null;
 
+    #[ORM\ManyToOne(inversedBy: 'companySheet')]
+    private ?Agreement $agreement = null;
+
     #[ORM\Column(length: 255)]
     private ?string $LoanStatus = null;
 
@@ -106,6 +109,18 @@ class CompanySheet
     public function setAssociation(?Association $association): self
     {
         $this->association = $association;
+
+        return $this;
+    }
+
+    public function getAgreement(): ?Agreement
+    {
+        return $this->agreement;
+    }
+
+    public function setAgreement(?Agreement $agreement): self
+    {
+        $this->agreement = $agreement;
 
         return $this;
     }

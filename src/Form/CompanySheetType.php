@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Agreement;
 use App\Entity\Association;
 use App\Entity\CompanySheet;
 use Symfony\Component\Form\AbstractType;
@@ -9,10 +10,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class CompanySheetType extends AbstractType
@@ -31,16 +32,11 @@ class CompanySheetType extends AbstractType
                 'label' => "Nom de la société",
                 "attr" => ["placeholder" => "Entrez le nom de la société"]
             ])
-            ->add('AgreementNumber', ChoiceType::class, [
-                'label' => "Numéro de Convention",
-                'choices' => [
-                    '1' => 'n°1',
-                    '2' => 'n°2',
-                    '3' => 'n°3',
-                    '4' => 'n°4',
-                    '5' => 'n°5',
-                    '6' => 'n°6',
-                ]
+            ->add('Agreement', EntityType::class, [
+                'label' => 'Convention',
+                'placeholder' => '-- Choisir une convention --',
+                'class' => Agreement::class,
+                'choice_label' => 'number',
             ])
             ->add('LoanStatus', ChoiceType::class, [
                 'label' => 'Statut du prêt',
