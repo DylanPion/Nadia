@@ -58,7 +58,16 @@ class CompanySheet
     private int $RemainsToBePaid = 0;
 
     #[ORM\Column]
+    private int $remainsToBeReceived = 0;
+
+    #[ORM\Column]
     private ?int $TotalAmountRepaidToDate = null;
+
+    #[ORM\Column]
+    private ?int $TotalFniAmountRequested = 0;
+
+    #[ORM\Column]
+    private ?int $TotalFniAmountPaid = 0;
 
     #[ORM\Column(length: 255)]
     private ?string $ProjectLeaderName1 = null;
@@ -71,18 +80,6 @@ class CompanySheet
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ProjectLeaderName4 = null;
-
-    #[ORM\Column]
-    private ?int $AgreementNumber = null;
-
-    #[ORM\Column]
-    private int $remainsToBeReceived = 0;
-
-    #[ORM\Column]
-    private ?int $TotalFniAmountRequested = 0;
-
-    #[ORM\Column]
-    private ?int $TotalFniAmountPaid = 0;
 
     public function getId(): ?int
     {
@@ -313,18 +310,6 @@ class CompanySheet
     public function setProjectLeaderName4(?string $ProjectLeaderName4): self
     {
         $this->ProjectLeaderName4 = $ProjectLeaderName4;
-
-        return $this;
-    }
-
-    public function getAgreementNumber(): ?int
-    {
-        return $this->AgreementNumber;
-    }
-
-    public function setAgreementNumber(int $AgreementNumber): self
-    {
-        $this->AgreementNumber = $AgreementNumber;
 
         return $this;
     }

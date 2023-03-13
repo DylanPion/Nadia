@@ -76,34 +76,34 @@ class CompanySheetRepository extends ServiceEntityRepository
     }
 
     // Fonction pour calculer le Montant Total FNI Engagé par convention 
-    public function getTotalAmountRequestedByAgreementNumber($agreementNumber)
+    public function getTotalAmountRequestedByAgreement($agreement)
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.FniAmountRequested) as TotalAmountRequestedByAgreementNumber')
-            ->where('cs.AgreementNumber = :AgreementNumber')
-            ->setParameter('AgreementNumber', $agreementNumber);
+            ->select('SUM(cs.FniAmountRequested) as TotalAmountRequestedByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
 
         return $qb->getQuery()->getResult(); // GetSingleScalarResultat retourne une ligne et non un array comme le fait getResult()
     }
 
     // Fonction pour calculer le Montant Total FNI Versé par convention 
-    public function getTotalAmountPaidByAgreementNumber($agreementNumber)
+    public function getTotalAmountPaidByAgreement($agreement)
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.FniAmountPaid) as TotalAmountPaidByAgreementNumber')
-            ->where('cs.AgreementNumber = :AgreementNumber')
-            ->setParameter('AgreementNumber', $agreementNumber);
+            ->select('SUM(cs.FniAmountPaid) as TotalAmountPaidByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
 
         return $qb->getQuery()->getResult();
     }
 
     // Fonction pour calculer le Montant Engagé et Non Versé aux associations. 
-    public function getTotalAmountRepaidToDateByAgreementNumber($agreementNumber)
+    public function getTotalAmountRepaidToDateByAgreement($agreement)
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.TotalAmountRepaidToDate) as TotalAmountRepaidToDateByAgreementNumber')
-            ->where('cs.AgreementNumber = :AgreementNumber')
-            ->setParameter('AgreementNumber', $agreementNumber);
+            ->select('SUM(cs.TotalAmountRepaidToDate) as TotalAmountRepaidToDateByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
 
         return $qb->getQuery()->getResult();
     }

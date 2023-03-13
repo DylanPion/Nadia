@@ -20,15 +20,19 @@ class AppFixtures extends Fixture
         $randomTimestamp = mt_rand($start->getTimestamp(), $end->getTimestamp());
         $randomDate = new DateTime('@' . $randomTimestamp);
 
-
-        for ($i = 0; $i < 10; $i++) {
+        for ($j = 0; $j < 6; $j++) {
+            $agreement = new Agreement();
+            $agreement->setNumber($j)
+                ->setCashFund(mt_rand(1, 10000));
+            $manager->persist($agreement);
+        }
+        for ($i = 0; $i < 5; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
             $manager->persist($association);
-            for ($j = 0; $j < 1; $j++) {
+            for ($j = 0; $j < 2; $j++) {
                 $companySheet = new CompanySheet();
                 $companySheet->setLoanStatus("En Cours")
-                    ->setAgreementNumber(mt_rand(1, 6))
                     ->setCompanyName("Société n°$j")
                     ->setDateOfCE($randomDate)
                     ->setRepaymentStartDate($randomDate)
@@ -48,11 +52,8 @@ class AppFixtures extends Fixture
                     ->setProjectLeaderName4("Cyril")
                     ->setTotalFniAmountRequested(1)
                     ->setTotalFniAmountPaid(1)
+                    ->setAgreement($agreement)
                     ->setAssociation($association);
-                $agreement = new Agreement();
-                $agreement->setNumber(mt_rand(1, 6))
-                    ->setCashFund(mt_rand(1, 10000));
-                $manager->persist($agreement);
                 $manager->persist($companySheet);
             }
         }

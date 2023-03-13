@@ -60,27 +60,27 @@ class TreasuryController extends AbstractController
     {
 
         // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
-        $resultsTotalAmountRequestedByAgreementNumber = [];
-        $resultsTotalAmountPaidByAgreementNumber = [];
-        $resultsTotalAmountRepaidToDatedByAgreementNumber = [];
+        $resultsTotalAmountRequestedByAgreement = [];
+        $resultsTotalAmountPaidByAgreement = [];
+        $resultsTotalAmountRepaidToDatedByAgreement = [];
         $resultsAmountsCommittedAndNotPaid = [];
 
         // Je commence à 1 et non 0 car il n'y a pas de convention représentant le n°0
         for ($i = 1; $i <= 6; $i++) {
-            $resultsTotalAmountRequestedByAgreementNumber[$i] = $companySheetRepository->getTotalAmountRequestedByAgreementNumber($i);
-            $resultsTotalAmountPaidByAgreementNumber[$i] = $companySheetRepository->getTotalAmountPaidByAgreementNumber($i);
-            $resultsTotalAmountRepaidToDatedByAgreementNumber[$i] = $companySheetRepository->getTotalAmountRepaidToDateByAgreementNumber($i);
+            $resultsTotalAmountRequestedByAgreement[$i] = $companySheetRepository->getTotalAmountRequestedByAgreement($i);
+            $resultsTotalAmountPaidByAgreement[$i] = $companySheetRepository->getTotalAmountPaidByAgreement($i);
+            $resultsTotalAmountRepaidToDatedByAgreement[$i] = $companySheetRepository->getTotalAmountRepaidToDateByAgreement($i);
         }
 
         for ($i = 1; $i <= 6; $i++) {
-            $resultsAmountsCommittedAndNotPaid[] = $resultsTotalAmountRequestedByAgreementNumber[$i][0]['TotalAmountRequestedByAgreementNumber'] - $resultsTotalAmountPaidByAgreementNumber[$i][0]['TotalAmountPaidByAgreementNumber'];
+            $resultsAmountsCommittedAndNotPaid[] = $resultsTotalAmountRequestedByAgreement[$i][0]['TotalAmountRequestedByAgreement'] - $resultsTotalAmountPaidByAgreement[$i][0]['TotalAmountPaidByAgreement'];
         }
 
         return $this->render('treasury/agreementNumber.html.twig', [
             'id' => $id,
-            'TotalAmountRequestedByAgreementNumber' => $resultsTotalAmountRequestedByAgreementNumber,
-            'TotalAmountPaidByAgreementNumber' => $resultsTotalAmountPaidByAgreementNumber,
-            'TotalAmountRepaidToDatedByAgreementNumber' => $resultsTotalAmountRepaidToDatedByAgreementNumber,
+            'TotalAmountRequestedByAgreement' => $resultsTotalAmountRequestedByAgreement,
+            'TotalAmountPaidByAgreement' => $resultsTotalAmountPaidByAgreement,
+            'TotalAmountRepaidToDatedByAgreement' => $resultsTotalAmountRepaidToDatedByAgreement,
             'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
             'Agreement' => $agreementRepository->find($id)
         ]);
