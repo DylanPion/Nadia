@@ -6,6 +6,8 @@ use DateTime;
 use App\Entity\Agreement;
 use App\Entity\Association;
 use App\Entity\CompanySheet;
+use App\Entity\ProjectLeader;
+use App\Entity\TotalAmountRepaidToDate;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -26,6 +28,15 @@ class AppFixtures extends Fixture
                 ->setCashFund(mt_rand(1, 10000));
             $manager->persist($agreement);
         }
+
+        for ($j = 0; $j < 25; $j++) {
+            $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
+            $totalAmountRepaidToDate->setPayment(mt_rand(1, 1000))
+                ->setDate($randomDate)
+                ->setTotalAmountRepaidToDate(0);
+            $manager->persist($totalAmountRepaidToDate);
+        }
+
         for ($i = 0; $i < 5; $i++) {
             $association = new Association();
             $association->setName("Association n°$i");
@@ -50,6 +61,10 @@ class AppFixtures extends Fixture
                     ->setTotalFniAmountPaid(1)
                     ->setAgreement($agreement)
                     ->setAssociation($association);
+                $projectleader = new ProjectLeader;
+                $projectleader->setName("Membre n°$j")
+                    ->setCompanySheet($companySheet);
+                $manager->persist($projectleader);
                 $manager->persist($companySheet);
             }
         }

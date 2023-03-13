@@ -138,3 +138,72 @@
     }
   }
 }
+
+// Style du Tableau pour la liste des Total Remboursé à ce jour 
+
+.tableTotalAmountRepaid {
+  position: relative;
+  left: 250px;
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 250px);
+
+  .table-content {
+    margin-top: 15px;
+    padding: 25px;
+    background: var(--card-color);
+    border-radius: 12px;
+    color: var(--text-color);
+
+    thead {
+      tr {
+        th {
+          font-weight: 900;
+          font-size: 1.2rem;
+          padding-right: 20px;
+          padding-bottom: 20px;
+          text-align: left;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding-bottom: 20px;
+
+          a {
+            text-decoration: none;
+            border-radius: 80px;
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 1rem;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          .edit {
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
+          }
+
+          .delete {
+            border: 1px solid rgb(183, 182, 182);
+            color: #ff4040;
+            background: white;
+          }
+
+          .infos {
+            border: 1px solid rgb(183, 182, 182);
+            color: rgba(30, 28, 28, 0.549);
+            background: white;
+          }
+        }
+      }
+    }
+  }
+}

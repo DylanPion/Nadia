@@ -8,6 +8,7 @@ use App\Form\CompanySheetType;
 use App\Form\ProjectLeaderType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
+use App\Repository\TotalAmountRepaidToDateRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -85,10 +86,11 @@ class CompanySheetController extends AbstractController
 
     // Affichage de l'historique du Total Remboursé à ce jour
     #[Route('/companysheet/{id}/account', name: 'app_companysheet_account')]
-    public function account($id, CompanySheetRepository $companySheetRepository): Response
+    public function account($id, CompanySheetRepository $companySheetRepository, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository): Response
     {
         return $this->render('companySheet/account.html.twig', [
-            'company' => $companySheetRepository->find($id)
+            'company' => $companySheetRepository->find($id),
+            'TotalAmountRepaidToDate' => $totalAmountRepaidToDateRepository->find($id)
         ]);
     }
 

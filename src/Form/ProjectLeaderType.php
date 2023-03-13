@@ -30,7 +30,7 @@ class ProjectLeaderType extends AbstractType
             ])
 
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer la fiche Société'
+                'label' => 'Nouveau Porteur de projet'
             ]);
     }
 
