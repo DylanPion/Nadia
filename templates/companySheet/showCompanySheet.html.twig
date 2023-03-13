@@ -82,6 +82,16 @@
 					</li>
 				</ul>
 			</div>
+
+			<div class="card">
+				<h2>Porteur de Projet</h2>
+				<ul>
+					{% for name in projectleadername %}
+						<li>Nom Prénom :
+							{{name}}</li>
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -95,24 +95,8 @@ class CompanySheetType extends AbstractType
                 'label' => 'Montant total remboursé à ce jour ',
                 "attr" => ['placeholder' => "Entrez la somme du montant total remboursé à ce jour "]
             ])
-            ->add('ProjectLeaderName1', TextType::class, [
-                'label' => 'Porteur de projet',
-                "attr" => ['placeholder' => "Nom et prénom du porteur de projet"]
-            ])
-            ->add('ProjectLeaderName2', TextType::class, [
-                'label' => 'Deuxième porteur de projet',
-                "attr" => ['placeholder' => "Nom et prénom du porteur de projet "]
-            ])
-            ->add('ProjectLeaderName3', TextType::class, [
-                'label' => 'Trosième porteur de projet',
-                "attr" => ['placeholder' => "Nom et prénom du porteur de projet "]
-            ])
-            ->add('ProjectLeaderName4', TextType::class, [
-                'label' => 'Quatrième porteur de projet',
-                "attr" => ['placeholder' => "Nom et prénom du porteur de projet "]
-            ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer la fiche Société'
+                'label' => 'Créer le nouveau porteur de projet'
             ]);
     }
 

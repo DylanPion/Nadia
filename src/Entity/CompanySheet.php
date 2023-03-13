@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanySheetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -69,17 +71,13 @@ class CompanySheet
     #[ORM\Column]
     private ?int $TotalFniAmountPaid = 0;
 
-    #[ORM\Column(length: 255)]
-    private ?string $ProjectLeaderName1 = null;
+    #[ORM\OneToMany(mappedBy: 'CompanySheet', targetEntity: ProjectLeader::class)]
+    private Collection $projectLeaders;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ProjectLeaderName2 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ProjectLeaderName3 = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ProjectLeaderName4 = null;
+    public function __construct()
+    {
+        $this->projectLeaders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -266,54 +264,6 @@ class CompanySheet
         return $this;
     }
 
-    public function getProjectLeaderName1(): ?string
-    {
-        return $this->ProjectLeaderName1;
-    }
-
-    public function setProjectLeaderName1(string $ProjectLeaderName1): self
-    {
-        $this->ProjectLeaderName1 = $ProjectLeaderName1;
-
-        return $this;
-    }
-
-    public function getProjectLeaderName2(): ?string
-    {
-        return $this->ProjectLeaderName2;
-    }
-
-    public function setProjectLeaderName2(?string $ProjectLeaderName2): self
-    {
-        $this->ProjectLeaderName2 = $ProjectLeaderName2;
-
-        return $this;
-    }
-
-    public function getProjectLeaderName3(): ?string
-    {
-        return $this->ProjectLeaderName3;
-    }
-
-    public function setProjectLeaderName3(?string $ProjectLeaderName3): self
-    {
-        $this->ProjectLeaderName3 = $ProjectLeaderName3;
-
-        return $this;
-    }
-
-    public function getProjectLeaderName4(): ?string
-    {
-        return $this->ProjectLeaderName4;
-    }
-
-    public function setProjectLeaderName4(?string $ProjectLeaderName4): self
-    {
-        $this->ProjectLeaderName4 = $ProjectLeaderName4;
-
-        return $this;
-    }
-
     public function getRemainsToBeReceived(): int
     {
         return $this->remainsToBeReceived;
@@ -345,6 +295,36 @@ class CompanySheet
     public function setTotalFniAmountPaid(int $TotalFniAmountPaid): self
     {
         $this->TotalFniAmountPaid = $TotalFniAmountPaid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjectLeader>
+     */
+    public function getProjectLeaders(): Collection
+    {
+        return $this->projectLeaders;
+    }
+
+    public function addProjectLeader(ProjectLeader $projectLeader): self
+    {
+        if (!$this->projectLeaders->contains($projectLeader)) {
+            $this->projectLeaders->add($projectLeader);
+            $projectLeader->setCompanySheet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectLeader(ProjectLeader $projectLeader): self
+    {
+        if ($this->projectLeaders->removeElement($projectLeader)) {
+            // set the owning side to null (unless already changed)
+            if ($projectLeader->getCompanySheet() === $this) {
+                $projectLeader->setCompanySheet(null);
+            }
+        }
 
         return $this;
     }

@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block body %}
+	{% include "_sidebar.html.twig" %}
+
 	<div class="form-container">
 		<div class="form-content">
 			<h1>Création d'une nouvelle fiche projet</h1>
@@ -35,18 +37,9 @@
 			</div>
 			{{form_row(formView.RemainsToBePaid) }}
 			{{form_row(formView.TotalAmountRepaidToDate) }}
-			<div class="form-projectleader">
-				<div>
-					{{form_row(formView.ProjectLeaderName1)}}
-					{{form_row(formView.ProjectLeaderName2)}}
-				</div>
-				<div>
-					{{form_row(formView.ProjectLeaderName3)}}
-					{{form_row(formView.ProjectLeaderName4)}}
-				</div>
-			</div>
-			{{form_row(formView.Button) }}
-			{{form_end(formView)}}
+
 		</div>
+		{{form_row(formView.Button) }}
+		{{form_end(formView)}}
 	</div>
-{% endblock %}
+</div>{% endblock %}

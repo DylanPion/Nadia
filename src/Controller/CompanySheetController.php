@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\CompanySheet;
+use App\Entity\ProjectLeader;
 use App\Form\CompanySheetType;
+use App\Form\ProjectLeaderType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,10 +68,18 @@ class CompanySheetController extends AbstractController
 
     // Affichage du détail d'une fiche société
     #[Route('/companysheet/{id}/show', name: 'app_companysheet_show')]
-    public function show($id, CompanySheetRepository $companySheetRepository): Response
+    public function show($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet): Response
     {
+        // Récupération de la liste des project leader 
+        $projectLeaderList = $companySheet->getProjectLeaders(); // Pas besoin de spécifier l'id de la fiche société car la méthode getProjectLeader retourne déjà tout les projectleader assciés à l'instance companysheet.
+        $projectLeaderNameList = [];
+        foreach ($projectLeaderList as $projectLeaderName) {
+            $projectLeaderNameList[] = $projectLeaderName->getName();
+        }
+
         return $this->render('companySheet/showCompanySheet.html.twig', [
-            'company' => $companySheetRepository->find($id)
+            'company' => $companySheetRepository->find($id),
+            'projectleadername' => $projectLeaderNameList
         ]);
     }
 
@@ -80,5 +90,28 @@ class CompanySheetController extends AbstractController
         return $this->render('companySheet/account.html.twig', [
             'company' => $companySheetRepository->find($id)
         ]);
+    }
+
+    #[Route('companysheet/project-leader', name: 'app_companysheet_projectleader')]
+    public function createProjectLeader(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(ProjectLeaderType::class, null, [
+            'data_class' => ProjectLeader::class
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $projectleader = $form->getData();
+            $em->persist($projectleader);
+            $em->flush();
+            return $this->redirectToRoute('app_association');
+        }
+        return $this->render(
+            'companySheet/projectleader.html.twig',
+            [
+                'formView' => $form->createView(),
+            ]
+        );
     }
 }
