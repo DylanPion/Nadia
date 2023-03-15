@@ -23,6 +23,9 @@ class TotalAmountRepaidToDate
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $Date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'totalAmountRepaidToDate')]
+    private ?CompanySheet $CompanySheet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class TotalAmountRepaidToDate
     public function setDate(\DateTimeInterface $Date): self
     {
         $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getCompanySheet(): ?CompanySheet
+    {
+        return $this->CompanySheet;
+    }
+
+    public function setCompanySheet(?CompanySheet $CompanySheet): self
+    {
+        $this->CompanySheet = $CompanySheet;
 
         return $this;
     }

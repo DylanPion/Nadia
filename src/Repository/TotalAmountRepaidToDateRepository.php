@@ -39,28 +39,39 @@ class TotalAmountRepaidToDateRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return TotalAmountRepaidToDate[] Returns an array of TotalAmountRepaidToDate objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return TotalAmountRepaidToDate[] Returns an array of TotalAmountRepaidToDate objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('t.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?TotalAmountRepaidToDate
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?TotalAmountRepaidToDate
+    //    {
+    //        return $this->createQueryBuilder('t')
+    //            ->andWhere('t.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
+
+
+    // Fonction pour récupérer les lignes du tableau TotalAmountRepaidToDate en fonction de l'id de l'URL 
+    public function getTotalAmountRepaidToDateById($id)
+    {
+        $qb = $this->createQueryBuilder('TotalAmountRepaidToDate')
+            ->select('TotalAmountRepaidToDate')
+            ->where('TotalAmountRepaidToDate.CompanySheet = :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }
 }

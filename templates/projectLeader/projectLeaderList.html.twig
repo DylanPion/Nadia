@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des prêts | Porteur de Projet
+{% endblock %}
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="tableAsso">
+		<table class="table-content">
+			<thead>
+				<tr>
+					<th>Nom Prénom du Porteur de Projet</th>
+					<th>Association</th>
+					<th>Société</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for pl in projectleader %}
+					<tr>
+						<td>{{pl.name}}</td>
+						<td></td>
+						<td></td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

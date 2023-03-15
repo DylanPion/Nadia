@@ -54,7 +54,6 @@ class AppFixtures extends Fixture
                     ->setPaymentTwo(mt_rand(1, 50))
                     ->setPaymentOneDate($randomDate)
                     ->setPaymentTwoDate($randomDate)
-                    ->setTotalAmountRepaidToDate(mt_rand(1, 1000))
                     ->setRemainsToBePaid(0)
                     ->setRemainsToBeReceived(0)
                     ->setTotalFniAmountRequested(1)

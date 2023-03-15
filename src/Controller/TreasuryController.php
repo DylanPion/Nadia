@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
-use App\Form\AgreementCreateType;
 use App\Form\AgreementListType;
+use App\Form\AgreementCreateType;
+use App\Entity\TotalAmountRepaidToDate;
 use App\Repository\AgreementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\TotalAmoundRepaidToDateType;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TotalAmountRepaidToDateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TreasuryController extends AbstractController
@@ -84,5 +87,65 @@ class TreasuryController extends AbstractController
             'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
             'Agreement' => $agreementRepository->find($id)
         ]);
+    }
+
+    // Affichage de l'historique du Total Remboursé à ce jour
+    #[Route(
+        '/companysheet/{id}/account',
+        name: 'app_companysheet_account',
+        requirements: ['id' => '\d+']
+    )]
+    public function account($id, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository)
+
+    {
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, null, [
+            'data_class' => TotalAmountRepaidToDate::class,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $TotalAmountRepaidToDate = $form->getData();
+            $em->persist($TotalAmountRepaidToDate);
+            $em->flush();
+            return $this->redirectToRoute('app_association');
+        }
+
+        return $this->render(
+            'companySheet/account.html.twig',
+            [
+                'formView' => $form->createView(),
+                'totalAmountRepaidToDate' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id)
+            ]
+        );
+    }
+
+    // Modification Total Remboursé à ce jour
+    #[Route('/companysheet/{id}/account/edit', name: 'app_account_edit')]
+    public function accountEdit($id, TotalAmountRepaidToDate $totalAmountRepaidToDate, Request $request, EntityManagerInterface $em, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType): Response
+    {
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmountRepaidToDate);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $totalAmountRepaidToDate = $form->getData();
+            $em->persist($totalAmountRepaidToDate);
+            $em->flush();
+            return $this->redirectToRoute('app_association');
+        };
+
+        return $this->render('companySheet/Editaccount.html.twig', [
+            'companySheet' => $totalAmoundRepaidToDateType,
+            'formView' => $form->createView()
+        ]);
+    }
+
+    // Supression Total Remboursé à ce jour
+    #[Route('companysheet/{id}/account/delete', name: 'app_account_delete')]
+    public function accountDelete(TotalAmountRepaidToDate $totalAmountRepaidToDate, EntityManagerInterface $em): Response
+    {
+        $em->remove($totalAmountRepaidToDate);
+        $em->flush();
+        return $this->redirectToRoute('app_association');
     }
 }

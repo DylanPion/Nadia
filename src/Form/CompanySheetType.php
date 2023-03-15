@@ -6,6 +6,7 @@ use App\Entity\Agreement;
 use App\Entity\Association;
 use App\Entity\CompanySheet;
 use Symfony\Component\Form\AbstractType;
+use App\Form\TotalAmoundRepaidToDateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -91,12 +92,8 @@ class CompanySheetType extends AbstractType
                 'format' => 'dd MMM yyyy',
                 "attr" => ['placeholder' => "Entrez la Date du second versement effectué", "class" => "date"]
             ])
-            ->add('TotalAmountRepaidToDate', IntegerType::class, [
-                'label' => 'Montant total remboursé à ce jour ',
-                "attr" => ['placeholder' => "Entrez la somme du montant total remboursé à ce jour "]
-            ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer le nouveau porteur de projet'
+                'label' => 'Créer une nouvelle Fiche Société'
             ]);
     }
 
