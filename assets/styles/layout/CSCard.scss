@@ -1,7 +1,8 @@
 .companyShow{
     height: 100vh;
     display: flex;
-    justify-content: center;
+    margin-left: 50%;
+    transform: translateX(-280px);
     align-items: center;
     .card-container{
         padding: 20px;

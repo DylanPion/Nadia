@@ -24,14 +24,13 @@ class CompanySheet
     private ?Association $association = null;
 
     #[ORM\ManyToOne(inversedBy: 'companySheet')]
-    private ?Agreement $agreement = null;
+    private ?Agreement $Agreement = null;
 
     #[ORM\OneToMany(mappedBy: 'CompanySheet', targetEntity: ProjectLeader::class)]
     private Collection $projectLeaders;
 
     #[ORM\OneToOne(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
     private ?TotalAmountRepaidToDate $TotalAmountRepaidToDate = null;
-
 
     #[ORM\Column(length: 255)]
     private ?string $LoanStatus = null;
@@ -111,12 +110,12 @@ class CompanySheet
 
     public function getAgreement(): ?Agreement
     {
-        return $this->agreement;
+        return $this->Agreement;
     }
 
-    public function setAgreement(?Agreement $agreement): self
+    public function setAgreement(?Agreement $Agreement): self
     {
-        $this->agreement = $agreement;
+        $this->Agreement = $Agreement;
 
         return $this;
     }

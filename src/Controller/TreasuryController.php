@@ -18,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TreasuryController extends AbstractController
 {
-
     // Création d'une nouvelle Convention.
     #[Route('/treasury/create', name: 'app_treasury_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
@@ -36,12 +35,12 @@ class TreasuryController extends AbstractController
             return $this->redirectToRoute('app_association');
         }
 
-        return $this->render('treasury/createTreasury.html.twig', [
+        return $this->render('treasury/createAgreement.html.twig', [
             'formView' => $form->createView(),
         ]);
     }
 
-
+    // Affichage d'un formulaire redirigeant vers la convention choisi
     #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
     public function agreementList(Request $request): Response
     {
@@ -58,8 +57,9 @@ class TreasuryController extends AbstractController
         ]);
     }
 
-    #[Route('/treasury/{id}', name: 'app_treasury_agreementCard')]
-    public function agreementCard($id, CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository)
+    // Affichage d'une convention
+    #[Route('/treasury/agreementList/{id}', name: 'app_treasury_agreementCard', requirements: ['id' => '\d+'])]
+    public function agreementCard($id, CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository)
     {
 
         // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
@@ -72,14 +72,14 @@ class TreasuryController extends AbstractController
         for ($i = 1; $i <= 6; $i++) {
             $resultsTotalAmountRequestedByAgreement[$i] = $companySheetRepository->getTotalAmountRequestedByAgreement($i);
             $resultsTotalAmountPaidByAgreement[$i] = $companySheetRepository->getTotalAmountPaidByAgreement($i);
-            $resultsTotalAmountRepaidToDatedByAgreement[$i] = $companySheetRepository->getTotalAmountRepaidToDateByAgreement($i);
+            $resultsTotalAmountRepaidToDatedByAgreement[$i] = $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateByAgreement($i);
         }
 
         for ($i = 1; $i <= 6; $i++) {
             $resultsAmountsCommittedAndNotPaid[] = $resultsTotalAmountRequestedByAgreement[$i][0]['TotalAmountRequestedByAgreement'] - $resultsTotalAmountPaidByAgreement[$i][0]['TotalAmountPaidByAgreement'];
         }
 
-        return $this->render('treasury/agreementNumber.html.twig', [
+        return $this->render('treasury/agreementCard.html.twig', [
             'id' => $id,
             'TotalAmountRequestedByAgreement' => $resultsTotalAmountRequestedByAgreement,
             'TotalAmountPaidByAgreement' => $resultsTotalAmountPaidByAgreement,
@@ -90,11 +90,7 @@ class TreasuryController extends AbstractController
     }
 
     // Affichage de l'historique du Total Remboursé à ce jour
-    #[Route(
-        '/companysheet/{id}/account',
-        name: 'app_companysheet_account',
-        requirements: ['id' => '\d+']
-    )]
+    #[Route('/companysheet/account/{id}', name: 'app_companysheet_account', requirements: ['id' => '\d+'])]
     public function account($id, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository)
 
     {
@@ -112,7 +108,7 @@ class TreasuryController extends AbstractController
         }
 
         return $this->render(
-            'companySheet/account.html.twig',
+            'treasury/account.html.twig',
             [
                 'formView' => $form->createView(),
                 'totalAmountRepaidToDate' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id)
@@ -121,7 +117,7 @@ class TreasuryController extends AbstractController
     }
 
     // Modification Total Remboursé à ce jour
-    #[Route('/companysheet/{id}/account/edit', name: 'app_account_edit')]
+    #[Route('/companysheet/account/edit/{id}', name: 'app_account_edit', requirements: ['id' => '\d+'])]
     public function accountEdit($id, TotalAmountRepaidToDate $totalAmountRepaidToDate, Request $request, EntityManagerInterface $em, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType): Response
     {
         $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmountRepaidToDate);
@@ -134,14 +130,14 @@ class TreasuryController extends AbstractController
             return $this->redirectToRoute('app_association');
         };
 
-        return $this->render('companySheet/Editaccount.html.twig', [
+        return $this->render('treasury/editAccount.html.twig', [
             'companySheet' => $totalAmoundRepaidToDateType,
             'formView' => $form->createView()
         ]);
     }
 
     // Supression Total Remboursé à ce jour
-    #[Route('companysheet/{id}/account/delete', name: 'app_account_delete')]
+    #[Route('companysheet/account/delete/{id}', name: 'app_account_delete', requirements: ['id' => '\d+'])]
     public function accountDelete(TotalAmountRepaidToDate $totalAmountRepaidToDate, EntityManagerInterface $em): Response
     {
         $em->remove($totalAmountRepaidToDate);

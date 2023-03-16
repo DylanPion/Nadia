@@ -22,49 +22,9 @@
 			</li>
 			<ul class="menu-links">
 				<li class="nav-link">
-					<a href="{{path('app_home')}}">
-						<i class="fa-solid fa-house icon"></i>
-						<span class="text nav-text">Dashboard</span>
-					</a>
-				</li>
-				<li class="nav-link">
 					<a href='{{path('app_association')}}'>
-						<i class="fa-solid fa-a icon"></i>
-						<span class="text nav-text">Association</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_association_create')}}'>
-						<i class="fa-solid fa-plus icon"></i>
-						<span class="text nav-text">
-							Nouvelle Association</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href="#">
-						<i class="fa-solid fa-file icon"></i>
-						<span class="text nav-text">Feuille Société</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_companysheet_create')}}'>
-						<i class="fa-solid fa-plus icon"></i>
-						<span class="text nav-text">
-							Nouvelle Fiche Société</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href="#">
-						<i class="fa-solid fa-user icon"></i>
-						<span class="text nav-text">
-							Porteur Projet</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_projectleader_create')}}'>
-						<i class="fa-solid fa-plus icon"></i>
-						<span class="text nav-text">
-							Nouveau Porteur Projet</span>
+						<i class="fa-solid fa-house icon"></i>
+						<span class="text nav-text">Accueil</span>
 					</a>
 				</li>
 				<li class="nav-link">
@@ -74,8 +34,29 @@
 					</a>
 				</li>
 				<li class="nav-link">
+					<a href='{{path('app_association_create')}}'>
+						<i class="fa-solid fa-a icon"></i>
+						<span class="text nav-text">
+							Nouvelle Association</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_companysheet_create')}}'>
+						<i class="fa-solid fa-file icon"></i>
+						<span class="text nav-text">
+							Nouvelle Fiche Société</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_projectleader_create')}}'>
+						<i class="fa-solid fa-user icon"></i>
+						<span class="text nav-text">
+							Nouveau Porteur Projet</span>
+					</a>
+				</li>
+				<li class="nav-link">
 					<a href='{{path('app_treasury_create')}}'>
-						<i class="fa-solid fa-plus icon"></i>
+						<i class="fa-solid fa-handshake icon"></i>
 						<span class="text nav-text">
 							Nouvelle Convention</span>
 					</a>
@@ -84,13 +65,13 @@
 		</div>
 		<div class="bottom-content">
 			<li class="nav-link">
-				<a href="#">
+				<a href="{{path('app_register')}}">
 					<i class="fa-solid fa-right-to-bracket icon"></i>
 					<span class="text nav-text">Connexion</span>
 				</a>
 			</li>
 			<li class="nav-link">
-				<a href="#">
+				<a href="{{path('app_logout')}}">
 					<i class="fa-solid fa-right-from-bracket icon"></i>
 					<span class="text nav-text">Déconnexion</span>
 				</a>

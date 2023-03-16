@@ -19,12 +19,10 @@
 				{{ TotalAmountPaidByAgreement[id][0]['TotalAmountPaidByAgreement'] }}</p>
 			<p>Montant reçus des assos par convention :
 				{{ TotalAmountRepaidToDatedByAgreement[id][0]['TotalAmountRepaidToDateByAgreement'] }}</p>
-			<p>Montant Engagés et non versés aux assos pour la convention n°{{id}}
-				:
-				{{ AmountCommittedAndNotPaid[id] }}</p>
+		</p>
+		<p>Montant Engagés et non versés aux assos pour la convention n°{{id}}
+			:
+			{{ AmountCommittedAndNotPaid[id] }}</p>
 
-		</div>
 	</div>
-{% endblock %}
-
-{# Note mette ?? suivit de '' permet de mettre une donnée par défaut à une variable de notre Base de donnée. #}
+</div>{% endblock %}{# Note mette ?? suivit de '' permet de mettre une donnée par défaut à une variable de notre Base de donnée. #}

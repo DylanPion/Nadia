@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\ProjectLeader;
 use App\Form\ProjectLeaderType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ProjectLeaderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

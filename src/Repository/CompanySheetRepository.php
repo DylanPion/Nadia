@@ -96,15 +96,4 @@ class CompanySheetRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
-    // Fonction pour calculer le Montant Engagé et Non Versé aux associations. 
-    public function getTotalAmountRepaidToDateByAgreement($agreement)
-    {
-        $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.TotalAmountRepaidToDate) as TotalAmountRepaidToDateByAgreement')
-            ->where('cs.Agreement = :Agreement')
-            ->setParameter('Agreement', $agreement);
-
-        return $qb->getQuery()->getResult();
-    }
 }

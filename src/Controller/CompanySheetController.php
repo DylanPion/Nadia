@@ -27,7 +27,7 @@ class CompanySheetController extends AbstractController
             $companySheet = $form->getData();
             $em->persist($companySheet);
             $em->flush();
-            return $this->redirectToRoute('app_association');
+            return $this->redirectToRoute('app_projectleader_create');
         }
 
         return $this->render('companySheet/createCompanySheet.html.twig', [
@@ -64,7 +64,7 @@ class CompanySheetController extends AbstractController
         return $this->redirectToRoute('app_association');
     }
 
-    // Affichage de la fiche société entière
+    // Affichage de la fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
     public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet): Response
     {
@@ -74,9 +74,9 @@ class CompanySheetController extends AbstractController
         foreach ($projectLeaderList as $projectLeaderName) {
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
-
         return $this->render('companySheet/displayCompanySheet.html.twig', [
             'company' => $companySheetRepository->find($id),
+            'projectleadername' => $projectLeaderNameList,
         ]);
     }
 }

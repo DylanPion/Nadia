@@ -15,7 +15,7 @@ class AgreementCreateType extends AbstractType
     {
         $builder
             ->add('Number', IntegerType::class, [
-                'label' => 'Nom de la Convention :',
+                'label' => 'Numéro de la nouvelle Convention :',
                 "attr" => ["placeholder" => "Entrez le nom de la nouvelle Convention"]
             ])
             ->add('cashFund', IntegerType::class, [
@@ -23,7 +23,7 @@ class AgreementCreateType extends AbstractType
                 "attr" => ["placeholder" => "Entrez le Fond de Trésorerie de la nouvelle Convention"]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer la nouvelle Association'
+                'label' => 'Création d\'une nouvelle convention'
             ]);
     }
 
