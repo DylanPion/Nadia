@@ -29,8 +29,8 @@ class CompanySheet
     #[ORM\OneToMany(mappedBy: 'CompanySheet', targetEntity: ProjectLeader::class)]
     private Collection $projectLeaders;
 
-    #[ORM\OneToOne(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
-    private ?TotalAmountRepaidToDate $TotalAmountRepaidToDate = null;
+    // #[ORM\OneToOne(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
+    // private ?TotalAmountRepaidToDate $TotalAmountRepaidToDate = null;
 
     #[ORM\Column(length: 255)]
     private ?string $LoanStatus = null;
@@ -247,8 +247,8 @@ class CompanySheet
 
     public function setRemainsToBePaid($RemainsToBePaid): self
     {
-        $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo = $RemainsToBePaid;
-
+        // $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo = $RemainsToBePaid;
+        $this->remainsToBeReceived = $RemainsToBePaid;
         return $this;
     }
 
@@ -259,7 +259,8 @@ class CompanySheet
 
     public function setRemainsToBeReceived($remainsToBeReceived): self
     {
-        $this->FniAmountRequested - $this->TotalAmountRepaidToDate = $remainsToBeReceived;
+        // $this->FniAmountRequested - $this->TotalAmountRepaidToDate = $remainsToBeReceived;
+        $this->remainsToBeReceived = $remainsToBeReceived;
         return $this;
     }
 

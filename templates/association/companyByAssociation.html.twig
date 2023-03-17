@@ -6,16 +6,16 @@
 
 {% include "_sidebar.html.twig" %}
 
+{# <h2>{{associationName}}</h2> #}
 <div class="tableCompanySheet">
-	<h2>{{associationName}}</h2>
 	<table class="table-content">
 		<thead>
 			<tr>
-				<th>Numéro de Convention</th>
-				<th>Nom de la Société</th>
+				<th>Convention</th>
+				<th>Société</th>
 				<th>Montant FNI engagé</th>
 				<th>Montant FNI versé</th>
-				<th>Reste à rembourser</th>
+				<th>Reste à Payer</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -28,8 +28,7 @@
 						€</td>
 					<td>{{company.FniAmountPaid|number_format(0, '.', ' ', )}}
 						€</td>
-					<td>{{company.remainsToBePaid|number_format(0, '.', ' ', )}}
-						€</td>
+					<td>€</td>
 
 					<td>
 						<a href="{{ path("app_companysheet_display", {id: company.id}) }}" class="infos">

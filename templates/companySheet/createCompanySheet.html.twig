@@ -19,26 +19,31 @@
 				{{form_row(formView.Agreement)}}
 				{{form_row(formView.DateOfCE) }}
 
+				<div class="date">
+					{{form_row(formView.PaymentOne) }}
+					{{form_row(formView.PaymentTwo) }}
+				</div>
+				<div class="date">
+					{{form_row(formView.PaymentOneDate) }}
+					{{form_row(formView.PaymentTwoDate) }}
+				</div>
 
-				<p>Sélectionner le nombre de versement souhaité :</p>
-				<input type="radio" name="payment" value="OnePayment" id="OnePayment">
-				<label for="OnePayment">Un versement</label>
-				<input type="radio" name="payment" value="TwoPayment" id="TwoPayment">
-				<label for="TwoPayment">Deux versements</label>
-				{{form_row(formView.PaymentOne) }}
-				{{form_row(formView.PaymentOneDate) }}
-				{{form_row(formView.PaymentTwo) }}
-				{{form_row(formView.PaymentTwoDate) }}
+				<div class="date">
+					{{form_row(formView.RepaymentStartDate) }}
+					{{form_row(formView.RepaymentEndDate) }}
+				</div>
+			</div>
 
-				{{form_row(formView.RepaymentStartDate) }}
-				{{form_row(formView.RepaymentEndDate) }}
+
+			<div class="FNI">
 				{{form_row(formView.FniAmountPaid) }}
 				{{form_row(formView.FNIAmountRequested) }}
-				{{form_row(formView.LoanStatus) }}
-
-				{{form_row(formView.Button) }}
-				{{form_end(formView)}}
 			</div>
+
+			{{form_row(formView.LoanStatus) }}
+
+			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}

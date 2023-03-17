@@ -7,6 +7,7 @@ use App\Form\AssociationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Repository\CompanySheetRepository;
+use App\Service\CalculService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,13 +78,22 @@ class AssociationController extends AbstractController
 
     // Affichage de la liste des fiche Société par Association
     #[Route('/association/{id}', name: 'app_association_display', requirements: ['page' => '\d+'])]
-    public function app_association_display($id, CompanySheetRepository $companySheetRepository, AssociationRepository $associationRepository): Response
-    {
+    public function app_association_display(
+        $id,
+        CompanySheetRepository $companySheetRepository,
+        AssociationRepository $associationRepository,
+        CalculService $calculService,
+    ): Response {
+
+        $test = $calculService->calculateRemainsToBePaid($id);
+        // Liste des Montants : "Reste à payer"
+
+
         // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
         $company = $companySheetRepository->findBy(array('association' => $id));
         return $this->render('association/companyByAssociation.html.twig', [
             'company' => $company,
-            'associationName' => $associationRepository->find($id)->getName()
+            'associationName' => $associationRepository->find($id)->getName(),
         ]);
     }
 }

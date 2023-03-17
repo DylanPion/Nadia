@@ -1,209 +1,222 @@
-// Style du Tableau pour la liste des associations 
-
 .tableAsso {
-  position: relative;
-  left: 250px;
   display: flex;
-  justify-content: center;
-  width: calc(100% - 250px);
+  margin-left: 20%;
+  margin-top: 30px;
 
   .table-content {
-    margin-top: 15px;
-    padding: 25px;
-    background: var(--card-color);
-    border-radius: 12px;
-    color: var(--text-color);
+    width: 1300px;
+    border-collapse: collapse;
 
     thead {
       tr {
         th {
-          font-weight: 900;
+          background: var(--primary-color);
+          color: #fff;
           font-size: 1.2rem;
-          padding-right: 20px;
-          padding-bottom: 20px;
+          line-height: 1.2;
+          padding-top: 25px;
+          padding-bottom: 25px;
           text-align: left;
         }
-      }
-    }
-    tbody {
-      tr {
-        td {
-          padding-bottom: 20px;
-          a {
-            text-decoration: none;
-            border-radius: 80px;
-            margin-right: 5px;
-            padding: 5px 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-          .edit {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
-
-          .delete {
-            border: 1px solid rgb(183, 182, 182);
-            color: #ff4040;
-            background: white;
-          }
-
-          .infos {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
+        th:nth-child(1){
+          padding-left: 5px; // Juste pour décaller légèrement la première en tête du tableau
         }
       }
     }
+
+    tbody {
+      background: white;
+
+      td {
+        font-size: 15px;
+        color: var(--text-color);
+        line-height: 1.2;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f2f2f2;
+      }
+    }
+
+    tr td:nth-child(1) {
+      width: 200px;
+      padding-left: 40px;
+    }
+
+    tr td:nth-child(2) {
+      width: 200px;
+    }
+
+    tr td:nth-child(3) {
+      width: 200px;
+    }
+
+    tr td:nth-child(4) {
+      width: 280px;
+    }
+
+    tr:hover {
+      background-color: #ececff;
+      cursor: pointer;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-right: 5px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .delete {
+    color: #ff4040;
   }
 }
-
-/* Style du table pour les fiches projet */
+// /* Style du table pour les fiches projet */
 
 .tableCompanySheet {
-  position: relative;
-  left: 300px;
-  display: flex;
-  justify-content: center;
-  width: calc(100% - 350px);
-  display: flex;
-  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 20%;
 
-  h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    max-width: 225px;
-    padding: 5px;
-    text-align: center;
-    border-radius: 12px;
-    background: var(--card-color);
-    color: var(--text-color);
-  }
   .table-content {
-    padding: 25px;
-    background: var(--card-color);
-    border-radius: 12px;
-    color: var(--text-color);
+    width: 1400px;
+    border-collapse: collapse;
 
     thead {
       tr {
         th {
-          font-weight: 900;
+          background: var(--primary-color);
+          color: #fff;
           font-size: 1.1rem;
+          line-height: 1.2;
+          padding-top: 25px;
+          padding-bottom: 25px;
           text-align: left;
-          padding-bottom: 20px;
         }
       }
     }
     tbody {
-      tr {
-        td {
-          padding-bottom: 20px;
-          a {
-            text-decoration: none;
-            border-radius: 80px;
-            margin-right: 5px;
-            color: var(--text-color);
-            padding: 5px 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-          .edit {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
+      background: white;
 
-          .delete {
-            border: 1px solid rgb(183, 182, 182);
-            color: #ff4040;
-            background: white;
-          }
-
-          .infos {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
-        }
+      td {
+        font-size: 15px;
+        color: var(--text-color);
+        line-height: 1.2;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f2f2f2;
       }
     }
+
+    tr td:nth-child(1) {
+      width: 200px;
+      padding-left: 40px;
+    }
+
+    tr td:nth-child(2) {
+      width: 200px;
+    }
+
+    tr td:nth-child(3) {
+      width: 200px;
+    }
+
+    tr td:nth-child(4) {
+      width: 280px;
+    }
+
+    tr:hover {
+      background-color: #ececff;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-right: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .delete {
+    color: #ff4040;
   }
 }
 
-// Style du Tableau pour la liste des Total Remboursé à ce jour 
+// // Style du Tableau pour la liste des Total Remboursé à ce jour
 
 .tableTotalAmountRepaid {
-  position: relative;
-  left: 250px;
-  display: flex;
-  justify-content: center;
-  width: calc(100% - 250px);
+  margin-top: 30px;
+  margin-left: 20%;
 
   .table-content {
-    margin-top: 15px;
-    padding: 25px;
-    background: var(--card-color);
-    border-radius: 12px;
-    color: var(--text-color);
+    width: 1400px;
+    border-collapse: collapse;
 
     thead {
       tr {
         th {
-          font-weight: 900;
-          font-size: 1.2rem;
-          padding-right: 20px;
-          padding-bottom: 20px;
+          background: var(--primary-color);
+          color: #fff;
+          font-size: 1.1rem;
+          line-height: 1.2;
+          padding-top: 25px;
+          padding-bottom: 25px;
           text-align: left;
         }
       }
     }
 
     tbody {
-      tr {
-        td {
-          padding-bottom: 20px;
+      background: white;
 
-          a {
-            text-decoration: none;
-            border-radius: 80px;
-            margin-right: 5px;
-            padding: 5px 10px;
-            font-size: 1rem;
-            cursor: pointer;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-
-          .edit {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
-
-          .delete {
-            border: 1px solid rgb(183, 182, 182);
-            color: #ff4040;
-            background: white;
-          }
-
-          .infos {
-            border: 1px solid rgb(183, 182, 182);
-            color: rgba(30, 28, 28, 0.549);
-            background: white;
-          }
-        }
+      td {
+        font-size: 15px;
+        color: var(--text-color);
+        line-height: 1.2;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f2f2f2;
       }
     }
+
+    tr td:nth-child(1) {
+      width: 200px;
+      padding-left: 40px;
+    }
+
+    tr td:nth-child(2) {
+      width: 200px;
+    }
+
+    tr td:nth-child(3) {
+      width: 200px;
+    }
+
+    tr td:nth-child(4) {
+      width: 280px;
+    }
+
+    tr:hover {
+      background-color: #ececff;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-right: 5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .delete {
+    color: #ff4040;
   }
 }

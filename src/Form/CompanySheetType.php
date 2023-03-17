@@ -49,35 +49,53 @@ class CompanySheetType extends AbstractType
             ])
             ->add('DateOfCE', DateType::class, [
                 'label' => 'Date du CE',
-                'format' => 'dd MMM yyyy',
-                "attr" => ['placeholder' => 'Entrez la Date du CE', "class" => "date"]
+                'widget' => 'single_text',
+                "attr" => [
+                    'placeholder' => 'Entrez la Date du CE',
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
             ])
             ->add('RepaymentStartDate', DateType::class, [
                 'label' => 'Date du début du remboursement',
-                'format' => 'dd MMM yyyy',
-                "attr" => ["placeholder" => "Entrez la Date du début du remboursement", "class" => "date"]
+                'widget' => 'single_text',
+                "attr" => [
+                    "placeholder" => "Entrez la Date du début du remboursement",
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
             ])
             ->add('RepaymentEndDate', DateType::class, [
                 'label' => 'Date de fin du remboursement',
-                'format' => 'dd MMM yyyy',
-                "attr" => ['placeholder' => "Entrez la Date de fin du remboursement", "class" => "date"]
+                'widget' => 'single_text',
+                "attr" => [
+                    'placeholder' => "Entrez la Date de fin du remboursement",
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
             ])
             ->add('FNIAmountRequested', IntegerType::class, [
                 'label' => 'Montant FNI engagé',
-                "attr" => ['placeholder' => "Entrez le Montant FNI demandé"]
+                "attr" => ['placeholder' => "Entrez le Montant FNI engagé"]
             ])
             ->add('FniAmountPaid', IntegerType::class, [
                 'label' => 'Montant FNI Versé',
-                "attr" => ['placeholder' => "Entrez le Montant versé"]
+                "attr" => ['placeholder' => "Entrez le Montant FNI versé"]
             ])
             ->add('PaymentOne', IntegerType::class, [
                 'label' => 'Premier Versement',
-                "attr" => ['placeholder' => "Entrez la somme du versement effectué"]
+                "attr" => [
+                    'placeholder' => "Entrez la somme du versement effectué"
+                ]
             ])
             ->add('PaymentOneDate', DateType::class, [
                 'label' => 'Date du versement',
-                'format' => 'dd MMM yyyy',
-                "attr" => ['placeholder' => "Entrez la Date du versement effectué", "class" => "date"]
+                'widget' => 'single_text',
+                "attr" => [
+                    'placeholder' => "Entrez la Date du versement effectué",
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
             ])
             ->add('PaymentTwo', IntegerType::class, [
                 'label' => 'Second Versement',
@@ -85,11 +103,14 @@ class CompanySheetType extends AbstractType
                 "attr" => ['placeholder' => "Entrez la somme du second versement effectué"]
             ])
             ->add('PaymentTwoDate', DateType::class, [
-                'label' => 'Date du Second Versemenet',
+                'label' => 'Date du Second Versement',
                 'required' => false,
-                'empty_data' => null,
-                'format' => 'dd MMM yyyy',
-                "attr" => ['placeholder' => "Entrez la Date du second versement effectué", "class" => "date"]
+                'widget' => 'single_text',
+                "attr" => [
+                    'placeholder' => "Entrez la Date du second versement effectué",
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
             ])
             ->add('Button', SubmitType::class, [
                 'label' => 'Créer une nouvelle Fiche Société'

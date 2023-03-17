@@ -29,13 +29,13 @@ class AppFixtures extends Fixture
             $manager->persist($agreement);
         }
 
-        for ($j = 0; $j < 25; $j++) {
-            $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
-            $totalAmountRepaidToDate->setPayment(mt_rand(1, 1000))
-                ->setDate($randomDate)
-                ->setTotalAmountRepaidToDate(0);
-            $manager->persist($totalAmountRepaidToDate);
-        }
+        // for ($j = 0; $j < 25; $j++) {
+        //     $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
+        //     $totalAmountRepaidToDate->setPayment(mt_rand(1, 1000))
+        //         ->setDate($randomDate)
+        //         ->setTotalAmountRepaidToDate(0);
+        //     $manager->persist($totalAmountRepaidToDate);
+        // }
 
         for ($i = 0; $i < 5; $i++) {
             $association = new Association();
@@ -55,15 +55,15 @@ class AppFixtures extends Fixture
                     ->setPaymentOneDate($randomDate)
                     ->setPaymentTwoDate($randomDate)
                     ->setRemainsToBePaid(0)
-                    ->setRemainsToBeReceived(0)
+                    // ->setRemainsToBeReceived(0)
                     ->setTotalFniAmountRequested(1)
                     ->setTotalFniAmountPaid(1)
                     ->setAgreement($agreement)
                     ->setAssociation($association);
-                $projectleader = new ProjectLeader;
-                $projectleader->setName("Membre n°$j")
-                    ->setCompanySheet($companySheet);
-                $manager->persist($projectleader);
+                //     $projectleader = new ProjectLeader;
+                //     $projectleader->setName("Membre n°$j")
+                //         ->setCompanySheet($companySheet);
+                //     $manager->persist($projectleader);
                 $manager->persist($companySheet);
             }
         }
