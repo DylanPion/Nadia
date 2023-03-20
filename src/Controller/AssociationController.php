@@ -85,7 +85,7 @@ class AssociationController extends AbstractController
         CalculService $calculService,
     ): Response {
 
-        $test = $calculService->calculateRemainsToBePaid($id);
+        // $test = $calculService->calculateRemainsToBePaid($id);
         // Liste des Montants : "Reste à payer"
 
 

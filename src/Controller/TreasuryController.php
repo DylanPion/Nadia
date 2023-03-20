@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
-use App\Form\AgreementListType;
+use App\Entity\Association;
 use App\Form\AgreementCreateType;
 use App\Entity\TotalAmountRepaidToDate;
 use App\Repository\AgreementRepository;
@@ -40,52 +40,35 @@ class TreasuryController extends AbstractController
         ]);
     }
 
-    // Affichage d'un formulaire redirigeant vers la convention choisi
-    #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
-    public function agreementList(Request $request): Response
-    {
-        $form = $this->createForm(AgreementListType::class);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $id = strval($form->get('Number')->getData()); // strval convertit en une chaine de caractère
-            return $this->redirectToRoute('app_treasury_agreementCard', ['id' => $id]);
+    // Affichage des convention
+    #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
+    public function agreementCard(CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository)
+    {
+        $test = $agreementRepository->findBy('id');
+        dd($test);
+        // idValueAgreement est une fonction du Agreement Repository. C'est un tableau contenant la liste des Id de la table Agreement 
+        $idValue = $agreementRepository->idValueAgreement();
+
+        // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
+        $TotalAmountRequestedByAgreement = []; // Montant Total Engagés Par Convention
+        $TotalAmountPaidByAgreement = []; // Montant Total Versé Par Conventio
+        $resultsAmountsCommittedAndNotPaid = [];
+
+        foreach ($idValue as $valeur) { // On remplit nos Tableau pour chaque élément ayant pour id la valeur de idValue.
+
+            $TotalAmountRequestedByAgreement[$valeur] = $companySheetRepository->getTotalAmountRequestedByAgreement($valeur);
+
+            $TotalAmountPaidByAgreement[$valeur] = $companySheetRepository->getTotalAmountPaidByAgreement($valeur);
+
+            $resultsAmountsCommittedAndNotPaid[$valeur] = $TotalAmountRequestedByAgreement[$valeur][0]['TotalAmountRequestedByAgreement'] - $TotalAmountPaidByAgreement[$valeur][0]['TotalAmountPaidByAgreement'];
         }
 
         return $this->render('treasury/agreementList.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    // Affichage d'une convention
-    #[Route('/treasury/agreementList/{id}', name: 'app_treasury_agreementCard', requirements: ['id' => '\d+'])]
-    public function agreementCard($id, CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository)
-    {
-
-        // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
-        $resultsTotalAmountRequestedByAgreement = [];
-        $resultsTotalAmountPaidByAgreement = [];
-        $resultsTotalAmountRepaidToDatedByAgreement = [];
-        $resultsAmountsCommittedAndNotPaid = [];
-
-        // Je commence à 1 et non 0 car il n'y a pas de convention représentant le n°0
-        for ($i = 1; $i <= 6; $i++) {
-            $resultsTotalAmountRequestedByAgreement[$i] = $companySheetRepository->getTotalAmountRequestedByAgreement($i);
-            $resultsTotalAmountPaidByAgreement[$i] = $companySheetRepository->getTotalAmountPaidByAgreement($i);
-            $resultsTotalAmountRepaidToDatedByAgreement[$i] = $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateByAgreement($i);
-        }
-
-        for ($i = 1; $i <= 6; $i++) {
-            $resultsAmountsCommittedAndNotPaid[] = $resultsTotalAmountRequestedByAgreement[$i][0]['TotalAmountRequestedByAgreement'] - $resultsTotalAmountPaidByAgreement[$i][0]['TotalAmountPaidByAgreement'];
-        }
-
-        return $this->render('treasury/agreementCard.html.twig', [
-            'id' => $id,
-            'TotalAmountRequestedByAgreement' => $resultsTotalAmountRequestedByAgreement,
-            'TotalAmountPaidByAgreement' => $resultsTotalAmountPaidByAgreement,
-            'TotalAmountRepaidToDatedByAgreement' => $resultsTotalAmountRepaidToDatedByAgreement,
+            'TotalAmountRequestedByAgreement' => $TotalAmountRequestedByAgreement,
+            'TotalAmountPaidByAgreement' => $TotalAmountPaidByAgreement,
             'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
-            'Agreement' => $agreementRepository->find($id)
+            'idValue' => $idValue // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
         ]);
     }
 

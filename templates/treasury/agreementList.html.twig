@@ -1,18 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}
-	Accueil | Choix de la Convention
+	Accueil | Liste des Conventions
 {% endblock %}
+
 {% block body %}
 	{% include "_sidebar.html.twig" %}
-	<div class="form-container">
-		<div class="form-content">
-			<h1>Choissisez la Convention à Afficher</h1>
 
-			{{ form_start(form) }}
-			{{ form_widget(form.Number) }}
-			<button type="submit">Valider</button>
-			{{ form_end(form) }}
-		</div>
-	</div>
-{% endblock %}
+	<div class="tableAgreement">
+		<table class="table-content">
+			<thead>
+				<tr>
+					<th>Convention</th>
+					<th>Montant versés CDC/BPI</th>
+					<th>Montant engagés</th>
+					<th>Montant versés aux associations</th>
+					<th>Montant reçus des associations</th>
+					<th>Montant Engagés et non versés aux associations</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in idValue %}
+					<tr>
+						<td>{{i}}</td>
+						<td>{{Agreement.cashFund ?? ''}}</td>
+						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement'] }}</td>
+						<td>{{ TotalAmountPaidByAgreement[i][0]['TotalAmountPaidByAgreement'] }}</td>
+						<td></td>
+						<td>{{ AmountCommittedAndNotPaid[i] }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div></div>{% endblock %}
