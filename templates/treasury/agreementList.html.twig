@@ -12,22 +12,29 @@
 			<thead>
 				<tr>
 					<th>Convention</th>
-					<th>Montant versés CDC/BPI</th>
-					<th>Montant engagés</th>
-					<th>Montant versés aux associations</th>
-					<th>Montant reçus des associations</th>
-					<th>Montant Engagés et non versés aux associations</th>
+					<th>Montants reçus CDC/BPI</th>
+					<th>Montants engagés</th>
+					<th>Montants versés aux associations</th>
+					<th>Montants reçus des associations</th>
+					<th>Montants Engagés et non versés aux associations</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for i in idValue %}
 					<tr>
 						<td>{{i}}</td>
-						<td>{{Agreement.cashFund ?? ''}}</td>
-						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement'] }}</td>
-						<td>{{ TotalAmountPaidByAgreement[i][0]['TotalAmountPaidByAgreement'] }}</td>
+						<td>{{agreement[i].cashFund|number_format(0, '.', ' ')}}
+							€</td>
+						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ')}}
+							€</td>
+						<td>{{ TotalAmountPaidByAgreement[i][0]['TotalAmountPaidByAgreement']|number_format(0, '.', ' ')}}
+							€
+						</td>
 						<td></td>
-						<td>{{ AmountCommittedAndNotPaid[i] }}</td>
+						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}
+							€
+						</td>
+
 					</tr>
 				{% endfor %}
 			</tbody>

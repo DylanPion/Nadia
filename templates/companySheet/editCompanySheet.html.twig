@@ -8,38 +8,42 @@
 {% block body %}
 	{% include "_sidebar.html.twig" %}
 
-	<div class="form-container">
+	<div class="form-companysheet">
 		<div class="form-content">
 			<h1>Création d'une nouvelle fiche projet</h1>
-			{{form_start(formView)}}
-			{{form_row(formView.LoanStatus) }}
-			{{form_row(formView.Association) }}
-			{{form_row(formView.DateOfCE) }}
-			{{form_row(formView.Agreement)}}
-			<div class="form-date">
-				{{form_row(formView.RepaymentStartDate) }}
-				{{form_row(formView.RepaymentEndDate) }}
-			</div>
-			{{form_row(formView.CompanyName) }}
-			<div class="form-fni">
-				{{form_row(formView.FNIAmountRequested) }}
-				{{form_row(formView.FniAmountPaid) }}
-			</div>
-			<div class="form-date">
-				<div>
+			<div>
+				{{form_start(formView)}}
+
+				{{form_row(formView.CompanyName) }}
+				{{form_row(formView.Association) }}
+				{{form_row(formView.Agreement)}}
+				{{form_row(formView.DateOfCE) }}
+
+				<div class="date">
 					{{form_row(formView.PaymentOne) }}
-					{{form_row(formView.PaymentOneDate) }}
-				</div>
-				<div>
 					{{form_row(formView.PaymentTwo) }}
+				</div>
+				<div class="date">
+					{{form_row(formView.PaymentOneDate) }}
 					{{form_row(formView.PaymentTwoDate) }}
 				</div>
-			</div>
-			{# {{form_row(formView.RemainsToBePaid) }} #}
-			{# {{form_row(formView.TotalAmountRepaidToDate) }} #}
 
+				<div class="date">
+					{{form_row(formView.RepaymentStartDate) }}
+					{{form_row(formView.RepaymentEndDate) }}
+				</div>
+			</div>
+
+
+			<div class="FNI">
+				{{form_row(formView.FniAmountPaid) }}
+				{{form_row(formView.FNIAmountRequested) }}
+			</div>
+
+			{{form_row(formView.LoanStatus) }}
+
+			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
 		</div>
-		{{form_row(formView.Button) }}
-		{{form_end(formView)}}
 	</div>
-</div>{% endblock %}
+{% endblock %}

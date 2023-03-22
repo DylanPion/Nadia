@@ -4,11 +4,18 @@ namespace App\Controller;
 
 use App\Entity\CompanySheet;
 use App\Form\CompanySheetType;
+use App\Entity\TotalAmountRepaidToDate;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\TotalAmoundRepaidToDateType;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TotalAmountRepaidToDateRepository;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompanySheetController extends AbstractController
@@ -66,7 +73,7 @@ class CompanySheetController extends AbstractController
 
     // Affichage de la fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
-    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet): Response
+    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDate $totalAmountRepaidToDate): Response
     {
         // Récupération de la liste des project leader à afficher dans la fiche société
         $projectLeaderList = $companySheet->getProjectLeaders();
@@ -74,9 +81,47 @@ class CompanySheetController extends AbstractController
         foreach ($projectLeaderList as $projectLeaderName) {
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
+
+        $builder = $this->createFormBuilder();
+        $builder->add('companySheet', HiddenType::class)
+            ->add('totalAmountRepaidToDate', IntegerType::class, [
+                'label' => "Total Remboursé à ce Jour :",
+            ])
+            ->add('Payment', IntegerType::class, [
+                'label' => 'Paimenet Reçu par l\'Association :',
+            ])
+            ->add('Date', DateType::class, [
+                "label" => 'Date du Paiement : ',
+                'widget' => 'single_text',
+                "attr" => [
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
+            ])
+            ->add('Button', SubmitType::class, [
+                'label' => 'Ajouter une ligne au Tableau'
+            ]);
+        $form = $builder->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $CS = $companySheetRepository->find($id); // Récupère l'objet companysheet selon l'id actuel de la page
+            $totalAmountRepaidToDate = new TotalAmountRepaidToDate;
+            $totalAmountRepaidToDate->setTotalAmountRepaidToDate($data['totalAmountRepaidToDate'])
+                ->setPayment($data['Payment'])
+                ->setDate($data['Date'])
+                ->setCompanySheet($CS);
+            $em->persist($totalAmountRepaidToDate);
+            $em->flush();
+        }
+
         return $this->render('companySheet/displayCompanySheet.html.twig', [
+            'formView' => $form->createView(),
             'company' => $companySheetRepository->find($id),
             'projectleadername' => $projectLeaderNameList,
+            'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),
+            'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
         ]);
     }
 }

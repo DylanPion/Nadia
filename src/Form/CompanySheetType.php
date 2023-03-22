@@ -113,7 +113,7 @@ class CompanySheetType extends AbstractType
                 ]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer une nouvelle Fiche Société'
+                'label' => 'Créer/Modofier une nouvelle Fiche Société'
             ]);
     }
 

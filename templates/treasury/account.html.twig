@@ -35,8 +35,6 @@
 								<span>Supprimer</span>
 							</a>
 						</td>
-
-
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -46,7 +44,6 @@
 	<div class="form-totalamount">
 		<div class="form-content">
 			{{form_start(formView)}}
-			{{form_row(formView.companysheet) }}
 			{{form_row(formView.totalAmountRepaidToDate) }}
 			{{form_row(formView.Payment) }}
 			{{form_row(formView.Date) }}
@@ -54,6 +51,4 @@
 			{{form_end(formView)}}
 		</div>
 	</div>
-
-
 {% endblock %}

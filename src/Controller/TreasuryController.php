@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Agreement;
 use App\Entity\Association;
+use Doctrine\ORM\Mapping\Entity;
 use App\Form\AgreementCreateType;
 use App\Entity\TotalAmountRepaidToDate;
 use App\Repository\AgreementRepository;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TreasuryController extends AbstractController
@@ -45,18 +47,18 @@ class TreasuryController extends AbstractController
     #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
     public function agreementCard(CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository)
     {
-        $test = $agreementRepository->findBy('id');
-        dd($test);
         // idValueAgreement est une fonction du Agreement Repository. C'est un tableau contenant la liste des Id de la table Agreement 
         $idValue = $agreementRepository->idValueAgreement();
 
         // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
+        $agreement = [];
         $TotalAmountRequestedByAgreement = []; // Montant Total Engagés Par Convention
         $TotalAmountPaidByAgreement = []; // Montant Total Versé Par Conventio
         $resultsAmountsCommittedAndNotPaid = [];
 
         foreach ($idValue as $valeur) { // On remplit nos Tableau pour chaque élément ayant pour id la valeur de idValue.
 
+            $agreement[$valeur] = $agreementRepository->find($valeur);
             $TotalAmountRequestedByAgreement[$valeur] = $companySheetRepository->getTotalAmountRequestedByAgreement($valeur);
 
             $TotalAmountPaidByAgreement[$valeur] = $companySheetRepository->getTotalAmountPaidByAgreement($valeur);
@@ -65,6 +67,7 @@ class TreasuryController extends AbstractController
         }
 
         return $this->render('treasury/agreementList.html.twig', [
+            'agreement' => $agreement,
             'TotalAmountRequestedByAgreement' => $TotalAmountRequestedByAgreement,
             'TotalAmountPaidByAgreement' => $TotalAmountPaidByAgreement,
             'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
@@ -74,11 +77,16 @@ class TreasuryController extends AbstractController
 
     // Affichage de l'historique du Total Remboursé à ce jour
     #[Route('/companysheet/account/{id}', name: 'app_companysheet_account', requirements: ['id' => '\d+'])]
-    public function account($id, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository)
+    public function account($id, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, CompanySheetRepository $companySheetRepository)
 
     {
+        $test = $companySheetRepository->find($id);
         $form = $this->createForm(TotalAmoundRepaidToDateType::class, null, [
             'data_class' => TotalAmountRepaidToDate::class,
+        ]);
+
+        $form->add('companySheet', HiddenType::class, [ // Le champ companySheet doit reçevoir un objet de Type "companyheet"
+            'data' => $test, // passe comme valeur à companySheet la valeur de id
         ]);
 
         $form->handleRequest($request);
