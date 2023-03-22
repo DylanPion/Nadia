@@ -104,8 +104,8 @@
 							</li>
 
 							<li>Montant FNI versé :
-								{{company.fniamountpaid}}
-								€
+																
+																€
 							</li>
 						</ul>
 					</div>
@@ -119,9 +119,17 @@
 			<caption>Tableau de suivi du remboursement de l'Association</caption>
 			<thead>
 				<tr>
+					<th>Montant FNI engagé :
+						{{company.fniamountrequested}}
+						€</th>
+					<th>Total des Montant Reçu</th>
+					<th>Reste à Reçevoir = Engagé - Total Remboursé à ce jour</th>
+					<th></th>
+				</tr>
+				<tr>
 					<th>Total Remboursé à ce jour</th>
-					<th>Montant Reçu</th>
 					<th>Date de Versement</th>
+					<th>Montant Reçu</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -130,16 +138,16 @@
 				<tr>
 					{{form_start(formView)}}
 					<td>{{form_row(formView.totalAmountRepaidToDate)}}</td>
-					<td>{{form_row(formView.Payment) }}</td>
 					<td>{{form_row(formView.Date)}}</td>
+					<td>{{form_row(formView.Payment) }}</td>
 					<td>{{form_row(formView.Button)}}</td>
 					{{form_end(formView)}}
 				</tr>
 				{% for total in totalAmountRepaid %}
 					<tr>
 						<td>{{total.TotalAmountRepaidToDate}}</td>
-						<td>{{total.Payment}}</td>
 						<td>{{total.Date| date ("d/m/Y")}}</td>
+						<td>{{total.Payment}}</td>
 						<td>
 							<a href="{{ path('app_account_edit', {id: total.id}) }}" class="edit">
 								<i class="fa-solid fa-pen-to-square"></i>

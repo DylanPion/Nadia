@@ -18,18 +18,13 @@
 			</thead>
 
 			<tbody>
-				{% for index0,association in associationList %}
+				{% for association in associationList %}
 					<tr>
-						<td class="associationName">{{ association.name }}</td>
-						{# Pour ne pas décaller mon tableau je fais en sorte que ma boucle imbriqué est le même index que la boucle du dessus. TotalFNI est une fonction dns le CompanySheetRepository qui calcul la Somme Total #}
-						{% for Fni in TotalFni %}
-							{% if loop.index0 == loop.parent.index0 %}
-								<td>{{ Fni.TotalFniAmountRequested|number_format(0, '.', ' ')|default('NULL') }}
-									€</td>
-								<td>{{ Fni.TotalFniAmountPaid|number_format(0, '.', ' ') }}
-									€</td>
-							{% endif %}
-						{% endfor %}
+						<td>{{ association.getName() }}</td>
+						<td>{{ totals[association.getId()].paid }}
+							€</td>
+						<td>{{ totals[association.getId()].requested }}
+							€</td>
 						<td>
 							<a href="{{ path('app_association_display', {id: association.id}) }}" class="infos">
 								<i class="fa-solid fa-diamond-turn-right"></i>

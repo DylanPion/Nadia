@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
-use App\Entity\Association;
-use Doctrine\ORM\Mapping\Entity;
 use App\Form\AgreementCreateType;
 use App\Entity\TotalAmountRepaidToDate;
 use App\Repository\AgreementRepository;
@@ -49,28 +47,31 @@ class TreasuryController extends AbstractController
     {
         // idValueAgreement est une fonction du Agreement Repository. C'est un tableau contenant la liste des Id de la table Agreement 
         $idValue = $agreementRepository->idValueAgreement();
-
         // On créer un tableau qui aura en donnée chaque valeur de la fonction pour un élément $i
-        $agreement = [];
-        $TotalAmountRequestedByAgreement = []; // Montant Total Engagés Par Convention
-        $TotalAmountPaidByAgreement = []; // Montant Total Versé Par Conventio
-        $resultsAmountsCommittedAndNotPaid = [];
 
-        foreach ($idValue as $valeur) { // On remplit nos Tableau pour chaque élément ayant pour id la valeur de idValue.
+        foreach ($idValue as $value) { // On remplit nos Tableau pour chaque élément ayant pour id la valeur de idValue.
 
-            $agreement[$valeur] = $agreementRepository->find($valeur);
-            $TotalAmountRequestedByAgreement[$valeur] = $companySheetRepository->getTotalAmountRequestedByAgreement($valeur);
+            // Récupère l'Agreement pour la valeur de Value 
+            $agreement[$value] = $agreementRepository->find($value);
 
-            $TotalAmountPaidByAgreement[$valeur] = $companySheetRepository->getTotalAmountPaidByAgreement($valeur);
+            // Récupère l'id de l'Agreement pour la valeur de Value 
+            $agreementNumber[$value] = $agreementRepository->find($value)->getNumber();
 
-            $resultsAmountsCommittedAndNotPaid[$valeur] = $TotalAmountRequestedByAgreement[$valeur][0]['TotalAmountRequestedByAgreement'] - $TotalAmountPaidByAgreement[$valeur][0]['TotalAmountPaidByAgreement'];
+            // Utilise la fonction du Repository pour calculer le Total FNI engagé par convention
+            $TotalAmountRequestedByAgreement[$value] = $companySheetRepository->getTotalAmountRequestedByAgreement($value);
+
+            // Utilise la fonction du Repository pour calculer le Total FNI versé par convention
+            $TotalAmountFNIPaidByAgreement[$value] = $companySheetRepository->getTotalAmountFNIPaidByAgreement($value);
+
+            // Calcul le Montant engagé et non versé 
+            $AmountsCommittedAndNotPaid[$value] = $TotalAmountRequestedByAgreement[$value][0]['TotalAmountRequestedByAgreement'] - $TotalAmountFNIPaidByAgreement[$value][0]["TotalAmountFNIPaidByAgreement"];
         }
-
         return $this->render('treasury/agreementList.html.twig', [
+            'agreementNumber' => $agreementNumber,
             'agreement' => $agreement,
             'TotalAmountRequestedByAgreement' => $TotalAmountRequestedByAgreement,
-            'TotalAmountPaidByAgreement' => $TotalAmountPaidByAgreement,
-            'AmountCommittedAndNotPaid' => $resultsAmountsCommittedAndNotPaid,
+            'TotalAmountFNIPaidByAgreement' => $TotalAmountFNIPaidByAgreement,
+            'AmountCommittedAndNotPaid' => $AmountsCommittedAndNotPaid,
             'idValue' => $idValue // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
         ]);
     }

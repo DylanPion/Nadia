@@ -78,10 +78,6 @@ class CompanySheetType extends AbstractType
                 'label' => 'Montant FNI engagé',
                 "attr" => ['placeholder' => "Entrez le Montant FNI engagé"]
             ])
-            ->add('FniAmountPaid', IntegerType::class, [
-                'label' => 'Montant FNI Versé',
-                "attr" => ['placeholder' => "Entrez le Montant FNI versé"]
-            ])
             ->add('PaymentOne', IntegerType::class, [
                 'label' => 'Premier Versement',
                 "attr" => [
@@ -113,7 +109,7 @@ class CompanySheetType extends AbstractType
                 ]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer/Modofier une nouvelle Fiche Société'
+                'label' => 'Créer/Modifier une nouvelle Fiche Société'
             ]);
     }
 

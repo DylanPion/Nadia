@@ -48,9 +48,6 @@ class CompanySheet
     private ?int $FniAmountRequested = null;
 
     #[ORM\Column]
-    private ?int $FniAmountPaid = null;
-
-    #[ORM\Column]
     private ?int $PaymentOne = null;
 
     #[ORM\Column(nullable: true)]
@@ -176,18 +173,6 @@ class CompanySheet
     public function setFniAmountRequested(int $FniAmountRequested): self
     {
         $this->FniAmountRequested = $FniAmountRequested;
-
-        return $this;
-    }
-
-    public function getFniAmountPaid(): ?int
-    {
-        return $this->FniAmountPaid;
-    }
-
-    public function setFniAmountPaid(int $FniAmountPaid): self
-    {
-        $this->FniAmountPaid = $FniAmountPaid;
 
         return $this;
     }

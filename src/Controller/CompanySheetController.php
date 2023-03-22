@@ -6,7 +6,6 @@ use App\Entity\CompanySheet;
 use App\Form\CompanySheetType;
 use App\Entity\TotalAmountRepaidToDate;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\TotalAmoundRepaidToDateType;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,18 +70,21 @@ class CompanySheetController extends AbstractController
         return $this->redirectToRoute('app_association');
     }
 
-    // Affichage de la fiche société 
+    // Affichage d'une fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
     public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDate $totalAmountRepaidToDate): Response
     {
         // Récupération de la liste des project leader à afficher dans la fiche société
-        $projectLeaderList = $companySheet->getProjectLeaders();
         $projectLeaderNameList = [];
+        $projectLeaderList = $companySheet->getProjectLeaders();
         foreach ($projectLeaderList as $projectLeaderName) {
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
 
+        // J'ai voulu créer le formulaire à partir d'une classe comme j'ai fais pour les autres mais il y avait un bug avec l'ID il ne se mettait pas automatiquement ou il y avait une erreur de type string impossible à convertir en integer
+
         $builder = $this->createFormBuilder();
+
         $builder->add('companySheet', HiddenType::class)
             ->add('totalAmountRepaidToDate', IntegerType::class, [
                 'label' => "Total Remboursé à ce Jour :",
@@ -101,17 +103,19 @@ class CompanySheetController extends AbstractController
             ->add('Button', SubmitType::class, [
                 'label' => 'Ajouter une ligne au Tableau'
             ]);
+
         $form = $builder->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $CS = $companySheetRepository->find($id); // Récupère l'objet companysheet selon l'id actuel de la page
+            $CS = $companySheetRepository->find($id); // Récupère l'objet companysheet selon l'id actuel de la page Une relations entre table étant représenté par un ID de type objet je récupère la fiche société en fonction de l'id de la page actuel 
             $totalAmountRepaidToDate = new TotalAmountRepaidToDate;
             $totalAmountRepaidToDate->setTotalAmountRepaidToDate($data['totalAmountRepaidToDate'])
                 ->setPayment($data['Payment'])
                 ->setDate($data['Date'])
                 ->setCompanySheet($CS);
+
             $em->persist($totalAmountRepaidToDate);
             $em->flush();
         }

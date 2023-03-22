@@ -7,7 +7,6 @@ use App\Form\AssociationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Repository\CompanySheetRepository;
-use App\Service\CalculService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +18,26 @@ class AssociationController extends AbstractController
     #[Route('/association', name: 'app_association')]
     public function app_association(AssociationRepository $associationRepository, CompanySheetRepository $companySheetRepository): Response
     {
+        $associationList = $associationRepository->findAll();
+        $totals = [];
+        foreach ($associationList as $association) {
+            $TotalFNiPaidByAssociation = $companySheetRepository->getTotalAmountPaidByAssociation($association->getId());
+            $TotalFNiRequestedByAssociation = $companySheetRepository->getTotalAmountRequestedByAssociation($association->getId());
+
+            $totals[$association->getId()] = [
+                'name' => $association->getName(),
+                'paid' => $TotalFNiPaidByAssociation,
+                'requested' => $TotalFNiRequestedByAssociation,
+            ];
+        }
+
         return $this->render('association/associationList.html.twig', [
-            'associationList' => $associationRepository->findAll(),
-            'TotalFni' => $companySheetRepository->getTotalFni(), // Fonction repository qui calcul la somme FNI engagé et FNI versé
+            'associationList' => $associationList,
+            'totals' => $totals,
         ]);
     }
+
+
 
     // Création d'une nouvelle Association.
     #[Route('/association/create', name: 'app_association_create')]
@@ -76,24 +90,20 @@ class AssociationController extends AbstractController
         return $this->redirectToRoute('app_association');
     }
 
+
     // Affichage de la liste des fiche Société par Association
     #[Route('/association/{id}', name: 'app_association_display', requirements: ['page' => '\d+'])]
     public function app_association_display(
         $id,
         CompanySheetRepository $companySheetRepository,
         AssociationRepository $associationRepository,
-        CalculService $calculService,
     ): Response {
 
-        // $test = $calculService->calculateRemainsToBePaid($id);
-        // Liste des Montants : "Reste à payer"
-
-
-        // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
-        $company = $companySheetRepository->findBy(array('association' => $id));
         return $this->render('association/companyByAssociation.html.twig', [
-            'company' => $company,
+            // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
+            'company' => $companySheetRepository->findBy(array('association' => $id)),
             'associationName' => $associationRepository->find($id)->getName(),
+            "FNIAmount" => $companySheetRepository->getFniPaid($id),
         ]);
     }
 }

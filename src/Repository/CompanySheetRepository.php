@@ -65,14 +65,15 @@ class CompanySheetRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    // Fonction pour calculer le Total FNI versé ainsi que le Total FNI engagé
-    public function getTotalFni()
+    // Fonction pour calculer le Montant FNI versé par société 
+    public function getFniPaid($id)
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.FniAmountPaid) AS TotalFniAmountPaid', 'SUM(cs.FniAmountRequested) AS TotalFniAmountRequested')
-            ->groupBy('cs.association');
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo) AS FniAmountPaid')
+            ->where('cs.id = :id')
+            ->setParameter('id', $id);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     // Fonction pour calculer le Montant Total FNI Engagé par convention 
@@ -86,14 +87,58 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult(); // GetSingleScalarResultat retourne une ligne et non un array comme le fait getResult()
     }
 
-    // Fonction pour calculer le Montant Total FNI Versé par convention 
-    public function getTotalAmountPaidByAgreement($agreement)
+    // Fonction pour calculer le Montant Total des Payment One versé par convention 
+    public function getTotalAmountPaymentOneByAgreement($agreement)
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.FniAmountPaid) as TotalAmountPaidByAgreement')
+            ->select('SUM(cs.PaymentOne) as TotalAmountPaymentOneByAgreement')
             ->where('cs.Agreement = :Agreement')
             ->setParameter('Agreement', $agreement);
 
         return $qb->getQuery()->getResult();
+    }
+
+    // Fonction pour calculer le Montant Total des Payment Two versé par convention 
+    public function getTotalAmountPaymentTwoByAgreement($agreement)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentTwo) as TotalAmountPaymentTwoByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Fonction Total FNI Versé par Convention = Paymenet One + Payment Two
+    public function getTotalAmountFNIPaidByAgreement($agreement)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo) as TotalAmountFNIPaidByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Fonction pour calculer le Montant Total FNI Versé par société 
+    public function getTotalAmountPaidByAssociation($associationId)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo) AS TotalAmountPaymentsByAssociation')
+            ->where('cs.association = :association')
+            ->setParameter('association', $associationId);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    // Fonction pour calculer le Montant Total FNI Engagé par société 
+    public function getTotalAmountRequestedByAssociation($associationId)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.FniAmountRequested) AS TotalAmountRequestedByAssociation')
+            ->where('cs.association = :association')
+            ->setParameter('association', $associationId);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }
