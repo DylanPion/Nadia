@@ -48,7 +48,8 @@
 					</div>
 					<div>
 						<ul>
-							<li>Convention n°{{company.Agreement}}</li>
+							<li>Convention n°
+								{{company.Agreement}}</li>
 						</ul>
 					</div>
 				</div>
@@ -59,7 +60,7 @@
 					<div>
 						<ul>
 							<li>Montant FNI engagé :
-								{{company.fniamountrequested}}
+								{{company.fniamountrequested|number_format(0, '.', ' ')}}
 								€
 							</li>
 							<li>Début du remboursement :
@@ -69,7 +70,7 @@
 					</div>
 					<div>
 						<ul>
-							<li>fin du remboursement :{{company.repaymentenddate | date (" d/m/y")}}
+							<li>Fin du remboursement :{{company.repaymentenddate | date (" d/m/y")}}
 							</li>
 						</ul>
 					</div>
@@ -87,7 +88,8 @@
 								{{company.paymenttwodate | date (" d/m/Y") }}
 							</li>
 							<li>Reste à verser :
-								{{company.remainsToBePaid}}
+								{{company.fniamountrequested - company.paymentone - company.paymenttwo}}
+
 								€
 							</li>
 						</ul>
@@ -95,17 +97,17 @@
 					<div>
 						<ul>
 							<li>Premier versement :
-								{{company.paymentone}}
+								{{company.paymentone|number_format(0, '.', ' ')}}
 								€
 							</li>
 							<li>Deuxième versement :
-								{{company.paymenttwo}}
+								{{company.paymenttwo|number_format(0, '.', ' ')}}
 								€
 							</li>
 
 							<li>Montant FNI versé :
-																
-																€
+								{{company.paymentone + company.paymenttwo}}
+								€
 							</li>
 						</ul>
 					</div>
@@ -120,16 +122,24 @@
 			<thead>
 				<tr>
 					<th>Montant FNI engagé :
-						{{company.fniamountrequested}}
-						€</th>
-					<th>Total des Montant Reçu</th>
-					<th>Reste à Reçevoir = Engagé - Total Remboursé à ce jour</th>
+						{{company.fniamountrequested|number_format(0, '.', ' ')}}
+						€
+					</th>
+					<th>Total des Montant Reçu :
+						{{totalPaymentReceived|number_format(0, '.', ' ')}}
+						€
+					</th>
+					<th>Reste à Reçevoir =
+						{{company.fniamountrequested - totalPaymentReceived}}
+						€
+					</th>
 					<th></th>
 				</tr>
 				<tr>
 					<th>Total Remboursé à ce jour</th>
-					<th>Date de Versement</th>
-					<th>Montant Reçu</th>
+					<th>Date de Versement du Montant Reçu par l'Asso
+					</th>
+					<th>Montant Reçu par l'Asso</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -147,7 +157,7 @@
 					<tr>
 						<td>{{total.TotalAmountRepaidToDate}}</td>
 						<td>{{total.Date| date ("d/m/Y")}}</td>
-						<td>{{total.Payment}}</td>
+						<td>{{total.Payment ?? "0"}}</td>
 						<td>
 							<a href="{{ path('app_account_edit', {id: total.id}) }}" class="edit">
 								<i class="fa-solid fa-pen-to-square"></i>

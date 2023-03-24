@@ -81,8 +81,6 @@ class CompanySheetController extends AbstractController
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
 
-        // J'ai voulu créer le formulaire à partir d'une classe comme j'ai fais pour les autres mais il y avait un bug avec l'ID il ne se mettait pas automatiquement ou il y avait une erreur de type string impossible à convertir en integer
-
         $builder = $this->createFormBuilder();
 
         $builder->add('companySheet', HiddenType::class)
@@ -126,6 +124,7 @@ class CompanySheetController extends AbstractController
             'projectleadername' => $projectLeaderNameList,
             'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),
             'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
+            'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id)
         ]);
     }
 }

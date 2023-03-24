@@ -65,12 +65,6 @@ class CompanySheet
     #[ORM\Column]
     private int $remainsToBeReceived = 0;
 
-    #[ORM\Column]
-    private ?int $TotalFniAmountRequested = 0;
-
-    #[ORM\Column]
-    private ?int $TotalFniAmountPaid = 0;
-
     public function __construct()
     {
         $this->projectLeaders = new ArrayCollection();
@@ -232,7 +226,6 @@ class CompanySheet
 
     public function setRemainsToBePaid($RemainsToBePaid): self
     {
-        // $this->FniAmountRequested - $this->PaymentOne - $this->PaymentTwo = $RemainsToBePaid;
         $this->remainsToBeReceived = $RemainsToBePaid;
         return $this;
     }
@@ -244,32 +237,7 @@ class CompanySheet
 
     public function setRemainsToBeReceived($remainsToBeReceived): self
     {
-        // $this->FniAmountRequested - $this->TotalAmountRepaidToDate = $remainsToBeReceived;
         $this->remainsToBeReceived = $remainsToBeReceived;
-        return $this;
-    }
-
-    public function getTotalFniAmountRequested(): ?int
-    {
-        return $this->TotalFniAmountRequested;
-    }
-
-    public function setTotalFniAmountRequested(int $TotalFniAmountRequested): self
-    {
-        $this->TotalFniAmountRequested = $TotalFniAmountRequested;
-
-        return $this;
-    }
-
-    public function getTotalFniAmountPaid(): ?int
-    {
-        return $this->TotalFniAmountPaid;
-    }
-
-    public function setTotalFniAmountPaid(int $TotalFniAmountPaid): self
-    {
-        $this->TotalFniAmountPaid = $TotalFniAmountPaid;
-
         return $this;
     }
 

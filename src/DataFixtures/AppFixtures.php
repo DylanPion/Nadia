@@ -22,49 +22,46 @@ class AppFixtures extends Fixture
         $randomTimestamp = mt_rand($start->getTimestamp(), $end->getTimestamp());
         $randomDate = new DateTime('@' . $randomTimestamp);
 
-        for ($j = 0; $j < 6; $j++) {
-            $agreement = new Agreement();
-            $agreement->setNumber($j)
+        for ($i = 0; $i < 3; $i++) {
+            $agreement = new Agreement;
+            $agreement->setNumber($i)
                 ->setCashFund(mt_rand(1, 10000));
-            $manager->persist($agreement);
-        }
 
-        // for ($j = 0; $j < 25; $j++) {
-        //     $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
-        //     $totalAmountRepaidToDate->setPayment(mt_rand(1, 1000))
-        //         ->setDate($randomDate)
-        //         ->setTotalAmountRepaidToDate(0);
-        //     $manager->persist($totalAmountRepaidToDate);
-        // }
-
-        for ($i = 0; $i < 5; $i++) {
-            $association = new Association();
+            $association = new Association;
             $association->setName("Association n°$i");
+
+            $companysheet = new CompanySheet;
+            $companysheet->setAgreement($agreement)
+                ->setAssociation($association)
+                ->setCompanyName("Société n°$i")
+                ->setDateOfCE($randomDate)
+                ->setFniAmountRequested(mt_rand(1, 100000))
+                ->setLoanStatus("En Cours")
+                ->setPaymentOne(mt_rand(1, 1000000))
+                ->setPaymentTwo(mt_rand(1, 1000000))
+                ->setPaymentOneDate($randomDate)
+                ->setPaymentTwoDate($randomDate)
+                ->setRemainsToBePaid(0)
+                ->setRemainsToBeReceived(0)
+                ->setRepaymentStartDate($randomDate)
+                ->setRepaymentEndDate($randomDate);
+
+            $projectleader = new ProjectLeader;
+            $projectleader->setName("Dylan")
+                ->setCompanySheet($companysheet);
+
+            $totalAmountRepaidToDate = new TotalAmountRepaidToDate;
+            $totalAmountRepaidToDate->setCompanySheet($companysheet)
+                ->setTotalAmountRepaidToDate(mt_rand(1, 10000))
+                ->setDate($randomDate)
+                ->setPayment(mt_rand(1, 10000));
+
+
+            $manager->persist($totalAmountRepaidToDate);
+            $manager->persist($projectleader);
             $manager->persist($association);
-            for ($j = 0; $j < 2; $j++) {
-                $companySheet = new CompanySheet();
-                $companySheet->setLoanStatus("En Cours")
-                    ->setCompanyName("Société n°$j")
-                    ->setDateOfCE($randomDate)
-                    ->setRepaymentStartDate($randomDate)
-                    ->setRepaymentEndDate($randomDate)
-                    ->setFNIAmountRequested(mt_rand(1, 200))
-                    ->setPaymentOne(mt_rand(1, 50))
-                    ->setPaymentTwo(mt_rand(1, 50))
-                    ->setPaymentOneDate($randomDate)
-                    ->setPaymentTwoDate($randomDate)
-                    ->setRemainsToBePaid(0)
-                    // ->setRemainsToBeReceived(0)
-                    ->setTotalFniAmountRequested(1)
-                    ->setTotalFniAmountPaid(1)
-                    ->setAgreement($agreement)
-                    ->setAssociation($association);
-                //     $projectleader = new ProjectLeader;
-                //     $projectleader->setName("Membre n°$j")
-                //         ->setCompanySheet($companySheet);
-                //     $manager->persist($projectleader);
-                $manager->persist($companySheet);
-            }
+            $manager->persist($agreement);
+            $manager->persist($companysheet);
         }
         $manager->flush();
     }
