@@ -10,7 +10,7 @@
 			<ul>
 				<li class="nav-link">
 					<a href="#" class="tablink" onclick="openTab(event,'companyCard')">
-						Fiche société
+						Fiche sté
 					</a>
 				</li>
 				<li class="nav-link">
@@ -33,7 +33,7 @@
 						<ul>
 							<li>{{company.companyName}}</li>
 							<li>{{associationName}}</li>
-							<li>Date CE :
+							<li>Année CE :
 								{{company.dateOfCe | date (" d/m/y")}}</li>
 							<li>
 								Statut du prêt :
@@ -41,14 +41,14 @@
 							</li>
 							{% for name in projectleadername %}
 								<li>
-									Nom Prénom :
+									Nom Prénom des porteurs de projets :
 									{{name}}</li>
 							{% endfor %}
 						</ul>
 					</div>
 					<div>
 						<ul>
-							<li>Convention n°
+							<li>Numéro de convention de financement CDC/BPI :
 								{{company.Agreement}}</li>
 						</ul>
 					</div>
@@ -59,18 +59,18 @@
 				<div class="card">
 					<div>
 						<ul>
-							<li>Montant FNI engagé :
+							<li>Montant engagé :
 								{{company.fniamountrequested|number_format(0, '.', ' ')}}
 								€
 							</li>
-							<li>Début du remboursement :
+							<li>Début du début de rembroust :
 								{{company.repaymentstartdate | date (" d/m/y")}}
 							</li>
 						</ul>
 					</div>
 					<div>
 						<ul>
-							<li>Fin du remboursement :{{company.repaymentenddate | date (" d/m/y")}}
+							<li>Date de fin de rembourst :{{company.repaymentenddate | date (" d/m/y")}}
 							</li>
 						</ul>
 					</div>
@@ -81,14 +81,14 @@
 				<div class="card">
 					<div>
 						<ul>
-							<li>Date du premier versement :
+							<li>Date du 1er verst :
 								{{company.paymentonedate | date (" d/m/y")}}
 							</li>
-							<li>Date du deuxième versement :
+							<li>Date du 2nd verst :
 								{{company.paymenttwodate | date (" d/m/Y") }}
 							</li>
-							<li>Engagé et non versé :
-								{{company.fniamountrequested - company.paymentone - company.paymenttwo}}
+							<li>Reste à versé :
+								{{(company.fniamountrequested - company.paymentone - company.paymenttwo)|number_format(0, '.', ' ')}}
 
 								€
 							</li>
@@ -96,17 +96,17 @@
 					</div>
 					<div>
 						<ul>
-							<li>Premier versement :
+							<li>Montant du verst 1 :
 								{{company.paymentone|number_format(0, '.', ' ')}}
 								€
 							</li>
-							<li>Deuxième versement :
+							<li>Montant du verst 2 :
 								{{company.paymenttwo|number_format(0, '.', ' ')}}
 								€
 							</li>
 
-							<li>Montant FNI versé :
-								{{company.paymentone + company.paymenttwo}}
+							<li>Total versé :
+								{{(company.paymentone + company.paymenttwo)|number_format(0, '.', ' ')}}
 								€
 							</li>
 						</ul>
@@ -118,28 +118,28 @@
 
 	<div class="tableTotalAmountRepaid">
 		<table class="table-content">
-			<caption>Tableau de suivi du remboursement de l'Association</caption>
+			<caption>TABLEAU DE SUIVI DES REMBOURSEMENTS :</caption>
 			<thead>
 				<tr>
-					<th>Montant FNI engagé :
+					<th>Montant Engagé :
 						{{company.fniamountrequested|number_format(0, '.', ' ')}}
 						€
 					</th>
-					<th>Total des Montant Reçu :
+					<th>Total Reçu :
 						{{totalPaymentReceived|number_format(0, '.', ' ')}}
 						€
 					</th>
-					<th>Reste à Reçevoir =
-						{{company.fniamountrequested - totalPaymentReceived}}
+					<th>Reste à Reçevoir :
+						{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
 						€
 					</th>
 					<th></th>
 				</tr>
 				<tr>
 					<th>Total Remboursé à ce jour</th>
-					<th>Date de Versement du Montant Reçu par l'Asso
+					<th>Date des rembrts
 					</th>
-					<th>Montant Reçu par l'Asso</th>
+					<th>Montant Reçus</th>
 					<th></th>
 				</tr>
 			</thead>

@@ -11,20 +11,23 @@
 			<thead>
 				<tr>
 					<th>Liste des Associations</th>
-					<th>Montant FNI Total engagé</th>
-					<th>Montant FNI Total versé</th>
+					<th>Montant Total engagé</th>
+					<th>Montant Total versé</th>
+					<th>Total des remboursements reçus à ce jour</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
+
 
 			<tbody>
 				{% for association in associationList %}
 					<tr>
 						<td>{{ association.getName() }}</td>
-						<td>{{ totals[association.getId()].paid }}
+						<td>{{ totals[association.getId()].paid|number_format(0, '.', ' ', ) }}
 							€</td>
-						<td>{{ totals[association.getId()].requested }}
+						<td>{{ totals[association.getId()].requested|number_format(0, '.', ' ', ) }}
 							€</td>
+						<td></td>
 						<td>
 							<a href="{{ path('app_association_display', {id: association.id}) }}" class="infos">
 								<i class="fa-solid fa-diamond-turn-right"></i>
@@ -41,6 +44,13 @@
 						</td>
 					</tr>
 				{% endfor %}
+				<tr>
+					<td class="totalLine">Total Général :</td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

@@ -11,12 +11,14 @@
 		<table class="table-content">
 			<thead>
 				<tr>
-					<th>Convention</th>
+					<th>Numéro de convention de financement CDC/BPI</th>
 					<th>Montants reçus CDC/BPI</th>
 					<th>Montants engagés</th>
 					<th>Montants versés aux associations</th>
 					<th>Montants reçus des associations</th>
 					<th>Montants Engagés et non versés aux associations</th>
+					<th>Montants Total des Provisions</th>
+					<th>Montants Total des Casses</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +32,8 @@
 						<td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ')}}€</td>
 						<td></td>
 						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}€</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 			{% endfor %}

@@ -1,10 +1,12 @@
+// Style Table Association
+
 .tableAsso {
   display: flex;
-  margin-left: 20%;
+  margin-left: 19%;
   margin-top: 30px;
 
   .table-content {
-    width: 1300px;
+    width: 1350px;
     border-collapse: collapse;
 
     thead {
@@ -12,14 +14,13 @@
         th {
           background: var(--primary-color);
           color: #fff;
-          font-size: 1.2rem;
-          line-height: 1.2;
+          font-size: 1rem;
           padding-top: 25px;
           padding-bottom: 25px;
           text-align: left;
         }
         th:nth-child(1) {
-          padding-left: 5px; // Juste pour décaller légèrement la première en tête du tableau
+          padding-left: 15px; // Juste pour décaller légèrement la première en tête du tableau
         }
       }
     }
@@ -35,11 +36,15 @@
         padding-bottom: 20px;
         border-bottom: 1px solid #f2f2f2;
       }
+
+      .totalLine{
+        color: black;
+      }
     }
 
     tr td:nth-child(1) {
-      width: 200px;
-      padding-left: 40px;
+      width: 260px;
+      padding-left: 15px;
     }
 
     tr td:nth-child(2) {
@@ -51,7 +56,11 @@
     }
 
     tr td:nth-child(4) {
-      width: 280px;
+      width: 395px;
+    }
+   
+    tr td:nth-child(5) {
+      width: 395px;
     }
 
     tr:hover {
@@ -72,6 +81,7 @@
     color: #ff4040;
   }
 }
+
 // /* Style du table pour les fiches projet */
 
 .tableCompanySheet {
