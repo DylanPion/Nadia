@@ -75,7 +75,7 @@ class CompanySheetType extends AbstractType
                 ]
             ])
             ->add('FNIAmountRequested', IntegerType::class, [
-                'label' => 'Montant FNI engagé',
+                'label' => 'Montant engagé',
                 "attr" => ['placeholder' => "Entrez le Montant FNI engagé"]
             ])
             ->add('PaymentOne', IntegerType::class, [

@@ -121,56 +121,47 @@
 			<caption>TABLEAU DE SUIVI DES REMBOURSEMENTS :</caption>
 			<thead>
 				<tr>
-					<th>Montant Engagé :
-						{{company.fniamountrequested|number_format(0, '.', ' ')}}
-						€
-					</th>
-					<th>Total Reçu :
-						{{totalPaymentReceived|number_format(0, '.', ' ')}}
-						€
-					</th>
-					<th>Reste à Reçevoir :
-						{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
-						€
-					</th>
-					<th></th>
-				</tr>
-				<tr>
-					<th>Total Remboursé à ce jour</th>
-					<th>Date des rembrts
-					</th>
+					<th>Date des rembrts</th>
 					<th>Montant Reçus</th>
-					<th></th>
+					<th>Action</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr>
-					{{form_start(formView)}}
-					<td>{{form_row(formView.totalAmountRepaidToDate)}}</td>
-					<td>{{form_row(formView.Date)}}</td>
-					<td>{{form_row(formView.Payment) }}</td>
-					<td>{{form_row(formView.Button)}}</td>
-					{{form_end(formView)}}
-				</tr>
 				{% for total in totalAmountRepaid %}
 					<tr>
-						<td>{{total.TotalAmountRepaidToDate}}</td>
 						<td>{{total.Date| date ("d/m/Y")}}</td>
-						<td>{{total.Payment ?? "0"}}</td>
+						<td>{{total.Payment|number_format(0, '.', ' ')}}
+							€</td>
 						<td>
 							<a href="{{ path('app_account_edit', {id: total.id}) }}" class="edit">
 								<i class="fa-solid fa-pen-to-square"></i>
-								<span>Éditer</span>
-							</a>
-							<a href="{{ path('app_account_delete', {id: total.id}) }}" class="delete">
-								<i class="fa-sharp fa-solid fa-trash-can"></i>
-								<span>Supprimer</span>
+								<span>Modifier le paiement reçu</span>
 							</a>
 						</td>
+					</tr>
+					<tr>
+						{{form_start(formView)}}
+						<td>{{form_row(formView.Date)}}</td>
+						<td>{{form_row(formView.Payment) }}</td>
+						<td>{{form_row(formView.Button)}}</td>
+						{{form_end(formView)}}
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+
+		<ul>
+			<li>Montant Engagé :
+				{{company.fniamountrequested|number_format(0, '.', ' ')}}
+				€</li>
+			<li>Total Reçu :
+				{{totalPaymentReceived|number_format(0, '.', ' ')}}
+				€</li>
+			<li>Reste à Reçevoir :
+				{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
+				€</li>
+
+		</ul>
 	</div>
 {% endblock %}

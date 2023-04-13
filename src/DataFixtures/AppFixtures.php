@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
         $randomTimestamp = mt_rand($start->getTimestamp(), $end->getTimestamp());
         $randomDate = new DateTime('@' . $randomTimestamp);
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $agreement = new Agreement;
             $agreement->setNumber($i)
                 ->setCashFund(mt_rand(1, 10000));

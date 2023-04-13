@@ -127,13 +127,4 @@ class TreasuryController extends AbstractController
             'formView' => $form->createView()
         ]);
     }
-
-    // Supression Total Remboursé à ce jour
-    #[Route('companysheet/account/delete/{id}', name: 'app_account_delete', requirements: ['id' => '\d+'])]
-    public function accountDelete(TotalAmountRepaidToDate $totalAmountRepaidToDate, EntityManagerInterface $em): Response
-    {
-        $em->remove($totalAmountRepaidToDate);
-        $em->flush();
-        return $this->redirectToRoute('app_association');
-    }
 }

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
+use DateTime;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompanySheetController extends AbstractController
 {
-    // Création d'une fiche société
+    // Création d'une fiche société + Liaison à un échéancier de remboursement (TotalAmountRepaidToDate)
     #[Route('/companysheet/create', name: 'app_companysheet_create')]
     public function app_companysheet_create(Request $request, EntityManagerInterface $em): Response
     {
@@ -31,6 +32,12 @@ class CompanySheetController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $companySheet = $form->getData();
+            $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
+            $totalAmountRepaidToDate->setTotalAmountRepaidToDate(0)
+                ->setPayment(0)
+                ->setDate(new DateTime())
+                ->setCompanySheet($companySheet);
+            $em->persist($totalAmountRepaidToDate);
             $em->persist($companySheet);
             $em->flush();
             return $this->redirectToRoute('app_projectleader_create');
@@ -84,14 +91,14 @@ class CompanySheetController extends AbstractController
         $builder = $this->createFormBuilder();
 
         $builder->add('companySheet', HiddenType::class)
-            ->add('totalAmountRepaidToDate', IntegerType::class, [
-                'label' => "Total Remboursé à ce Jour :",
-            ])
             ->add('Payment', IntegerType::class, [
-                'label' => 'Paimenet Reçu par l\'Association :',
+                'label' => false,
+                "attr" => [
+                    'placeholder' => "Nouveau Paiement"
+                ]
             ])
             ->add('Date', DateType::class, [
-                "label" => 'Date du Paiement : ',
+                "label" => false,
                 'widget' => 'single_text',
                 "attr" => [
                     'class' => 'form-control',
@@ -99,7 +106,7 @@ class CompanySheetController extends AbstractController
                 ]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Ajouter une ligne au Tableau'
+                'label' => 'Valider le reçu du paiement'
             ]);
 
         $form = $builder->getForm();
