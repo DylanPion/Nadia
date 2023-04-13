@@ -15,9 +15,6 @@ class TotalAmountRepaidToDate
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $TotalAmountRepaidToDate = null;
-
-    #[ORM\Column]
     private ?int $Payment = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -29,18 +26,6 @@ class TotalAmountRepaidToDate
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTotalAmountRepaidToDate(): ?int
-    {
-        return $this->TotalAmountRepaidToDate;
-    }
-
-    public function setTotalAmountRepaidToDate(int $TotalAmountRepaidToDate): self
-    {
-        $this->TotalAmountRepaidToDate = $TotalAmountRepaidToDate;
-
-        return $this;
     }
 
     public function getPayment(): ?int

@@ -33,8 +33,7 @@ class CompanySheetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $companySheet = $form->getData();
             $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
-            $totalAmountRepaidToDate->setTotalAmountRepaidToDate(0)
-                ->setPayment(0)
+            $totalAmountRepaidToDate->setPayment(0)
                 ->setDate(new DateTime())
                 ->setCompanySheet($companySheet);
             $em->persist($totalAmountRepaidToDate);
@@ -116,8 +115,7 @@ class CompanySheetController extends AbstractController
             $data = $form->getData();
             $CS = $companySheetRepository->find($id); // Récupère l'objet companysheet selon l'id actuel de la page Une relations entre table étant représenté par un ID de type objet je récupère la fiche société en fonction de l'id de la page actuel 
             $totalAmountRepaidToDate = new TotalAmountRepaidToDate;
-            $totalAmountRepaidToDate->setTotalAmountRepaidToDate($data['totalAmountRepaidToDate'])
-                ->setPayment($data['Payment'])
+            $totalAmountRepaidToDate->setPayment($data['Payment'])
                 ->setDate($data['Date'])
                 ->setCompanySheet($CS);
 
