@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
+use App\Entity\CompanySheet;
 use App\Form\AgreementCreateType;
 use App\Entity\TotalAmountRepaidToDate;
 use App\Repository\AgreementRepository;
@@ -78,16 +79,10 @@ class TreasuryController extends AbstractController
 
     // Affichage de l'historique du Total Remboursé à ce jour
     #[Route('/companysheet/account/{id}', name: 'app_companysheet_account', requirements: ['id' => '\d+'])]
-    public function account($id, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, CompanySheetRepository $companySheetRepository)
-
+    public function account($id, Request $request, EntityManagerInterface $em, CompanySheetRepository $companySheetRepository)
     {
-        $test = $companySheetRepository->find($id);
         $form = $this->createForm(TotalAmoundRepaidToDateType::class, null, [
             'data_class' => TotalAmountRepaidToDate::class,
-        ]);
-
-        $form->add('companySheet', HiddenType::class, [ // Le champ companySheet doit reçevoir un objet de Type "companyheet"
-            'data' => $test, // passe comme valeur à companySheet la valeur de id
         ]);
 
         $form->handleRequest($request);
@@ -96,15 +91,11 @@ class TreasuryController extends AbstractController
             $TotalAmountRepaidToDate = $form->getData();
             $em->persist($TotalAmountRepaidToDate);
             $em->flush();
-            // return $this->redirectToRoute('app_association');
         }
 
         return $this->render(
-            'treasury/account.html.twig',
-            [
-                'formView' => $form->createView(),
-                'totalAmountRepaidToDate' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id)
-            ]
+            'treasury/receivedAmountCreate.html.twig',
+            ['formView' => $form->createView()]
         );
     }
 

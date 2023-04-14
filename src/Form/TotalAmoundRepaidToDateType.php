@@ -6,7 +6,6 @@ use App\Entity\CompanySheet;
 use App\Entity\TotalAmountRepaidToDate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -18,16 +17,7 @@ class TotalAmoundRepaidToDateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('companysheet', EntityType::class, [
-            //     'label' => 'Fiche Société',
-            //     'placeholder' => '-- Choisir une Fiche Société --',
-            //     'class' => CompanySheet::class,
-            //     'choice_label' => 'companyName',
-            // ])
             ->add('companySheet', HiddenType::class)
-            ->add('totalAmountRepaidToDate', IntegerType::class, [
-                'label' => "Total Remboursé à ce Jour :",
-            ])
             ->add('Payment', IntegerType::class, [
                 'label' => 'Paimenet Reçu par l\'Association :',
             ])

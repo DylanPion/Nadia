@@ -121,9 +121,17 @@
 			<caption>TABLEAU DE SUIVI DES REMBOURSEMENTS :</caption>
 			<thead>
 				<tr>
+					<td>
+						<a href="{{path('app_companysheet_account', {id: company.id}) }}">
+							<i class="fa-solid fa-plus"></i>
+							<span>Ajouter un montant reçu</span>
+						</a>
+					</td>
+				</tr>
+				<tr>
 					<th>Date des rembrts</th>
 					<th>Montant Reçus</th>
-					<th>Action</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 
@@ -140,13 +148,6 @@
 							</a>
 						</td>
 					</tr>
-					<tr>
-						{{form_start(formView)}}
-						<td>{{form_row(formView.Date)}}</td>
-						<td>{{form_row(formView.Payment) }}</td>
-						<td>{{form_row(formView.Button)}}</td>
-						{{form_end(formView)}}
-					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
@@ -161,7 +162,6 @@
 			<li>Reste à Reçevoir :
 				{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
 				€</li>
-
 		</ul>
 	</div>
 {% endblock %}
