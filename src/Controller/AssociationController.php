@@ -23,14 +23,15 @@ class AssociationController extends AbstractController
         foreach ($associationList as $association) {
             $TotalFNiPaidByAssociation = $companySheetRepository->getTotalAmountPaidByAssociation($association->getId());
             $TotalFNiRequestedByAssociation = $companySheetRepository->getTotalAmountRequestedByAssociation($association->getId());
+            $TotalAmountReceived = $companySheetRepository->getTotalAmountReceivedByAssociation($association->getId());
 
             $totals[$association->getId()] = [
                 'name' => $association->getName(),
                 'paid' => $TotalFNiPaidByAssociation,
                 'requested' => $TotalFNiRequestedByAssociation,
+                'received' => $TotalAmountReceived,
             ];
         }
-
         return $this->render('association/associationList.html.twig', [
             'associationList' => $associationList,
             'totals' => $totals,
@@ -103,7 +104,7 @@ class AssociationController extends AbstractController
             // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
             'company' => $companySheetRepository->findBy(array('association' => $id)),
             'associationName' => $associationRepository->find($id)->getName(),
-            "FNIAmount" => $companySheetRepository->getFniPaid($id),
+            "FNIAmountPaid" => $companySheetRepository->getFniPaid($id),
         ]);
     }
 }

@@ -37,8 +37,10 @@
         border-bottom: 1px solid #f2f2f2;
       }
 
-      .totalLine{
+      .totalLine {
         color: black;
+        text-transform: uppercase;
+        font-weight: bold;
       }
     }
 
@@ -58,7 +60,7 @@
     tr td:nth-child(4) {
       width: 395px;
     }
-   
+
     tr td:nth-child(5) {
       width: 395px;
     }
@@ -230,4 +232,3 @@
     }
   }
 }
-

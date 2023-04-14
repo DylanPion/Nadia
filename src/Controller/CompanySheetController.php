@@ -87,44 +87,26 @@ class CompanySheetController extends AbstractController
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
 
-        $builder = $this->createFormBuilder();
+        $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
+        $FniAmountRequested = $companySheet->getFniAmountRequested();
+        $totalAmountRepaid =  $FniAmountRequested - $totalPaymentReceived;
 
-        $builder->add('companySheet', HiddenType::class)
-            ->add('Payment', IntegerType::class, [
-                'label' => false,
-                "attr" => [
-                    'placeholder' => "Nouveau Paiement"
-                ]
-            ])
-            ->add('Date', DateType::class, [
-                "label" => false,
-                'widget' => 'single_text',
-                "attr" => [
-                    'class' => 'form-control',
-                    'data-provide' => 'datepicker'
-                ]
-            ])
-            ->add('Button', SubmitType::class, [
-                'label' => 'Valider le reçu du paiement'
-            ]);
+        // Récupérer l'entité CompanySheet
+        $companySheet = $em->getRepository(CompanySheet::class)->find($id);
 
-        $form = $builder->getForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $CS = $companySheetRepository->find($id); // Récupère l'objet companysheet selon l'id actuel de la page Une relations entre table étant représenté par un ID de type objet je récupère la fiche société en fonction de l'id de la page actuel 
-            $totalAmountRepaidToDate = new TotalAmountRepaidToDate;
-            $totalAmountRepaidToDate->setPayment($data['Payment'])
-                ->setDate($data['Date'])
-                ->setCompanySheet($CS);
-
-            $em->persist($totalAmountRepaidToDate);
-            $em->flush();
+        if (!$companySheet) {
+            throw $this->createNotFoundException('Aucune entreprise trouvée pour cet identifiant : ' . $id);
         }
 
+        // Affecter la valeur de la variable `totalAmountRepaid` à `remainsToBeReceived`
+        $companySheet->setRemainsToBeReceived($totalAmountRepaid);
+
+        // Enregistrer les modifications dans la base de données
+        $em->flush();
+
+
+
         return $this->render('companySheet/displayCompanySheet.html.twig', [
-            'formView' => $form->createView(),
             'company' => $companySheetRepository->find($id),
             'projectleadername' => $projectLeaderNameList,
             'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),

@@ -14,7 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TreasuryController extends AbstractController
@@ -77,45 +80,46 @@ class TreasuryController extends AbstractController
         ]);
     }
 
-    // Affichage de l'historique du Total Remboursé à ce jour
-    #[Route('/companysheet/account/{id}', name: 'app_companysheet_account', requirements: ['id' => '\d+'])]
-    public function account($id, Request $request, EntityManagerInterface $em, CompanySheetRepository $companySheetRepository)
+    // Création d'un nouveau paiement reçu pour le Total Remboursé
+    #[Route('/companysheet/account/create{id}', name: 'app_companysheet_account_create', requirements: ['id' => '\d+'])]
+    public function account($id, Request $request, EntityManagerInterface $em, CompanySheetRepository $companySheetRepository, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType)
     {
-        $form = $this->createForm(TotalAmoundRepaidToDateType::class, null, [
-            'data_class' => TotalAmountRepaidToDate::class,
-        ]);
-
+        $totalAmoundRepaidToDateType = new TotalAmountRepaidToDate();
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmoundRepaidToDateType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $TotalAmountRepaidToDate = $form->getData();
-            $em->persist($TotalAmountRepaidToDate);
+            $data = $form->getData();
+            $CS = $companySheetRepository->find($id);
+            $data->setCompanySheet($CS);
+
+            $em->persist($data);
             $em->flush();
+
+            return $this->redirectToRoute('app_companysheet_display', ['id' => $id]);
         }
 
-        return $this->render(
-            'treasury/receivedAmountCreate.html.twig',
-            ['formView' => $form->createView()]
-        );
+        return $this->render('treasury/createReceivedAmount.html.twig', [
+            'formView' => $form->createView(),
+        ]);
     }
 
-    // Modification Total Remboursé à ce jour
-    #[Route('/companysheet/account/edit/{id}', name: 'app_account_edit', requirements: ['id' => '\d+'])]
-    public function accountEdit($id, TotalAmountRepaidToDate $totalAmountRepaidToDate, Request $request, EntityManagerInterface $em, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType): Response
+    // Modification d'un paiement reçu pour le Total Remboursé
+    #[Route('/companysheet/account/edit/{id}', name: 'app_companysheet_account_edit', requirements: ['id' => '\d+'])]
+    public function edit($id, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmoundRepaidToDateRepository)
     {
-        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmountRepaidToDate);
+        $totalAmoundRepaidToDate = $totalAmoundRepaidToDateRepository->find($id);
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmoundRepaidToDate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $totalAmountRepaidToDate = $form->getData();
-            $em->persist($totalAmountRepaidToDate);
             $em->flush();
-            return $this->redirectToRoute('app_association');
-        };
 
-        return $this->render('treasury/editAccount.html.twig', [
-            'companySheet' => $totalAmoundRepaidToDateType,
-            'formView' => $form->createView()
+            return $this->redirectToRoute('app_companysheet_display', ['id' => $totalAmoundRepaidToDate->getCompanySheet()->getId()]);
+        }
+
+        return $this->render('treasury/editReceivedAmount.html.twig', [
+            'formView' => $form->createView(),
         ]);
     }
 }

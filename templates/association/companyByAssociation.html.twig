@@ -26,9 +26,9 @@
 					<td>{{company.companyName}}</td>
 					<td>{{company.FniAmountRequested|number_format(0, '.', ' ', )}}
 						€</td>
-					<td>{{FNIAmount|number_format(0, '.', ' ', )}}
+					<td>{{(company.paymentone + company.paymenttwo)|number_format(0, '.', ' ',)}}
 						€</td>
-					<td>€</td>
+					<td>{{(company.fniamountrequested - company.remainsToBeReceived)}}€</td>
 
 					<td>
 						<a href="{{ path("app_companysheet_display", {id: company.id}) }}" class="infos">

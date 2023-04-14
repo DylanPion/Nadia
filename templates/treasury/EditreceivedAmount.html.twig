@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Total Remboursé à ce jour
+{% endblock %}
+
+
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="form-totalamount">
+		<div class="form-content">
+			{{form_start(formView)}}
+			{{form_row(formView.Payment) }}
+			{{form_row(formView.Date) }}
+			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
+		</div>
+	</div>
+{% endblock %}

@@ -141,4 +141,15 @@ class CompanySheetRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    // Fonction pour calculer le  Total FNI des remboursement à ce jour
+    public function getTotalAmountReceivedByAssociation($associationId)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.remainsToBeReceived) AS remainsToBeReceived')
+            ->where('cs.association = :association')
+            ->setParameter('association', $associationId);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

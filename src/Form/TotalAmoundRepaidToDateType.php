@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\CompanySheet;
 use App\Entity\TotalAmountRepaidToDate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,10 +18,13 @@ class TotalAmoundRepaidToDateType extends AbstractType
         $builder
             ->add('companySheet', HiddenType::class)
             ->add('Payment', IntegerType::class, [
-                'label' => 'Paimenet Reçu par l\'Association :',
+                'label' => "Ajouter un Nouveau Paiement Reçu",
+                "attr" => [
+                    'placeholder' => "Nouveau Paiement"
+                ]
             ])
             ->add('Date', DateType::class, [
-                "label" => 'Date du Paiement : ',
+                "label" => "Ajouter une Nouvelle Date",
                 'widget' => 'single_text',
                 "attr" => [
                     'class' => 'form-control',
@@ -30,11 +32,11 @@ class TotalAmoundRepaidToDateType extends AbstractType
                 ]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Ajouter une ligne au Tableau'
+                'label' => 'Valider'
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => TotalAmountRepaidToDate::class,
