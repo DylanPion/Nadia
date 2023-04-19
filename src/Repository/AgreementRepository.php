@@ -64,7 +64,7 @@ class AgreementRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    // Retourne le nombre correspondant au nombre de ligne de l'entité
+    // Retourne le nombre de ligne de l'entité
     public function agreementLineNumber()
     {
         $qb = $this->createQueryBuilder('agreement');

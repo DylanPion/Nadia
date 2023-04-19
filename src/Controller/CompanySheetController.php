@@ -2,20 +2,17 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\CompanySheet;
 use App\Form\CompanySheetType;
 use App\Entity\TotalAmountRepaidToDate;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\TotalAmoundRepaidToDateType;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
-use DateTime;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompanySheetController extends AbstractController
@@ -32,6 +29,7 @@ class CompanySheetController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $companySheet = $form->getData();
+            // La création d'un TotalAmountRepaidToDate en relation avec une CompanySheet est faites pour initialisé l'échancier à 0 à la date d'aujourd'hui puis le lier à la Société       
             $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
             $totalAmountRepaidToDate->setPayment(0)
                 ->setDate(new DateTime())
@@ -78,17 +76,17 @@ class CompanySheetController extends AbstractController
 
     // Affichage d'une fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
-    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDate $totalAmountRepaidToDate): Response
+    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, EntityManagerInterface $em): Response
     {
-        // Récupération de la liste des project leader à afficher dans la fiche société
-        $projectLeaderNameList = [];
+        // Récupération de la liste des project leader dans un tableau
         $projectLeaderList = $companySheet->getProjectLeaders();
+        $projectLeaderNameList = [];
         foreach ($projectLeaderList as $projectLeaderName) {
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
 
-        $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
         $FniAmountRequested = $companySheet->getFniAmountRequested();
+        $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
         $totalAmountRepaid =  $FniAmountRequested - $totalPaymentReceived;
 
         // Récupérer l'entité CompanySheet
@@ -104,14 +102,59 @@ class CompanySheetController extends AbstractController
         // Enregistrer les modifications dans la base de données
         $em->flush();
 
-
-
         return $this->render('companySheet/displayCompanySheet.html.twig', [
             'company' => $companySheetRepository->find($id),
             'projectleadername' => $projectLeaderNameList,
             'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),
             'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
             'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id)
+        ]);
+    }
+
+    // Création d'un nouveau paiement reçu pour le Total Remboursé
+    #[Route('/companysheet/account/create{id}', name: 'app_companysheet_account_create', requirements: ['id' => '\d+'])]
+    public function account($id, Request $request, EntityManagerInterface $em, CompanySheetRepository $companySheetRepository, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType)
+    {
+        $totalAmoundRepaidToDateType = new TotalAmountRepaidToDate();
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmoundRepaidToDateType);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $CS = $companySheetRepository->find($id);
+            $data->setCompanySheet($CS);
+
+            $em->persist($data);
+            $em->flush();
+
+            return $this->redirectToRoute('app_companysheet_display', ['id' => $id]);
+        }
+
+        return $this->render('companySheet/createReceivedAmount.html.twig', [
+            'formView' => $form->createView(),
+        ]);
+    }
+
+    // Modification d'un paiement reçu pour le Total Remboursé
+    #[Route(
+        '/companysheet/account/edit/{id}',
+        name: 'app_companysheet_account_edit',
+        requirements: ['id' => '\d+']
+    )]
+    public function edit($id, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmoundRepaidToDateRepository)
+    {
+        $totalAmoundRepaidToDate = $totalAmoundRepaidToDateRepository->find($id);
+        $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmoundRepaidToDate);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_companysheet_display', ['id' => $totalAmoundRepaidToDate->getCompanySheet()->getId()]);
+        }
+
+        return $this->render('companySheet/editReceivedAmount.html.twig', [
+            'formView' => $form->createView(),
         ]);
     }
 }

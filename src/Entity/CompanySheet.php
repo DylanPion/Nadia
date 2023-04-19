@@ -60,9 +60,6 @@ class CompanySheet
     private ?\DateTimeInterface $PaymentTwoDate = null;
 
     #[ORM\Column]
-    private int $RemainsToBePaid = 0;
-
-    #[ORM\Column]
     private int $remainsToBeReceived = 0;
 
     public function __construct()
@@ -216,17 +213,6 @@ class CompanySheet
     {
         $this->PaymentTwoDate = $PaymentTwoDate;
 
-        return $this;
-    }
-
-    public function getRemainsToBePaid(): int
-    {
-        return $this->RemainsToBePaid;
-    }
-
-    public function setRemainsToBePaid($RemainsToBePaid): self
-    {
-        $this->remainsToBeReceived = $RemainsToBePaid;
         return $this;
     }
 

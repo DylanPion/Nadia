@@ -31,61 +31,66 @@
 					<a href="{{path('app_treasury_agreementList')}}">
 						<i class="fa-solid fa-coins icon"></i>
 						<span class="text nav-text">Trésorerie</span>
-					</li>
+					</a>
 				</li>
-			</a>
-		</li>
-		<li class="nav-link">
-			<a href='{{path('app_association_create')}}'>
-				<i class="fa-solid fa-a icon"></i>
-				<span class="text nav-text">
-					Nouvelle Association</span>
-			</a>
-		</li>
-		<li class="nav-link">
-			<a href='{{path('app_companysheet_create')}}'>
-				<i class="fa-solid fa-file icon"></i>
-				<span class="text nav-text">
-					Nouvelle Fiche Société</span>
-			</a>
-		</li>
-		<li class="nav-link">
-			<a href='{{path('app_projectleader_create')}}'>
-				<i class="fa-solid fa-user icon"></i>
-				<span class="text nav-text">
-					Nouveau Porteur Projet</span>
-			</a>
-		</li>
-		<li class="nav-link">
-			<a href='{{path('app_treasury_create')}}'>
-				<i class="fa-solid fa-handshake icon"></i>
-				<span class="text nav-text">
-					Nouvelle Convention</span>
-			</a>
-		</li>
-	</ul>
-</div>
-<div class="bottom-content">
-	<li class="nav-link">
-		<a href="{{path('app_register')}}">
-			<i class="fa-solid fa-right-to-bracket icon"></i>
-			<span class="text nav-text">Connexion</span>
-		</a>
-	</li>
-	<li class="nav-link">
-		<a href="{{path('app_logout')}}">
-			<i class="fa-solid fa-right-from-bracket icon"></i>
-			<span class="text nav-text">Déconnexion</span>
-		</a>
-	</li>
-	<li class="mode">
-		<div class="moon-sun">
-			<i class="fa-solid fa-moon icon moon"></i>
-			<i class="fa-solid fa-sun icon sun"></i>
+				<li class="nav-link">
+					<a href='{{path('app_accounting')}}'>
+						<i class="fa-solid fa-file-invoice-dollar icon"></i>
+						<span class="text nav-text">
+							Comptabilité</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_weather')}}'>
+						<i class="fa-regular fa-sun icon"></i>
+						<span class="text nav-text">
+							Météo</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_association_create')}}'>
+						<i class="fa-solid fa-a icon"></i>
+						<span class="text nav-text">
+							Nouvelle Association</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_companysheet_create')}}'>
+						<i class="fa-solid fa-file icon"></i>
+						<span class="text nav-text">
+							Nouvelle Fiche Société</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_projectleader_create')}}'>
+						<i class="fa-solid fa-user icon"></i>
+						<span class="text nav-text">
+							Nouveau Porteur Projet</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_treasury_create')}}'>
+						<i class="fa-solid fa-handshake icon"></i>
+						<span class="text nav-text">
+							Nouvelle Convention</span>
+					</a>
+				</li>
+			</ul>
 		</div>
-		<span class="mode-text text">Dark Mode</span>
-		<div class="toggle-switch">
-			<span class="switch"></span>
-		</div>
-	</li>
-</div></div></nav>
+	</div>
+
+	<div class="bottom-content">
+		<li class="nav-link">
+			<a href="{{path('app_register')}}">
+				<i class="fa-solid fa-right-to-bracket icon"></i>
+				<span class="text nav-text">Connexion</span>
+			</a>
+		</li>
+		<li class="nav-link">
+			<a href="{{path('app_logout')}}">
+				<i class="fa-solid fa-right-from-bracket icon"></i>
+				<span class="text nav-text">Déconnexion</span>
+			</a>
+		</li>
+	</div>
+</nav>

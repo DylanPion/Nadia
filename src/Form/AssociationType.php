@@ -19,7 +19,7 @@ class AssociationType extends AbstractType
                 "attr" => ["placeholder" => "Entrez le nom de la nouvelle Association"]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Créer/Modifier une nouvelle Association'
+                'label' => 'Valider'
             ]);
     }
 

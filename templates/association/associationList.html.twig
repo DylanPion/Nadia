@@ -13,13 +13,17 @@
 					<th>Liste des Associations</th>
 					<th>Montant Total engagé</th>
 					<th>Montant Total versé</th>
-					<th>Total des remboursements reçus à ce jour</th>
+					<th>Remboursements reçus à ce jour</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 
 
 			<tbody>
+				{% set totalRequested = 0 %}
+				{% set totalPaid = 0 %}
+				{% set totalReceived = 0 %}
+
 				{% for association in associationList %}
 					<tr>
 						<td>{{ association.getName() }}</td>
@@ -38,18 +42,22 @@
 								<i class="fa-solid fa-pen-to-square"></i>
 								<span>Éditer</span>
 							</a>
-							<a href="{{ path('app_association_delete', {id: association.id}) }}" class="delete">
-								<i class="fa-sharp fa-solid fa-trash-can"></i>
-								<span>Supprimer</span>
-							</a>
 						</td>
 					</tr>
+
+					{% set totalRequested = totalRequested + totals[association.getId()].requested %}
+					{% set totalPaid = totalPaid + totals[association.getId()].paid %}
+					{% set totalReceived = totalReceived + totals[association.getId()].received %}
+
 				{% endfor %}
 				<tr>
 					<td class="totalLine">Total Général :</td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
+					<td class="totalLine">{{ totalRequested|number_format(0, '.', ' ', ) }}
+						€</td>
+					<td class="totalLine">{{ totalPaid|number_format(0, '.', ' ', ) }}
+						€</td>
+					<td class="totalLine">{{ totalReceived|number_format(0, '.', ' ', ) }}
+						€</td>
 					<td class="totalLine"></td>
 				</tr>
 			</tbody>

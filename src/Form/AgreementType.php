@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class AgreementCreateType extends AbstractType
+class AgreementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

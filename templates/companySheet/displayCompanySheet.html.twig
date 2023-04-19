@@ -136,6 +136,17 @@
 			</thead>
 
 			<tbody>
+				<tr>
+					<td class="totalLine">Montant Engagé :
+						{{company.fniamountrequested|number_format(0, '.', ' ')}}
+						€</td>
+					<td class="totalLine">Total Reçu :
+						{{totalPaymentReceived|number_format(0, '.', ' ')}}
+						€</td>
+					<td class="totalLine">Reste à Reçevoir :
+						{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
+						€</td>
+				</tr>
 				{% for total in totalAmountRepaid %}
 					<tr>
 						<td>{{total.Date| date ("d/m/Y")}}</td>
@@ -149,17 +160,6 @@
 						</td>
 					</tr>
 				{% endfor %}
-				<tr>
-					<td class="totalLine">Montant Engagé :
-						{{company.fniamountrequested|number_format(0, '.', ' ')}}
-						€</td>
-					<td class="totalLine">Total Reçu :
-						{{totalPaymentReceived|number_format(0, '.', ' ')}}
-						€</td>
-					<td class="totalLine">Reste à Reçevoir :
-						{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
-						€</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>

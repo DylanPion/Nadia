@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des prêts | Association
+{% endblock %}
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="tableCompanySheet">
+		<table class="table-content">
+			<thead>
+				<tr>
+					<th>Numéro de convention de financement CDC/BPI</th>
+					<th>Société</th>
+					<th>Montant engagé</th>
+					<th>Montant versé</th>
+					<th>Remboursement reçu à ce jour</th>
+					<th>Reste à reçevoir</th>
+					<th>Montant total des provisions</th>
+					<th>Montant total des casses</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% set totalFniAmountRequested = 0 %}
+				{% set totalPayments = 0 %}
+				{% set totalRemainsToBeReceived = 0 %}
+
+				{% for company in company %}
+					<tr>
+						<td>N°{{ company.Agreement }}</td>
+						<td>{{ company.companyName }}</td>
+						<td>{{ company.FniAmountRequested|number_format(0, '.', ' ') }}
+							€</td>
+						<td>{{ (company.paymentone + company.paymenttwo)|number_format(0, '.', ' ') }}
+							€</td>
+						<td>{{ (company.fniamountrequested - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
+							€</td>
+						<td>{{(company.FniAmountRequested - ((company.fniamountrequested - company.remainsToBeReceived)))|number_format(0, '.', ' ')}}
+							€</td>
+						<td></td>
+						<td></td>
+						<td>
+							<a href="{{ path("app_companysheet_display", {id: company.id}) }}" class="infos">
+								<i class="fa-sharp fa-solid fa-circle-info "></i>
+								<span>Fiche Société</span>
+							</a>
+							<a href="{{ path("app_companysheet_edit", {id: company.id}) }}" class="edit">
+								<i class="fa-solid fa-pen-to-square "></i>
+								<span>Éditer</span>
+							</a>
+						</td>
+					</tr>
+
+					{% set totalFniAmountRequested = totalFniAmountRequested + company.FniAmountRequested %}
+					{% set totalPayments = totalPayments + company.paymentone + company.paymenttwo %}
+					{% set totalRemainsToBeReceived = totalRemainsToBeReceived + company.remainsToBeReceived %}
+				{% endfor %}
+
+				<tr>
+					<td class="totalLine">Total Général :</td>
+					<td class="totalLine"></td>
+					<td class="totalLine">{{ totalFniAmountRequested|number_format(0, '.', ' ') }}
+						€</td>
+					<td class="totalLine">{{ totalPayments|number_format(0, '.', ' ') }}
+						€</td>
+					<td class="totalLine">{{ (totalFniAmountRequested - totalRemainsToBeReceived)|number_format(0, '.', ' ') }}</td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

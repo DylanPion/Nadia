@@ -65,17 +65,6 @@ class CompanySheetRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    // Fonction pour calculer le Montant FNI versé par société 
-    public function getFniPaid($id)
-    {
-        $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.PaymentOne + cs.PaymentTwo) AS FniAmountPaid')
-            ->where('cs.id = :id')
-            ->setParameter('id', $id);
-
-        return $qb->getQuery()->getSingleScalarResult();
-    }
-
     // Fonction pour calculer le Montant Total FNI Engagé par convention 
     public function getTotalAmountRequestedByAgreement($agreement)
     {
@@ -120,7 +109,7 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    // Fonction pour calculer le Montant Total FNI Versé par société 
+    // Fonction pour calculer le Montant Total FNI Versé à une Association pour ses sociétés
     public function getTotalAmountPaidByAssociation($associationId)
     {
         $qb = $this->createQueryBuilder('cs')
@@ -131,7 +120,7 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    // Fonction pour calculer le Montant Total FNI Engagé par société 
+    // Fonction pour calculer le Montant Total FNI Engagé par une Association pour ses sociétés 
     public function getTotalAmountRequestedByAssociation($associationId)
     {
         $qb = $this->createQueryBuilder('cs')
@@ -142,7 +131,7 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    // Fonction pour calculer le  Total FNI des remboursement à ce jour
+    // Fonction pour calculer le  Total FNI des remboursement à ce jour d'une Association pour ses sociétés
     public function getTotalAmountReceivedByAssociation($associationId)
     {
         $qb = $this->createQueryBuilder('cs')
