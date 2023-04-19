@@ -1,199 +1,170 @@
-// Style Table Association
-
-.tableAsso {
+// Style Table
+.table {
   display: flex;
-  margin-left: 280px;
+  position: fixed;
+  top: 120px;
+  left: 280px;
+  width: 1600px;
+}
 
-  .table-content {
-    width: 100%;
-    border-collapse: collapse;
-
-    thead {
-      tr {
-        th {
-          // background: var(--primary-color);
-          background: white;
-          // color: #fff;
-          color: black;
-          font-size: 0.9rem;
-          padding-top: 10px;
-          padding-bottom: 10px;
-          text-align: left;
-          border-bottom: 1px solid #e5e5e5;
-        }
-      }
-    }
-
-    tbody {
-      background: white;
-
-      td {
-        font-size: 0.8rem;
-        color: var(--text-color);
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #f2f2f2;
-      }
-
-      .totalLine {
-        color: black;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-    }
-
-    tr:hover {
-      background-color: #ececff;
-      cursor: pointer;
-    }
+.tableTotalAmountRepaid {
+  position: fixed;
+  top: 450px;
+  left: 280px;
+  width: 1650px;
+  caption {
+    background: var(--banner-color);
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+    height: 40px;
+    padding: 5px;
   }
-  a {
-    text-decoration: none;
-    color: var(--text-color);
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .delete {
-    color: #ff4040;
+  .newAmount {
+    height: 50px;
   }
 }
 
-// /* Style du table pour les fiches projet */
+.table-content {
+  width: 100%;
+  border-collapse: collapse;
 
-.tableCompanySheet {
-  margin-left: 280px;
-
-  .table-content {
-    width: 100%;
-    border-collapse: collapse;
-
-    thead {
-      tr {
-        th {
-          // background: var(--primary-color);
-          // color: #fff;
-          background: white;
-          color: black;
-          font-size: 0.9rem;
-          padding-top: 10px;
-          padding-bottom: 10px;
-          text-align: left;
-        }
-        th:nth-child(1) {
-          padding-left: 5px; // Juste pour décaller légèrement la première en tête du tableau
-        }
-      }
-    }
-    tbody {
-      background: white;
-
-      td {
-        font-size: 0.8rem;
-        color: var(--text-color);
-        line-height: 1.2;
+  thead {
+    tr {
+      th {
+        background: white;
+        color: black;
+        font-size: 0.9rem;
         padding-top: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #f2f2f2;
+        text-align: center;
+        border-bottom: 2px solid #e5e5e5;
       }
-
-      .totalLine {
-        color: black;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-    }
-
-    tr:hover {
-      background-color: #ececff;
-      cursor: pointer;
     }
   }
 
-  a {
-    text-decoration: none;
-    color: var(--text-color);
-    margin-right: 5px;
+  tbody {
+    background: white;
 
-    &:hover {
-      text-decoration: underline;
+    td {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f2f2f2;
+      text-align: center;
+      a {
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .totalLine {
+      color: black;
+      text-transform: uppercase;
+      font-weight: bold;
     }
   }
 
-  .delete {
-    color: #ff4040;
+  tr:hover {
+    background-color: #ececff;
+    cursor: pointer;
   }
 }
-// /* Style du table pour les Convetions*/
+a {
+  text-decoration: none;
+  color: var(--text-color);
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
-.tableAgreement {
-  margin-top: 30px;
-  margin-left: 20%;
+.delete {
+  color: #ff4040;
+}
+// Style Table CS
 
-  .table-content {
-    width: 1400px;
-    border-collapse: collapse;
+.tableCS {
+  display: flex;
+  position: fixed;
+  top: 120px;
+  left: 280px;
+  width: 1600px;
+}
 
-    thead {
-      tr {
-        th {
-          background: var(--primary-color);
-          color: #fff;
-          font-size: 1.1rem;
-          line-height: 1.2;
-          padding-top: 25px;
-          padding-bottom: 25px;
-          text-align: left;
-        }
-        th:nth-child(1) {
-          padding-left: 5px; // Juste pour décaller légèrement la première en tête du tableau
-        }
+.tableTotalAmountRepaid {
+  position: fixed;
+  top: 450px;
+  left: 280px;
+  width: 1650px;
+  caption {
+    background: var(--banner-color);
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+    height: 40px;
+    padding: 5px;
+  }
+  .newAmount {
+    height: 50px;
+  }
+}
+
+.table-content {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    tr {
+      th {
+        background: white;
+        color: black;
+        font-size: 0.9rem;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        border-bottom: 2px solid #e5e5e5;
       }
-    }
-    tbody {
-      background: white;
-
-      td {
-        font-size: 15px;
-        color: var(--text-color);
-        line-height: 1.2;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #f2f2f2;
-      }
-    }
-
-    tr td:nth-child(1) {
-      width: 200px;
-      padding-left: 40px;
-    }
-
-    tr td:nth-child(2) {
-      width: 200px;
-    }
-
-    tr td:nth-child(3) {
-      width: 200px;
-    }
-
-    tr td:nth-child(4) {
-      width: 280px;
-    }
-
-    tr:hover {
-      background-color: #ececff;
-      cursor: pointer;
     }
   }
 
-  a {
-    text-decoration: none;
-    color: var(--text-color);
-    margin-right: 5px;
+  tbody {
+    background: white;
 
-    &:hover {
-      text-decoration: underline;
+    td {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f2f2f2;
+      a {
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .totalLine {
+      color: black;
+      text-transform: uppercase;
+      font-weight: bold;
     }
   }
+
+  tr:hover {
+    background-color: #ececff;
+    cursor: pointer;
+  }
+}
+a {
+  text-decoration: none;
+  color: var(--text-color);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.delete {
+  color: #ff4040;
 }

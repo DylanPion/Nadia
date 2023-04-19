@@ -6,7 +6,7 @@
 
 	{% include "_sidebar.html.twig" %}
 
-	<div class="tableCompanySheet">
+	<div class="table">
 		<table class="table-content">
 			<thead>
 				<tr>
@@ -29,12 +29,12 @@
 				{% for company in company %}
 					<tr>
 						<td>N°{{ company.Agreement }}</td>
-						<td>{{ company.companyName }}</td>
+						<td style="text-align: left;">{{ company.companyName }}</td>
 						<td>{{ company.FniAmountRequested|number_format(0, '.', ' ') }}
 							€</td>
 						<td>{{ (company.paymentone + company.paymenttwo)|number_format(0, '.', ' ') }}
 							€</td>
-						<td>{{ (company.fniamountrequested - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
+						<td>{{ ((company.paymentone + company.paymenttwo) - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
 							€</td>
 						<td>{{(company.FniAmountRequested - ((company.fniamountrequested - company.remainsToBeReceived)))|number_format(0, '.', ' ')}}
 							€</td>
@@ -64,7 +64,8 @@
 						€</td>
 					<td class="totalLine">{{ totalPayments|number_format(0, '.', ' ') }}
 						€</td>
-					<td class="totalLine">{{ (totalFniAmountRequested - totalRemainsToBeReceived)|number_format(0, '.', ' ') }}</td>
+					<td class="totalLine">{{ (totalFniAmountRequested - totalRemainsToBeReceived)|number_format(0, '.', ' ') }}
+						€</td>
 					<td class="totalLine"></td>
 					<td class="totalLine"></td>
 					<td class="totalLine"></td>

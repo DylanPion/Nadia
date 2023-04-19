@@ -19,8 +19,8 @@ class ProjectLeaderType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom du Porteur de projet',
-                "attr" => ["placeholder" => "Entrer le nom du porteur de projet"]
+                'label' => 'Nom du Lauréat',
+                "attr" => ["placeholder" => "Entrer le nom du Lauréat"]
             ])
             ->add('companysheet', EntityType::class, [
                 'label' => 'Fiche Société',

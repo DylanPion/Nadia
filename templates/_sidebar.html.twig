@@ -1,4 +1,4 @@
-<nav class="sidebar close">
+<div class="banner">
 	<header>
 		<div class="image-text">
 			<span class="image">
@@ -7,19 +7,60 @@
 
 			<div class="text header-text">
 				<span class="name">Réseau Entreprendre</span>
-				<span class="logiciel">Gestion des Prêts</span>
+				<span class="logiciel">Gestion des Prêts FNI</span>
 			</div>
 		</div>
-	</header>
-
-	<div class="menu-bar">
-		<div class="menu">
-			<li class="search-box">
+		<div class="search-box">
+			<li>
 				<a href="#">
 					<i class="fa-sharp fa-solid fa-magnifying-glass icon"></i>
-					<input type="search" placeholder="Rechercher.."/>
+					<input type="search" placeholder="Rechercher"/>
 				</a>
 			</li>
+		</div>
+	</header>
+</div>
+
+<div class="sub-banner">
+	<div class="menu-bar">
+		<div class="menu">
+			<ul class="menu-links">
+				<li class="nav-link">
+					<a href='{{path('app_association_create')}}'>
+						<i class="fa-solid fa-a icon"></i>
+						<span class="text nav-text">
+							Nouvelle Association</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_companysheet_create')}}'>
+						<i class="fa-solid fa-file icon"></i>
+						<span class="text nav-text">
+							Nouvelle Fiche Société</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_projectleader_create')}}'>
+						<i class="fa-solid fa-user icon"></i>
+						<span class="text nav-text">
+							Nouveau Lauréat</span>
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href='{{path('app_treasury_create')}}'>
+						<i class="fa-solid fa-handshake icon"></i>
+						<span class="text nav-text">
+							Nouvelle Convention</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<nav class="sidebar">
+	<div class="menu-bar">
+		<div class="menu">
 			<ul class="menu-links">
 				<li class="nav-link">
 					<a href='{{path('app_association')}}'>
@@ -45,34 +86,6 @@
 						<i class="fa-regular fa-sun icon"></i>
 						<span class="text nav-text">
 							Météo</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_association_create')}}'>
-						<i class="fa-solid fa-a icon"></i>
-						<span class="text nav-text">
-							Nouvelle Association</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_companysheet_create')}}'>
-						<i class="fa-solid fa-file icon"></i>
-						<span class="text nav-text">
-							Nouvelle Fiche Société</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_projectleader_create')}}'>
-						<i class="fa-solid fa-user icon"></i>
-						<span class="text nav-text">
-							Nouveau Porteur Projet</span>
-					</a>
-				</li>
-				<li class="nav-link">
-					<a href='{{path('app_treasury_create')}}'>
-						<i class="fa-solid fa-handshake icon"></i>
-						<span class="text nav-text">
-							Nouvelle Convention</span>
 					</a>
 				</li>
 			</ul>

@@ -6,7 +6,7 @@
 
 	{% include "_sidebar.html.twig" %}
 
-	<div class="tableAsso">
+	<div class="table">
 		<table class="table-content">
 			<thead>
 				<tr>
@@ -26,7 +26,7 @@
 
 				{% for association in associationList %}
 					<tr>
-						<td>{{ association.getName() }}</td>
+						<td style="text-align: left;">{{ association.getName() }}</td>
 						<td>{{ totals[association.getId()].requested|number_format(0, '.', ' ', ) }}
 							€</td>
 						<td>{{ totals[association.getId()].paid|number_format(0, '.', ' ', ) }}

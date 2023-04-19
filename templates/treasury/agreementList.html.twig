@@ -7,11 +7,11 @@
 {% block body %}
 	{% include "_sidebar.html.twig" %}
 
-	<div class="tableAgreement">
+	<div class="table">
 		<table class="table-content">
 			<thead>
 				<tr>
-					<th>Numéro de convention de financement CDC/BPI</th>
+					<th>Numéro de convention definancement CDC/BPI</th>
 					<th>Montants reçus par la CDC/BPI</th>
 					<th>Trésorerie Disponible</th>
 					<th>Montants engagés</th>
@@ -31,110 +31,112 @@
 						<td></td>
 						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ')}}
 							€</td>
-						<td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ')}}€</td>
+						<td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ')}}
+							€</td>
 						<td></td>
-						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}€</td>
+						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}
+							€</td>
 						<td></td>
 						<td></td>
 					</tr>
 				{% endfor %}
 				<tr>
-					<td>Total Général :</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="totalLine">Total Général :</td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
 				</tr>
 				<tr>
-					<td>Déduction casse :</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="totalLine">Déduction casse :</td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
 				</tr>
 				<tr>
-					<td>Total du Mt disponible du fond :</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="totalLine">Total du Mt disponible du fond :</td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
+					<td class="totalLine"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
-	<div class="tableAgreement">
-
-
-		<table class="table-content">
-			<thead>
-				<tr>
-					<th>Mois</th>
-					<th>Solde de Banque Livret + BPP</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Janvier</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Février</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Mars</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Avril</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Mai</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Juin</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Juillet</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Aout</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Septembre</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Octobre</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Novembre</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Décembre</td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	{# <div class="tableAgreement">
+											
+											
+													<table class="table-content">
+														<thead>
+															<tr>
+																<th>Mois</th>
+																<th>Solde de Banque Livret + BPP</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>Janvier</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Février</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Mars</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Avril</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Mai</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Juin</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Juillet</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Aout</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Septembre</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Octobre</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Novembre</td>
+																<td></td>
+															</tr>
+															<tr>
+																<td>Décembre</td>
+																<td></td>
+															</tr>
+														</tbody>
+													</table>
+												</div> #}
 {% endblock %}

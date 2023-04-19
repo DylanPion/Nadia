@@ -5,8 +5,8 @@
 {% block body %}
 	{% include "_sidebar.html.twig" %}
 
-	<div class="CompanyInfos">
-		<div class="nav">
+	<div class="companyInfos">
+		<nav>
 			<ul>
 				<li class="nav-link">
 					<a href="#" class="tablink" onclick="openTab(event,'companyCard')">
@@ -24,7 +24,7 @@
 					</a>
 				</li>
 			</ul>
-		</div>
+		</nav>
 
 		<div class="card-container">
 			<div class="tabcontent" id="companyCard">
@@ -118,10 +118,12 @@
 
 	<div class="tableTotalAmountRepaid">
 		<table class="table-content">
-			<caption>TABLEAU DE SUIVI DES REMBOURSEMENTS :</caption>
+			<caption>Tableau de suivi des remboursements :</caption>
 			<thead>
 				<tr>
-					<td>
+					<td></td>
+					<td></td>
+					<td class="newAmount">
 						<a href="{{path('app_companysheet_account_create', {id: company.id}) }}">
 							<i class="fa-solid fa-plus"></i>
 							<span>Ajouter un montant reçu</span>

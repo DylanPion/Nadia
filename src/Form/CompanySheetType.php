@@ -109,7 +109,7 @@ class CompanySheetType extends AbstractType
                 ]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Valider'
+                'label' => 'Valider la Fiche Société'
             ]);
     }
 

@@ -1,91 +1,33 @@
-// Style Formulaire pour les Association ( Create / Edit )
-
-.form-container {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  margin-left: 50%;
-  transform: translateX(-280px);
-  .form-content {
-    background-color: var(--card-color);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 25px;
-    padding: 50px 45px;
-
-    h1 {
-      text-align: center;
-      font-size: 2.4rem;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    label {
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
-    input {
-      font-size: 1rem;
-      width: 100%;
-      margin-top: 5px;
-      padding-left: 5px;
-      border-radius: 5px;
-      border: 1px solid var(--text-color);
-      outline: none;
-      &:focus {
-        border: 1px solid var(--primary-color);
-      }
-    }
-    button {
-      display: block;
-      border: none;
-      border-radius: 150px;
-      font-size: 1.2rem;
-      background: var(--primary-color);
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-      color: white;
-      cursor: pointer;
-      width: 50%;
-      margin: 30px auto 0;
-      padding: 10px;
-      transition: 0.3s ease;
-      &:hover {
-        filter: brightness(105%);
-        transform: translateX(2px);
-      }
-    }
-  }
-}
-
 // Formulaire CompanySheet ( Create Edit )
 .form-companysheet {
-  display: flex;
-  justify-content: center;
-  margin-top: 25px;
+  position: fixed;
+  top: 130px;
+  left: 280px;
   .form-content {
     width: 850px;
     border-radius: 25px;
-    background-color: var(--card-color);
+    background-color: var(--sidebar-color);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     padding: 20px;
   }
   h1 {
     text-align: center;
-    text-transform: uppercase;
     margin-bottom: 10px;
   }
   div {
     display: flex;
     flex-direction: column;
-    padding: 5px;
   }
   .date,
   .FNI {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
+    column-gap: 10px;
   }
   label {
     font-weight: 600;
     font-size: 1.1rem;
+    margin-bottom: 5px;
   }
   input,
   select {
@@ -95,6 +37,7 @@
     transition: 0.2s;
     outline: none;
     color: var(--text-color);
+    margin-bottom: 10px;
   }
   select option {
     background: rgb(235, 244, 242);
@@ -102,95 +45,19 @@
 
   input:focus,
   select:focus {
-    border: 1px solid var(--primary-color);
+    border: 1px solid gray;
   }
-  button {
-    margin-top: 10px;
-    padding: 15px;
-    font-size: 1.3rem;
-    color: white;
-    border: none;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    background: var(--primary-color);
-    transition: 0.3s ease;
-    cursor: pointer;
-    &:hover {
-      filter: brightness(105%);
-      transform: translateX(2px);
-    }
-  }
-}
-
-//Formulaire pour le porteur de projet
-.form-projectleader {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  margin-left: 50%;
-  transform: translateX(-280px);
-
-  .form-content {
-    padding: 40px;
-    border-radius: 25px;
-    background-color: var(--card-color);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-
-    div {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  h1 {
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 25px;
-  }
-
-  input,
-  select {
-    margin-top: 5px;
-    font-size: 0.9rem;
-    border: 1px solid var(--text-color);
-    border-radius: 6px;
-    transition: 0.2s;
-    outline: none;
-    color: var(--text-color);
-  }
-
-  input:focus,
-  select:focus {
-    border: 1px solid var(--primary-color);
-  }
-
-  p {
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  label {
-    font-size: 1.1rem;
-  }
-
-  select option {
-    background: rgb(235, 244, 242);
-  }
-
   button {
     display: block;
-    margin: 20px auto 0;
-    padding: 10px;
-    width: 50%;
-    background: var(--primary-color);
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    margin: 15px auto 0;
+    padding: 15px;
+    font-size: 1rem;
+    background: var(--banner-color);
     border: none;
     border-radius: 150px;
     color: white;
-    font-size: 1.2rem;
-    transition: 0.3s ease;
     cursor: pointer;
-
+    transition: 0.3s ease;
     &:hover {
       filter: brightness(105%);
       transform: translateX(2px);
@@ -198,25 +65,16 @@
   }
 }
 
-// // Ce style est utiliser pour réduire la largeur d'un formulaire
-.min {
-  max-width: 700px;
-  background: var(--card-color);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
-
-//Formulaire pour le Total Remboursé à ce jour
-.form-totalamount {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  margin-left: 50%;
-  transform: translateX(-280px);
+// Formulaire Porteur Projet / Convention / Association
+.form {
+  position: fixed;
+  top: 130px;
+  left: 280px;
 
   .form-content {
-    padding: 40px;
+    padding: 20px;
     border-radius: 25px;
-    background-color: var(--card-color);
+    background-color: var(--sidebar-color);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 
     div {
@@ -227,7 +85,6 @@
 
   h1 {
     text-align: center;
-    text-transform: uppercase;
     margin-bottom: 25px;
   }
 
@@ -265,7 +122,7 @@
     margin: 20px auto 0;
     padding: 10px;
     width: 50%;
-    background: var(--primary-color);
+    background: var(--banner-color);
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
     border: none;
     border-radius: 150px;
