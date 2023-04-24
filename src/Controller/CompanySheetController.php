@@ -85,9 +85,9 @@ class CompanySheetController extends AbstractController
             $projectLeaderNameList[] = $projectLeaderName->getName();
         }
 
-        $FniAmountRequested = $companySheet->getFniAmountRequested();
+        $FniAmountPaid = ($companySheet->getPaymentOne() + $companySheet->getPaymentTwo());
         $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
-        $totalAmountRepaid =  $FniAmountRequested - $totalPaymentReceived;
+        $totalAmountRepaid =  $FniAmountPaid - $totalPaymentReceived;
 
         // Récupérer l'entité CompanySheet
         $companySheet = $em->getRepository(CompanySheet::class)->find($id);

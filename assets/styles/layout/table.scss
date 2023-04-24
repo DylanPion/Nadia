@@ -5,6 +5,7 @@
   top: 120px;
   left: 280px;
   width: 1600px;
+  border: 3px solid var(--sidebar-color);
 }
 
 .tableTotalAmountRepaid {
@@ -12,6 +13,8 @@
   top: 450px;
   left: 280px;
   width: 1650px;
+  border: 3px solid var(--sidebar-color);
+
   caption {
     background: var(--banner-color);
     color: white;
@@ -39,6 +42,7 @@
         padding-bottom: 10px;
         text-align: center;
         border-bottom: 2px solid #e5e5e5;
+        border-top: 2px solid #e5e5e5;
       }
     }
   }
@@ -83,88 +87,17 @@ a {
 .delete {
   color: #ff4040;
 }
-// Style Table CS
 
-.tableCS {
-  display: flex;
+#newAmount {
   position: fixed;
-  top: 120px;
-  left: 280px;
-  width: 1600px;
-}
-
-.tableTotalAmountRepaid {
-  position: fixed;
-  top: 450px;
-  left: 280px;
-  width: 1650px;
-  caption {
-    background: var(--banner-color);
+  top: 500px;
+  left: 1935px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: #ea4763;
+  a {
     color: white;
-    font-size: 1.2rem;
-    text-align: left;
-    height: 40px;
-    padding: 5px;
+    font-size: 0.9rem;
   }
-  .newAmount {
-    height: 50px;
-  }
-}
-
-.table-content {
-  width: 100%;
-  border-collapse: collapse;
-
-  thead {
-    tr {
-      th {
-        background: white;
-        color: black;
-        font-size: 0.9rem;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        text-align: center;
-        border-bottom: 2px solid #e5e5e5;
-      }
-    }
-  }
-
-  tbody {
-    background: white;
-
-    td {
-      font-size: 0.8rem;
-      color: var(--text-color);
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #f2f2f2;
-      a {
-        i {
-          margin-left: 10px;
-        }
-      }
-    }
-
-    .totalLine {
-      color: black;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-  }
-
-  tr:hover {
-    background-color: #ececff;
-    cursor: pointer;
-  }
-}
-a {
-  text-decoration: none;
-  color: var(--text-color);
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.delete {
-  color: #ff4040;
 }

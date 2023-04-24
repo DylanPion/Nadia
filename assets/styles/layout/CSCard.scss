@@ -3,6 +3,10 @@
   top: 120px;
   left: 280px;
   width: 1000px;
+  padding: 10px;
+  border: 3px solid #faf6f6;
+  border-radius: 10px;
+  background-color: var(--sidebar-color);
   nav {
     margin-bottom: 10px;
     border-bottom: 2px solid #e5e5e5;
@@ -12,27 +16,29 @@
       li {
         font-size: 1rem;
         padding: 10px 25px 1px 0px;
+        text-transform: uppercase;
+        font-weight: 700;
       }
     }
   }
 }
 .card-container {
-  margin-bottom: 200px;
-  width: 100%;
   color: var(--text-color);
   .tabcontent {
     display: none;
   }
   .card {
+    margin-top: 25px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-
     ul {
       li {
         margin-bottom: 10px;
-      }
-      li:active {
-        color: red;
+        padding: 10px 10px 10px 0px;
+        span {
+          font-weight: 500;
+          text-decoration: underline;
+        }
       }
     }
   }

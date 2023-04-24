@@ -31,138 +31,150 @@
 				<div class="card">
 					<div>
 						<ul>
-							<li>{{company.companyName}}</li>
-							<li>{{associationName}}</li>
-							<li>Année CE :
+							<li>
+								<span>Nom de la Socité :</span>
+								{{company.companyName}}</li>
+							<li>
+								<span>Association :</span>
+								{{associationName}}</li>
+							<li>
+								<span>Année CE :</span>
 								{{company.dateOfCe | date (" d/m/y")}}</li>
 							<li>
-								Statut du prêt :
+								<span>Statut du prêt :</span>
 								{{company.loanstatus}}
 							</li>
 							{% for name in projectleadername %}
 								<li>
-									Nom Prénom des porteurs de projets :
+									<span>Pom Prénom des porteurs de projets :</span>
 									{{name}}</li>
 							{% endfor %}
 						</ul>
 					</div>
 					<div>
 						<ul>
-							<li>Numéro de convention de financement CDC/BPI :
+							<li>
+								<span>Numéro de convention de financement CDC/BPI :</span>
 								{{company.Agreement}}</li>
 						</ul>
-					</div>
+					</li>
 				</div>
 			</div>
+		</div>
 
-			<div class="tabcontent" id="requestedCard">
-				<div class="card">
-					<div>
-						<ul>
-							<li>Montant engagé :
-								{{company.fniamountrequested|number_format(0, '.', ' ')}}
-								€
-							</li>
-							<li>Début du début de rembroust :
-								{{company.repaymentstartdate | date (" d/m/y")}}
-							</li>
-						</ul>
-					</div>
-					<div>
-						<ul>
-							<li>Date de fin de rembourst :{{company.repaymentenddate | date (" d/m/y")}}
-							</li>
-						</ul>
-					</div>
+		<div class="tabcontent" id="requestedCard">
+			<div class="card">
+				<div>
+					<ul>
+						<li>
+							<span>Montant engagé :
+							</span>
+							{{company.fniamountrequested|number_format(0, '.', ' ')}}
+							€
+						</li>
+						<li>
+							<span>Début du début de rembroust :</span>
+							{{company.repaymentstartdate | date (" d/m/y")}}
+						</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>
+							<span>Date de fin de rembourst :</span>
+							{{company.repaymentenddate | date (" d/m/y")}}
+						</li>
+					</ul>
 				</div>
 			</div>
+		</div>
 
-			<div class="tabcontent" id="payCard">
-				<div class="card">
-					<div>
-						<ul>
-							<li>Date du 1er verst :
-								{{company.paymentonedate | date (" d/m/y")}}
-							</li>
-							<li>Date du 2nd verst :
-								{{company.paymenttwodate | date (" d/m/Y") }}
-							</li>
-							<li>Reste à versé :
-								{{(company.fniamountrequested - company.paymentone - company.paymenttwo)|number_format(0, '.', ' ')}}
+		<div class="tabcontent" id="payCard">
+			<div class="card">
+				<div>
+					<ul>
+						<li>
+							<span>Date du 1er verst :</span>
+							{{company.paymentonedate | date (" d/m/y")}}
+						</li>
+						<li>
+							<span>Date du 2nd verst :</span>
+							{{company.paymenttwodate | date (" d/m/Y") }}
+						</li>
+						<li>
+							<span>Reste à versé :</span>
+							{{(company.fniamountrequested - company.paymentone - company.paymenttwo)|number_format(0, '.', ' ')}}
+							€
+						</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>
+							<span>Montant du verst 1 :</span>
+							{{company.paymentone|number_format(0, '.', ' ')}}
+							€
+						</li>
+						<li>
+							<span>Montant du verst 2 :</span>
+							{{company.paymenttwo|number_format(0, '.', ' ')}}
+							€
+						</li>
 
-								€
-							</li>
-						</ul>
-					</div>
-					<div>
-						<ul>
-							<li>Montant du verst 1 :
-								{{company.paymentone|number_format(0, '.', ' ')}}
-								€
-							</li>
-							<li>Montant du verst 2 :
-								{{company.paymenttwo|number_format(0, '.', ' ')}}
-								€
-							</li>
-
-							<li>Total versé :
-								{{(company.paymentone + company.paymenttwo)|number_format(0, '.', ' ')}}
-								€
-							</li>
-						</ul>
-					</div>
+						<li>
+							<span>Total versé :</span>
+							{{(company.paymentone + company.paymenttwo)|number_format(0, '.', ' ')}}
+							€
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="tableTotalAmountRepaid">
-		<table class="table-content">
-			<caption>Tableau de suivi des remboursements :</caption>
-			<thead>
+<div class="tableTotalAmountRepaid">
+	<table class="table-content">
+		<caption>Tableau de suivi des remboursements :</caption>
+		<thead>
+			<tr>
+				<th>Date des rembrts</th>
+				<th>Montant Reçus</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td class="totalLine">Montant Engagé :
+					{{company.fniamountrequested|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Total Reçu :
+					{{totalPaymentReceived|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Reste à Reçevoir :
+					{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
+					€</td>
+			</tr>
+			{% for total in totalAmountRepaid %}
 				<tr>
-					<td></td>
-					<td></td>
-					<td class="newAmount">
-						<a href="{{path('app_companysheet_account_create', {id: company.id}) }}">
-							<i class="fa-solid fa-plus"></i>
-							<span>Ajouter un montant reçu</span>
+					<td>{{total.Date| date ("d/m/Y")}}</td>
+					<td>{{total.Payment|number_format(0, '.', ' ')}}
+						€</td>
+					<td>
+						<a href="#">
+							<i class="fa-solid fa-pen-to-square"></i>
+							<span>Modifier le paiement reçu</span>
 						</a>
 					</td>
 				</tr>
-				<tr>
-					<th>Date des rembrts</th>
-					<th>Montant Reçus</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr>
-					<td class="totalLine">Montant Engagé :
-						{{company.fniamountrequested|number_format(0, '.', ' ')}}
-						€</td>
-					<td class="totalLine">Total Reçu :
-						{{totalPaymentReceived|number_format(0, '.', ' ')}}
-						€</td>
-					<td class="totalLine">Reste à Reçevoir :
-						{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
-						€</td>
-				</tr>
-				{% for total in totalAmountRepaid %}
-					<tr>
-						<td>{{total.Date| date ("d/m/Y")}}</td>
-						<td>{{total.Payment|number_format(0, '.', ' ')}}
-							€</td>
-						<td>
-							<a href="#">
-								<i class="fa-solid fa-pen-to-square"></i>
-								<span>Modifier le paiement reçu</span>
-							</a>
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-{% endblock %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<button id="newAmount">
+	<a href="{{path('app_companysheet_account_create', {id: company.id}) }}">
+		<i class="fa-solid fa-plus"></i>
+		<span>Ajouter un montant reçu</span>
+	</a>
+</button>{% endblock %}

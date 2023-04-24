@@ -28,7 +28,7 @@
 
 				{% for company in company %}
 					<tr>
-						<td>N°{{ company.Agreement }}</td>
+						<td>{{ company.Agreement }}</td>
 						<td style="text-align: left;">{{ company.companyName }}</td>
 						<td>{{ company.FniAmountRequested|number_format(0, '.', ' ') }}
 							€</td>
