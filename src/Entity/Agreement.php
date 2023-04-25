@@ -24,6 +24,9 @@ class Agreement
     #[ORM\OneToMany(mappedBy: 'agreement', targetEntity: CompanySheet::class)]
     private Collection $companySheet;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $AmountRequestedForTheAgreement = null;
+
     public function __construct()
     {
         $this->companySheet = new ArrayCollection();
@@ -89,6 +92,18 @@ class Agreement
                 $companySheet->setAgreement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAmountRequestedForTheAgreement(): ?int
+    {
+        return $this->AmountRequestedForTheAgreement;
+    }
+
+    public function setAmountRequestedForTheAgreement(?int $AmountRequestedForTheAgreement): self
+    {
+        $this->AmountRequestedForTheAgreement = $AmountRequestedForTheAgreement;
 
         return $this;
     }

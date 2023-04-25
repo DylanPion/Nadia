@@ -18,9 +18,13 @@ class AgreementType extends AbstractType
                 'label' => 'Numéro de la nouvelle Convention :',
                 "attr" => ["placeholder" => "Entrez le nom de la nouvelle Convention"]
             ])
+            ->add('amountRequestedForTheAgreement', IntegerType::class, [
+                'label' => 'Montant demandés par la CDC/BPI :',
+                "attr" => ["placeholder" => "Entrez le Montant demandés par la CDC/BPI"]
+            ])
             ->add('cashFund', IntegerType::class, [
-                'label' => 'Fond Trésorerie de la Convention :',
-                "attr" => ["placeholder" => "Entrez le Fond de Trésorerie de la nouvelle Convention"]
+                'label' => 'Montant reçus par la CDC/BPI :',
+                "attr" => ["placeholder" => "Entrez le Montant reçus par la CDC/BPI"]
             ])
             ->add('Button', SubmitType::class, [
                 'label' => 'Création d\'une nouvelle convention'

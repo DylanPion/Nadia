@@ -13,6 +13,7 @@
 			<thead>
 				<tr>
 					<th>Numéro de convention definancement CDC/BPI</th>
+					<th>Montants demandés par la CDC/BPI</th>
 					<th>Montants reçus par la CDC/BPI</th>
 					<th>Trésorerie Disponible</th>
 					<th>Montants engagés</th>
@@ -27,6 +28,8 @@
 				{% for i in idValue %}
 					<tr>
 						<td>{{agreementNumber[i]}}</td>
+						<td>{{agreement[i].amountRequestedForTheAgreement|number_format(0, '.', ' ')}}
+							€</td>
 						<td>{{agreement[i].cashFund|number_format(0, '.', ' ')}}
 							€</td>
 						<td>{{((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])|number_format(0, '.', ' ')}}
