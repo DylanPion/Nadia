@@ -23,15 +23,16 @@ class AssociationController extends AbstractController
 
         // On se sert de requête personnalisée du Repository pour calculer le total du FNI Engagé, FNI Versé et Total Remboursé par Association 
         foreach ($associationList as $association) {
-            $TotalFNiPaidByAssociation = $companySheetRepository->getTotalAmountPaidByAssociation($association->getId());
-            $TotalFNiRequestedByAssociation = $companySheetRepository->getTotalAmountRequestedByAssociation($association->getId());
+            $TotalFNIRequestedByAssociation = $companySheetRepository->getTotalAmountRequestedByAssociation($association->getId());
+            $TotalFNIPaidByAssociation = $companySheetRepository->getTotalAmountPaidByAssociation($association->getId());
             $TotalAmountReceived = $companySheetRepository->getTotalAmountReceivedByAssociation($association->getId());
+            $TotalAmountRepaid = $TotalFNIPaidByAssociation - $TotalAmountReceived;
 
             $totals[$association->getId()] = [
                 'name' => $association->getName(),
-                'paid' => $TotalFNiPaidByAssociation,
-                'requested' => $TotalFNiRequestedByAssociation,
-                'received' => $TotalAmountReceived,
+                'paid' => $TotalFNIPaidByAssociation,
+                'requested' => $TotalFNIRequestedByAssociation,
+                'received' => $TotalAmountRepaid,
             ];
         }
         return $this->render('association/associationList.html.twig', [

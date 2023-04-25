@@ -4,26 +4,28 @@
   left: 280px;
   width: 1000px;
   padding: 10px;
-  border: 3px solid #faf6f6;
+  border: 3px solid #faba64;
   border-radius: 10px;
-  background-color: var(--sidebar-color);
+  background-color: #faba64;
   nav {
     margin-bottom: 10px;
-    border-bottom: 2px solid #e5e5e5;
+    border-bottom: 2px solid white;
     ul {
       display: flex;
-
       li {
-        font-size: 1rem;
-        padding: 10px 25px 1px 0px;
-        text-transform: uppercase;
-        font-weight: 700;
+        a {
+          font-size: 1.3rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 10px 25px 1px 0px;
+          color: white;
+        }
       }
     }
   }
 }
 .card-container {
-  color: var(--text-color);
+  color: white;
   .tabcontent {
     display: none;
   }

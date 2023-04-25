@@ -67,14 +67,13 @@
 				<div>
 					<ul>
 						<li>
-							<span>Montant engagé :
-							</span>
-							{{company.fniamountrequested|number_format(0, '.', ' ')}}
-							€
-						</li>
-						<li>
 							<span>Début du début de rembroust :</span>
 							{{company.repaymentstartdate | date (" d/m/y")}}
+						</li>
+						<li>
+							<span>Montant engagé :</span>
+							{{company.fniamountrequested|number_format(0, '.', ' ')}}
+							€
 						</li>
 					</ul>
 				</div>
@@ -133,6 +132,13 @@
 	</div>
 </div>
 
+<div class="meteo">
+	<div class="meteo-content">
+		<i class="fa-regular fa-sun icon"></i>
+		<span>Note : Exemple 1</span>
+	</div>
+</div>
+
 <div class="tableTotalAmountRepaid">
 	<table class="table-content">
 		<caption>Tableau de suivi des remboursements :</caption>
@@ -145,17 +151,6 @@
 		</thead>
 
 		<tbody>
-			<tr>
-				<td class="totalLine">Montant Engagé :
-					{{company.fniamountrequested|number_format(0, '.', ' ')}}
-					€</td>
-				<td class="totalLine">Total Reçu :
-					{{totalPaymentReceived|number_format(0, '.', ' ')}}
-					€</td>
-				<td class="totalLine">Reste à Reçevoir :
-					{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
-					€</td>
-			</tr>
 			{% for total in totalAmountRepaid %}
 				<tr>
 					<td>{{total.Date| date ("d/m/Y")}}</td>
@@ -169,7 +164,35 @@
 					</td>
 				</tr>
 			{% endfor %}
+			<tr>
+				<td class="totalLine">Montant Engagé :
+					{{company.fniamountrequested|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Total Reçu :
+					{{totalPaymentReceived|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Reste à Reçevoir :
+					{{(company.fniamountrequested - totalPaymentReceived)|number_format(0, '.', ' ')}}
+					€</td>
+			</tr>
+			<tr></tr>
 		</tbody>
+	</table>
+	<table class="table-content">
+		<caption>Tableau de suivi Météo</caption>
+		<thead>
+			<tr>
+				<th>Année Météo</th>
+				<th>Nbre Impayés</th>
+				<th>Echelle Evaluation</th>
+				<th>%Tage Provision</th>
+				<th>Liquidation</th>
+				<th>Date de Liquidation</th>
+				<th>Garantie BPI Déclenchée</th>
+				<th>Commentaires</th>
+				<th>Montant de la Casse</th>
+			</tr>
+		</thead>
 	</table>
 </div>
 <button id="newAmount">

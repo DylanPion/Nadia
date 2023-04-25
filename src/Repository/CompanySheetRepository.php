@@ -109,6 +109,17 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getTotalAmountRepaidByAgreement($agreement)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo - cs.remainsToBeReceived) as TotalAmountRepaidByAgreement')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+
     // Fonction pour calculer le Montant Total FNI Versé à une Association pour ses sociétés
     public function getTotalAmountPaidByAssociation($associationId)
     {

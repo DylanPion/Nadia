@@ -9,15 +9,16 @@
 
 	<div class="table">
 		<table class="table-content">
+			<caption>Tableau de suivi des Prêts par Convention :</caption>
 			<thead>
 				<tr>
 					<th>Numéro de convention definancement CDC/BPI</th>
 					<th>Montants reçus par la CDC/BPI</th>
 					<th>Trésorerie Disponible</th>
 					<th>Montants engagés</th>
-					<th>Montants versés aux associations</th>
-					<th>Montants reçus des associations</th>
-					<th>Montants Engagés et non versés aux associations</th>
+					<th>Montants versés</th>
+					<th>Remboursement reçus</th>
+					<th>Montants Engagés et non versés</th>
 					<th>Montants Total des Provisions</th>
 					<th>Montants Total des Casses</th>
 				</tr>
@@ -28,16 +29,18 @@
 						<td>{{agreementNumber[i]}}</td>
 						<td>{{agreement[i].cashFund|number_format(0, '.', ' ')}}
 							€</td>
-						<td></td>
+						<td>{{((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])|number_format(0, '.', ' ')}}
+							€</td>
 						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ')}}
 							€</td>
 						<td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ')}}
 							€</td>
-						<td></td>
+						<td>{{TotalAmountRepaidByAgreement[i]|number_format(0, '.', ' ')}}
+							€</td>
 						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}
 							€</td>
-						<td></td>
-						<td></td>
+						<td>A DEFINIR</td>
+						<td>A DEFINIR</td>
 					</tr>
 				{% endfor %}
 				<tr>
@@ -76,67 +79,4 @@
 			</tbody>
 		</table>
 	</div>
-
-	{# <div class="tableAgreement">
-											
-											
-													<table class="table-content">
-														<thead>
-															<tr>
-																<th>Mois</th>
-																<th>Solde de Banque Livret + BPP</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>Janvier</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Février</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Mars</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Avril</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Mai</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Juin</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Juillet</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Aout</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Septembre</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Octobre</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Novembre</td>
-																<td></td>
-															</tr>
-															<tr>
-																<td>Décembre</td>
-																<td></td>
-															</tr>
-														</tbody>
-													</table>
-												</div> #}
 {% endblock %}

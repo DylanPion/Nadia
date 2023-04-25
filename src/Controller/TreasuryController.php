@@ -58,6 +58,10 @@ class TreasuryController extends AbstractController
             // Utilise la fonction du Repository pour calculer le Total FNI versé par convention
             $TotalAmountFNIPaidByAgreement[$value] = $companySheetRepository->getTotalAmountFNIPaidByAgreement($value);
 
+            // Utilise la fonction du Repository pour calculer le Total des Remboursement reçus par convetion 
+            $TotalAmountRepaidByAgreement[$value] =
+                $companySheetRepository->getTotalAmountRepaidByAgreement($value);
+
             // Calcul le Montant engagé et non versé 
             $AmountsCommittedAndNotPaid[$value] = $TotalAmountRequestedByAgreement[$value][0]['TotalAmountRequestedByAgreement'] - $TotalAmountFNIPaidByAgreement[$value][0]["TotalAmountFNIPaidByAgreement"];
         }
@@ -66,6 +70,7 @@ class TreasuryController extends AbstractController
             'agreement' => $agreement,
             'TotalAmountRequestedByAgreement' => $TotalAmountRequestedByAgreement,
             'TotalAmountFNIPaidByAgreement' => $TotalAmountFNIPaidByAgreement,
+            'TotalAmountRepaidByAgreement' => $TotalAmountRepaidByAgreement,
             'AmountCommittedAndNotPaid' => $AmountsCommittedAndNotPaid,
             'idValue' => $idValue // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
         ]);

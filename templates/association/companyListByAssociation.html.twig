@@ -8,6 +8,7 @@
 
 	<div class="table">
 		<table class="table-content">
+			<caption>Tableau de suivi des Sociétés par Associations</caption>
 			<thead>
 				<tr>
 					<th>Numéro de convention de financement CDC/BPI</th>
@@ -23,8 +24,9 @@
 			</thead>
 			<tbody>
 				{% set totalFniAmountRequested = 0 %}
-				{% set totalPayments = 0 %}
+				{% set totalAmountPaid = 0 %}
 				{% set totalRemainsToBeReceived = 0 %}
+				{% set totalAmountRepaid = 0 %}
 
 				{% for company in company %}
 					<tr>
@@ -36,10 +38,10 @@
 							€</td>
 						<td>{{ ((company.paymentone + company.paymenttwo) - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
 							€</td>
-						<td>{{(company.FniAmountRequested - ((company.fniamountrequested - company.remainsToBeReceived)))|number_format(0, '.', ' ')}}
+						<td>{{company.remainsToBeReceived}}
 							€</td>
-						<td></td>
-						<td></td>
+						<td>A DEFINIR</td>
+						<td>A DEFINIR</td>
 						<td>
 							<a href="{{ path("app_companysheet_display", {id: company.id}) }}" class="infos">
 								<i class="fa-sharp fa-solid fa-circle-info "></i>
@@ -53,7 +55,8 @@
 					</tr>
 
 					{% set totalFniAmountRequested = totalFniAmountRequested + company.FniAmountRequested %}
-					{% set totalPayments = totalPayments + company.paymentone + company.paymenttwo %}
+					{% set totalAmountPaid = totalAmountPaid + company.paymentone + company.paymenttwo %}
+					{% set totalAmountRepaid = totalAmountRepaid + company.paymentone + company.paymenttwo - company.remainsToBeReceived %}
 					{% set totalRemainsToBeReceived = totalRemainsToBeReceived + company.remainsToBeReceived %}
 				{% endfor %}
 
@@ -62,14 +65,15 @@
 					<td class="totalLine"></td>
 					<td class="totalLine">{{ totalFniAmountRequested|number_format(0, '.', ' ') }}
 						€</td>
-					<td class="totalLine">{{ totalPayments|number_format(0, '.', ' ') }}
+					<td class="totalLine">{{ totalAmountPaid|number_format(0, '.', ' ') }}
 						€</td>
-					<td class="totalLine">{{ (totalFniAmountRequested - totalRemainsToBeReceived)|number_format(0, '.', ' ') }}
+					<td class="totalLine">{{totalAmountRepaid|number_format(0, '.', ' ')}}
+						€
+					</td>
+					<td class="totalLine">{{totalRemainsToBeReceived|number_format(0, '.', ' ')}}
 						€</td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
+					<td class="totalLine">A DEFINIR</td>
+					<td class="totalLine">A DEFINIR</td>
 				</tr>
 			</tbody>
 		</table>
