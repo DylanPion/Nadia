@@ -152,4 +152,22 @@ class CompanySheetRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    //Fonction pour calculer le total FNI Versé 
+    public function getTotalFNIAmountPaid()
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo) as total');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    // Fonction pour calculer le total Remboursement reçu à ce jour 
+    public function getTotalAmountRepaidToDate()
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo - cs.remainsToBeReceivedt) as total');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

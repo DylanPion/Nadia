@@ -32,9 +32,6 @@ class CompanySheet
     // #[ORM\OneToOne(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
     // private ?TotalAmountRepaidToDate $TotalAmountRepaidToDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $LoanStatus = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateOfCE = null;
 
@@ -61,6 +58,9 @@ class CompanySheet
 
     #[ORM\Column]
     private int $remainsToBeReceived = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $totalAmountOfDamage = null;
 
     public function __construct()
     {
@@ -104,18 +104,6 @@ class CompanySheet
     public function setAgreement(?Agreement $Agreement): self
     {
         $this->Agreement = $Agreement;
-
-        return $this;
-    }
-
-    public function getLoanStatus(): ?string
-    {
-        return $this->LoanStatus;
-    }
-
-    public function setLoanStatus(string $LoanStatus): self
-    {
-        $this->LoanStatus = $LoanStatus;
 
         return $this;
     }
@@ -253,6 +241,18 @@ class CompanySheet
                 $projectLeader->setCompanySheet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotalAmountOfDamage(): ?int
+    {
+        return $this->totalAmountOfDamage;
+    }
+
+    public function setTotalAmountOfDamage(?int $totalAmountOfDamage): self
+    {
+        $this->totalAmountOfDamage = $totalAmountOfDamage;
 
         return $this;
     }

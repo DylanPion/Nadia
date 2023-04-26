@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Association;
+use App\Entity\CompanySheet;
 use App\Form\AssociationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Repository\CompanySheetRepository;
+use App\Repository\WeatherRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,11 +103,13 @@ class AssociationController extends AbstractController
         $id,
         CompanySheetRepository $companySheetRepository,
         AssociationRepository $associationRepository,
+        WeatherRepository $weatherRepository
     ): Response {
 
         return $this->render('association/companyListByAssociation.html.twig', [
             // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
             'company' => $companySheetRepository->findBy(array('association' => $id)),
+            'totalAmountOfDamageByCompany' => $weatherRepository->getTotalamountOfDamageByCompany($id),
             'associationName' => $associationRepository->find($id)->getName(),
         ]);
     }

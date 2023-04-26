@@ -36,7 +36,6 @@ class AppFixtures extends Fixture
                 ->setCompanyName("Société n°$i")
                 ->setDateOfCE($randomDate)
                 ->setFniAmountRequested(mt_rand(1, 100000))
-                ->setLoanStatus("En Cours")
                 ->setPaymentOne(mt_rand(1, 1000000))
                 ->setPaymentTwo(mt_rand(1, 1000000))
                 ->setPaymentOneDate($randomDate)

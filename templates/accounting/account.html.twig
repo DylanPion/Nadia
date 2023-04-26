@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des prêts | Comptabilité
+{% endblock %}
+{% block body %}
+	{% include "_sidebar.html.twig" %}
+
+	<div class="table">
+		<table class="table-content">
+			<caption>Suuivi du Pointage</caption>
+			<thead>
+				<tr class="accountHistory">
+					<th>Date de la Compta</th>
+					<th>Total Versés aux Associations</th>
+					<th>Total Remboursements Reçus</th>
+					<th>Historique de casse, montant</th>
+					<th>Solde du cpte 2748 au 31/12</th>
+					<th>Solde du cpte 4671 au 31/12</th>
+					<th>Solde Théorique</th>
+					<th>Solde comptable</th>
+					<th>Différence</th>
+				</tr>
+			</thead>
+			{% for account in account %}
+				<tbody>
+					<tr>
+						<td>{{account.year| date ("d/m/Y")}}</td>
+						<td>{{account.totalAmountFniPaid|number_format(0, '.', ' ',)}}
+							€</td>
+						<td>{{account.totalAmountRepaidToDate|number_format(0, '.', ' ',)}}
+							€</td>
+						<td>{{account.damageHistory|number_format(0, '.', ' ', )}}
+							€</td>
+						<td>{{account.account2748|number_format(0, '.', ' ', )}}
+							€</td>
+						<td>{{account.account4671|number_format(0, '.', ' ', )}}
+							€</td>
+						<td>{{(account.totalAmountFniPaid - account.totalAmountRepaidToDate + account.damageHistory )|number_format(0, '.', ' ', )}}
+							€</td>
+						<td>{{(account.account2748 - account.account4671)|number_format(0, '.', ' ', )}}
+							€</td>
+						<td>{{((account.totalAmountFniPaid - account.totalAmountRepaidToDate + account.damageHistory ) - (account.account2748 - account.account4671))|number_format(0, '.', ' ', )}}
+							€</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<button id="newAccount">
+		<a href="{{path('app_account_create')}}">
+			<i class="fa-solid fa-plus"></i>
+			<span>Nouvelle Comptabilité</span>
+		</a>
+	</button>
+
+{% endblock %}

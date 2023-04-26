@@ -40,13 +40,10 @@
 							<li>
 								<span>Année CE :</span>
 								{{company.dateOfCe | date (" d/m/y")}}</li>
-							<li>
-								<span>Statut du prêt :</span>
-								{{company.loanstatus}}
-							</li>
+
 							{% for name in projectleadername %}
 								<li>
-									<span>Pom Prénom des porteurs de projets :</span>
+									<span>Nom Prénom des Lauréats :</span>
 									{{name}}</li>
 							{% endfor %}
 						</ul>
@@ -101,7 +98,7 @@
 							{{company.paymenttwodate | date (" d/m/Y") }}
 						</li>
 						<li>
-							<span>Reste à versé :</span>
+							<span>Reste à verser :</span>
 							{{(company.fniamountrequested - company.paymentone - company.paymenttwo)|number_format(0, '.', ' ')}}
 							€
 						</li>
@@ -129,13 +126,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-<div class="meteo">
-	<div class="meteo-content">
-		<i class="fa-regular fa-sun icon"></i>
-		<span>Note : Exemple 1</span>
 	</div>
 </div>
 
@@ -193,11 +183,47 @@
 				<th>Montant de la Casse</th>
 			</tr>
 		</thead>
+		<tbody>
+			{% for weather in weather %}
+				<tr>
+					<td>{{weather.weatherYear| date ("d/m/Y")}}</td>
+					<td>{{weather.unpaidNumber}}</td>
+					<td>{{weather.assessmentScale}}</td>
+					<td>{{weather.retainerPercentage}}</td>
+					<td>{{weather.loanStatus}}</td>
+					<td>{{weather.liquidationDate| date ("d/m/Y")}}</td>
+					<td>{{weather.bpiGuarantee}}</td>
+					<td>{{weather.comment}}</td>
+					<td>{{weather.amountOfDamage|number_format(0, '.', ' ')}}
+						€</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td class="totalLine">Total :</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="totalLine">{{totalAmountOfDamage|number_format(0, '.', ' ')}}
+					€</td>
+			</tr>
+		</tbody>
 	</table>
 </div>
+
 <button id="newAmount">
-	<a href="{{path('app_companysheet_account_create', {id: company.id}) }}">
+	<a href="{{path('app_companysheet_account_create', {id: company.id})}}">
 		<i class="fa-solid fa-plus"></i>
 		<span>Ajouter un montant reçu</span>
+	</a>
+</button>
+
+<button id="newWeather">
+	<a href="{{path('app_weather_create', {id: company.id})}}">
+		<i class="fa-solid fa-plus"></i>
+		<span>Création d'une Météo</span>
 	</a>
 </button>{% endblock %}

@@ -38,9 +38,10 @@
 							€</td>
 						<td>{{ ((company.paymentone + company.paymenttwo) - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
 							€</td>
-						<td>{{company.remainsToBeReceived}}
+						<td>{{company.remainsToBeReceived|number_format(0, '.', ' ')}}
 							€</td>
-						<td>A DEFINIR</td>
+						<td>{{company.totalAmountOfDamage|number_format(0, '.', ' ')}}
+							€</td>
 						<td>A DEFINIR</td>
 						<td>
 							<a href="{{ path("app_companysheet_display", {id: company.id}) }}" class="infos">

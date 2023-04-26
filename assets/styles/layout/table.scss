@@ -104,32 +104,39 @@ a {
   border: none;
   outline: none;
   background-color: #0995bf;
+  width: 200px;
   a {
     color: white;
     font-size: 0.9rem;
   }
 }
 
-.meteo {
+#newWeather {
+  position: fixed;
+  top: 450px;
+  left: 1375px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: #7bae8b;
+  width: 200px;
+  a {
+    color: white;
+    font-size: 0.9rem;
+  }
+}
+
+#newAccount {
   position: fixed;
   top: 120px;
-  left: 1400px;
-  border-radius: 10px;
-  width: 150px;
-  height: 150px;
+  left: 1900px;
+  padding: 10px;
+  border: none;
+  outline: none;
   background-color: #7bae8b;
-  .meteo-content {
-    display: flex;
-    flex-direction: column;
-    i {
-      margin: 20px auto 20px;
-      font-size: 2.5rem;
-      color: white;
-    }
-    span {
-      text-align: center;
-      font-size: 1.1rem;
-      color: white;
-    }
+  width: 200px;
+  a {
+    color: white;
+    font-size: 0.9rem;
   }
 }

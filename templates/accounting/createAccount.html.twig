@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle Comptabilité
+{% endblock %}
+
+
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="form">
+		<div class="form-content">
+			<h1>Création d'une nouvelle Comptabilité</h1>
+			{{form_start(formView)}}
+			{{form_row(formView.damageHistory)}}
+			{{form_row(formView.account2748)}}
+			{{form_row(formView.account4671) }}
+			{{form_row(formView.Button) }}
+			{{form_end(formView)}}
+		</div>
+	</div>
+{% endblock %}

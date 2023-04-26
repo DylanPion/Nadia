@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
+use App\Repository\WeatherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompanySheetController extends AbstractController
@@ -37,7 +38,9 @@ class CompanySheetController extends AbstractController
             $em->persist($totalAmountRepaidToDate);
             $em->persist($companySheet);
             $em->flush();
-            return $this->redirectToRoute('app_projectleader_create');
+
+            $id = $companySheet->getId();
+            return $this->redirectToRoute('app_companysheet_display', ['id' => $id]);
         }
 
         return $this->render('companySheet/createCompanySheet.html.twig', [
@@ -76,7 +79,7 @@ class CompanySheetController extends AbstractController
 
     // Affichage d'une fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
-    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, EntityManagerInterface $em): Response
+    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, EntityManagerInterface $em, WeatherRepository $weatherRepository): Response
     {
         // Récupération de la liste des project leader dans un tableau
         $projectLeaderList = $companySheet->getProjectLeaders();
@@ -99,15 +102,21 @@ class CompanySheetController extends AbstractController
         // Affecter la valeur de la variable `totalAmountRepaid` à `remainsToBeReceived`
         $companySheet->setRemainsToBeReceived($totalAmountRepaid);
 
-        // Enregistrer les modifications dans la base de données
+        //TEST
+        $test = $companySheet->setTotalAmountOfDamage($weatherRepository->getTotalamountOfDamageByCompany($id));
+        $em->persist($test);
         $em->flush();
 
+        // Enregistrer les modifications dans la base de données
+        $em->flush();
         return $this->render('companySheet/displayCompanySheet.html.twig', [
             'company' => $companySheetRepository->find($id),
             'projectleadername' => $projectLeaderNameList,
             'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),
             'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
-            'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id)
+            'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id),
+            'weather' => $weatherRepository->findBy(array('CompanySheet' => $id)),
+            'totalAmountOfDamage' => $weatherRepository->getTotalamountOfDamageByCompany($id)
         ]);
     }
 

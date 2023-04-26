@@ -100,3 +100,5 @@ function openTab(evt, tabName) {
 }
 
 document.getElementById("companyCard").style.display = "block"; // Card a afficher par défaut au chargement de la page
+
+console.log("ok");

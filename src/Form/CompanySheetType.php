@@ -38,15 +38,6 @@ class CompanySheetType extends AbstractType
                 'class' => Agreement::class,
                 'choice_label' => 'number',
             ])
-            ->add('LoanStatus', ChoiceType::class, [
-                'label' => 'Statut du prêt',
-                'choices' => [
-                    'Engagé' => 'Engagé',
-                    'Recouvrement' => 'Recouvrement',
-                    'Contentieux' => 'Contentieux',
-                    'Cloture avec perte' => 'Cloture avec perte'
-                ]
-            ])
             ->add('DateOfCE', DateType::class, [
                 'label' => 'Date du CE',
                 'widget' => 'single_text',
