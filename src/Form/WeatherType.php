@@ -26,6 +26,15 @@ class WeatherType extends AbstractType
                     'data-provide' => 'datepicker'
                 ]
             ])
+            ->add('DateOfTheLastDayOfTheYear', DateType::class, [
+                'label' => 'Date du dernier jour de l\'année',
+                'widget' => 'single_text',
+                "attr" => [
+                    'placeholder' => 'Entrez la date du dernier jour de l\'année',
+                    'class' => 'form-control',
+                    'data-provide' => 'datepicker'
+                ]
+            ])
             ->add('unpaidNumber', IntegerType::class, [
                 'label' => 'Nombre d\'Impayés',
                 "attr" => ['placeholder' => "Entrez le Nombre d'Impayés"]

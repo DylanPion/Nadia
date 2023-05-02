@@ -28,6 +28,14 @@
   }
 }
 
+.weatherTable {
+  position: fixed;
+  top: 120px;
+  left: 1400px;
+  width: 500px;
+  border: 3px solid var(--sidebar-color);
+}
+
 .table-content {
   width: 100%;
   border-collapse: collapse;

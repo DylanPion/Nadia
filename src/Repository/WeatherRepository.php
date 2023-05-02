@@ -64,11 +64,22 @@ class WeatherRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    // Fonction pour calculer la total du Montant de la Casse par Société
+    // Fonction pour calculer le Total du Montant de la Casse par Société
     public function getTotalamountOfDamageByCompany($CompanySheet)
     {
         $qb = $this->createQueryBuilder('cs')
             ->select('SUM(cs.amountOfDamage) as TotalamountOfDamage')
+            ->where('cs.CompanySheet = :CompanySheet')
+            ->setParameter('CompanySheet', $CompanySheet);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    // Fonction pour calculer le Total du Montant Provision Comptable
+    public function getTotalamountOfAccountingProvision($CompanySheet)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.amountOfAccountingProvision) as TotalamountOfAccountingProvision')
             ->where('cs.CompanySheet = :CompanySheet')
             ->setParameter('CompanySheet', $CompanySheet);
 

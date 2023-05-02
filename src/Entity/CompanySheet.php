@@ -62,6 +62,9 @@ class CompanySheet
     #[ORM\Column(nullable: true)]
     private ?int $totalAmountOfDamage = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $totalAmountOfAccountingProvision = null;
+
     public function __construct()
     {
         $this->projectLeaders = new ArrayCollection();
@@ -253,6 +256,18 @@ class CompanySheet
     public function setTotalAmountOfDamage(?int $totalAmountOfDamage): self
     {
         $this->totalAmountOfDamage = $totalAmountOfDamage;
+
+        return $this;
+    }
+
+    public function getTotalAmountOfAccountingProvision(): ?int
+    {
+        return $this->totalAmountOfAccountingProvision;
+    }
+
+    public function setTotalAmountOfAccountingProvision(?int $totalAmountOfAccountingProvision): self
+    {
+        $this->totalAmountOfAccountingProvision = $totalAmountOfAccountingProvision;
 
         return $this;
     }

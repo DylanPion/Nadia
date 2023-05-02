@@ -119,6 +119,26 @@ class CompanySheetRepository extends ServiceEntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    public function getTotalAmountOfCaseByAgreement($agreement)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.totalAmountOfDamage) as TotalAmountAmountOfDamage')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getTotalAmountOfAccountingProvisionByAgreement($agreement)
+    {
+        $qb = $this->createQueryBuilder('cs')
+            ->select('SUM(cs.totalAmountOfAccountingProvision) as TotalAmountAmountOfDamage')
+            ->where('cs.Agreement = :Agreement')
+            ->setParameter('Agreement', $agreement);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
 
     // Fonction pour calculer le Montant Total FNI Versé à une Association pour ses sociétés
     public function getTotalAmountPaidByAssociation($associationId)
@@ -166,7 +186,7 @@ class CompanySheetRepository extends ServiceEntityRepository
     public function getTotalAmountRepaidToDate()
     {
         $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.PaymentOne + cs.PaymentTwo - cs.remainsToBeReceivedt) as total');
+            ->select('SUM(cs.PaymentOne + cs.PaymentTwo - cs.remainsToBeReceived) as total');
 
         return $qb->getQuery()->getSingleScalarResult();
     }

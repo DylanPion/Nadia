@@ -44,6 +44,12 @@ class Weather
     #[ORM\Column(length: 255)]
     private ?string $LoanStatus = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DateOfTheLastDayOfTheYear = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $amountOfAccountingProvision = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +171,30 @@ class Weather
     public function setLoanStatus(string $LoanStatus): self
     {
         $this->LoanStatus = $LoanStatus;
+
+        return $this;
+    }
+
+    public function getDateOfTheLastDayOfTheYear(): ?\DateTimeInterface
+    {
+        return $this->DateOfTheLastDayOfTheYear;
+    }
+
+    public function setDateOfTheLastDayOfTheYear(?\DateTimeInterface $DateOfTheLastDayOfTheYear): self
+    {
+        $this->DateOfTheLastDayOfTheYear = $DateOfTheLastDayOfTheYear;
+
+        return $this;
+    }
+
+    public function getAmountOfAccountingProvision(): ?int
+    {
+        return $this->amountOfAccountingProvision;
+    }
+
+    public function setAmountOfAccountingProvision(?int $amountOfAccountingProvision): self
+    {
+        $this->amountOfAccountingProvision = $amountOfAccountingProvision;
 
         return $this;
     }

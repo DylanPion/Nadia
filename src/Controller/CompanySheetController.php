@@ -102,13 +102,23 @@ class CompanySheetController extends AbstractController
         // Affecter la valeur de la variable `totalAmountRepaid` à `remainsToBeReceived`
         $companySheet->setRemainsToBeReceived($totalAmountRepaid);
 
-        //TEST
-        $test = $companySheet->setTotalAmountOfDamage($weatherRepository->getTotalamountOfDamageByCompany($id));
-        $em->persist($test);
+        //Sauvegarde la donnée du montant total de la Casse
+        $totalAmountOfDamageByCompany = $companySheet->setTotalAmountOfDamage($weatherRepository->getTotalamountOfDamageByCompany($id));
+        $em->persist($totalAmountOfDamageByCompany);
         $em->flush();
 
-        // Enregistrer les modifications dans la base de données
+        // Sauvegarde la donnée du montant Total de la Casse
+        $totalAmountOfAccountingByCompany = $companySheet->setTotalAmountOfAccountingProvision($weatherRepository->getTotalamountOfAccountingProvision($id));
+        $em->persist($totalAmountOfAccountingByCompany);
         $em->flush();
+
+        // Sauvegarde la valeur du Reste à Reçevoir si il change dû à un nouveau montant reçu 
+        $test = $companySheetRepository->find($id);
+        $remainsToBeReceived = $companySheet->getFNIAmountRequested() - $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
+        $test->setRemainsToBeReceived($remainsToBeReceived);
+
+        $em->flush();
+
         return $this->render('companySheet/displayCompanySheet.html.twig', [
             'company' => $companySheetRepository->find($id),
             'projectleadername' => $projectLeaderNameList,
@@ -116,7 +126,8 @@ class CompanySheetController extends AbstractController
             'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
             'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id),
             'weather' => $weatherRepository->findBy(array('CompanySheet' => $id)),
-            'totalAmountOfDamage' => $weatherRepository->getTotalamountOfDamageByCompany($id)
+            'totalAmountOfDamage' => $weatherRepository->getTotalamountOfDamageByCompany($id),
+            'totalAmountOfAccountingProvision' => $weatherRepository->getTotalamountOfAccountingProvision($id)
         ]);
     }
 

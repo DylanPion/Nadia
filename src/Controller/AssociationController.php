@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Association;
-use App\Entity\CompanySheet;
 use App\Form\AssociationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
@@ -110,6 +109,7 @@ class AssociationController extends AbstractController
             // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
             'company' => $companySheetRepository->findBy(array('association' => $id)),
             'totalAmountOfDamageByCompany' => $weatherRepository->getTotalamountOfDamageByCompany($id),
+            'totalAmountOfAccountingProvisionByCompany' => $weatherRepository->getTotalamountOfAccountingProvision($id),
             'associationName' => $associationRepository->find($id)->getName(),
         ]);
     }

@@ -173,6 +173,7 @@
 		<thead>
 			<tr>
 				<th>Année Météo</th>
+				<th>Dernier Jour de l'année</th>
 				<th>Nbre Impayés</th>
 				<th>Echelle Evaluation</th>
 				<th>%Tage Provision</th>
@@ -180,6 +181,7 @@
 				<th>Date de Liquidation</th>
 				<th>Garantie BPI Déclenchée</th>
 				<th>Commentaires</th>
+				<th>Montant de la Provision Comptable</th>
 				<th>Montant de la Casse</th>
 			</tr>
 		</thead>
@@ -187,6 +189,7 @@
 			{% for weather in weather %}
 				<tr>
 					<td>{{weather.weatherYear| date ("d/m/Y")}}</td>
+					<td>{{weather.DateOfTheLastDayOfTheYear| date ("d/m/Y")}}</td>
 					<td>{{weather.unpaidNumber}}</td>
 					<td>{{weather.assessmentScale}}</td>
 					<td>{{weather.retainerPercentage}}</td>
@@ -194,6 +197,8 @@
 					<td>{{weather.liquidationDate| date ("d/m/Y")}}</td>
 					<td>{{weather.bpiGuarantee}}</td>
 					<td>{{weather.comment}}</td>
+					<td>{{weather.amountOfAccountingProvision|number_format(0, '.', ' ')}}
+						€</td>
 					<td>{{weather.amountOfDamage|number_format(0, '.', ' ')}}
 						€</td>
 				</tr>
@@ -207,6 +212,9 @@
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
+				<td class="totalLine">{{totalAmountOfAccountingProvision|number_format(0, '.', ' ')}}
+					€</td>
 				<td class="totalLine">{{totalAmountOfDamage|number_format(0, '.', ' ')}}
 					€</td>
 			</tr>
@@ -226,4 +234,42 @@
 		<i class="fa-solid fa-plus"></i>
 		<span>Création d'une Météo</span>
 	</a>
-</button>{% endblock %}
+</button>
+
+<div class="weatherTable">
+	<table class="table-content">
+		<caption>Indicateur Météo</caption>
+		<thead>
+			<tr>
+				<th>Echelle d'évaluation</th>
+				<th>Pourcentage Provision Comptable</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>5</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>{% endblock %}
