@@ -1,87 +1,116 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Accueil | Liste des Conventions
+    Accueil | Liste des Conventions
 {% endblock %}
 
 {% block body %}
-	{% include "_sidebar.html.twig" %}
+    {% include "_sidebar.html.twig" %}
 
-	<div class="table">
-		<table class="table-content">
-			<caption>Tableau de suivi des Prêts par Convention :</caption>
-			<thead>
-				<tr>
-					<th>Numéro de convention definancement CDC/BPI</th>
-					<th>Montants demandés par la CDC/BPI</th>
-					<th>Montants reçus par la CDC/BPI</th>
-					<th>Trésorerie Disponible</th>
-					<th>Montants engagés</th>
-					<th>Montants versés</th>
-					<th>Remboursement reçus</th>
-					<th>Montants Engagés et non versés</th>
-					<th>Montants Total des Casses</th>
-					<th>Montants Total des Provisions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for i in idValue %}
-					<tr>
-						<td>{{agreementNumber[i]}}</td>
-						<td>{{agreement[i].amountRequestedForTheAgreement|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{agreement[i].cashFund|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{TotalAmountRepaidByAgreement[i]|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{ TotalAmountOfDamageByAgreement[i]|number_format(0, '.', ' ')}}
-							€</td>
-						<td>{{ TotalAmountOfAccountingProvision[i]|number_format(0, '.', ' ')}}
-							€</td>
-					</tr>
-				{% endfor %}
-				<tr>
-					<td class="totalLine">Total Général :</td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-				</tr>
-				<tr>
-					<td class="totalLine">Déduction casse :</td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-				</tr>
-				<tr>
-					<td class="totalLine">Total du Mt disponible du fond :</td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-					<td class="totalLine"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <div class="table">
+        <table class="table-content">
+            <caption>Tableau de suivi des Prêts par Convention :</caption>
+            <thead>
+                <tr>
+                    <th>Numéro de convention definancement CDC/BPI</th>
+                    <th>Montants demandés par la CDC/BPI</th>
+                    <th>Montants reçus par la CDC/BPI</th>
+                    <th>Trésorerie Disponible</th>
+                    <th>Montants engagés</th>
+                    <th>Montants versés</th>
+                    <th>Remboursement reçus</th>
+                    <th>Montants Engagés et non versés</th>
+                    <th>Montants Total des Casses</th>
+                    <th>Montants Total des Provisions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% set TotalAmountRequestedForTheAgreement = 0 %}
+                {% set TotalCashFund = 0 %}
+                {% set TotalTreasury = 0 %}
+                {% set TotalFniAmountRequested = 0 %}
+                {% set TotalFniPaid = 0 %}
+                {% set TotalAmountRepaid = 0 %}
+                {% set TotalAmountCommittedAndNotPaid = 0 %}
+                {% set TotalOfTotalAmountOfDamageByAgreement = 0 %}
+                {% set TotalOfTotalAmountOfAccountingProvision = 0 %}
+
+                {% for i in idValue %}
+                    <tr>
+                        <td>{{ agreementNumber[i] }}</td>
+                        <td>{{ agreement[i].amountRequestedForTheAgreement|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ agreement[i].cashFund|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ ((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ TotalAmountRepaidByAgreement[i]|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ AmountCommittedAndNotPaid[i]|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ TotalAmountOfDamageByAgreement[i]|number_format(0, '.', ' ') }}
+                            €</td>
+                        <td>{{ TotalAmountOfAccountingProvision[i]|number_format(0, '.', ' ') }}
+                            €</td>
+                    </tr>
+
+                    {% set TotalAmountRequestedForTheAgreement = TotalAmountRequestedForTheAgreement + agreement[i].amountRequestedForTheAgreement %}
+                    {% set TotalCashFund = TotalCashFund + agreement[i].cashFund %}
+                    {% set TotalTreasury = TotalCashFund - TotalFniPaid + TotalAmountRepaid - TotalAmountCommittedAndNotPaid  %}
+                    {% set TotalFniAmountRequested = TotalFniAmountRequested + TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement'] %}
+                    {% set TotalFniPaid = TotalFniPaid + TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"] %}
+                    {% set TotalAmountRepaid = TotalAmountRepaid + TotalAmountRepaidByAgreement[i] %}
+                    {% set TotalAmountCommittedAndNotPaid = TotalAmountCommittedAndNotPaid + AmountCommittedAndNotPaid[i] %}
+                    {% set TotalOfTotalAmountOfDamageByAgreement = TotalOfTotalAmountOfDamageByAgreement + TotalAmountOfDamageByAgreement[i] %}
+                    {% set TotalOfTotalAmountOfAccountingProvision = TotalOfTotalAmountOfAccountingProvision + TotalAmountOfAccountingProvision[i] %}
+                    
+                {% endfor %}
+                <tr>
+                    <td class="totalLine">Total Général :</td>
+                    <td class="totalLine">{{TotalAmountRequestedForTheAgreement|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalCashFund|number_format(0,'.',' ')}} €</td>
+                    <td class="totalLine">{{TotalTreasury|number_format(0, '', ' ')}} €</td>
+                    <td class="totalLine">{{TotalFniAmountRequested|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalFniPaid|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalAmountRepaid|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalAmountCommittedAndNotPaid|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalOfTotalAmountOfDamageByAgreement|number_format(0, '.', ' ')}} €</td>
+                    <td class="totalLine">{{TotalOfTotalAmountOfAccountingProvision|number_format(0, '.', ' ')}} €</td>
+                </tr>
+                <tr>
+                    <td class="totalLine">Déduction casse :</td>
+                    <td class="totalLine">{{(breakageDeduction + TotalOfTotalAmountOfDamageByAgreement)|number_format(0, '.', ' ')}} €</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="totalLine">Total du Mt disponible du fond :</td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                    <td class="totalLine"></td>
+                </tr>
+                <tr>
+                    <td class="totalLine">Historique de Casse :</td>
+                    <td class="totalLine">{{breakageDeduction|number_format(0, '.', ' ')}} €</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

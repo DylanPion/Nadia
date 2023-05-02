@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
+use App\Entity\BreakageDeduction;
 use App\Form\AgreementType;
 use App\Repository\AgreementRepository;
+use App\Repository\BreakageDeductionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
+use App\Service\BreakageDeductionService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,6 +75,7 @@ class TreasuryController extends AbstractController
             // Calcul le Montant engagé et non versé 
             $AmountsCommittedAndNotPaid[$value] = $TotalAmountRequestedByAgreement[$value][0]['TotalAmountRequestedByAgreement'] - $TotalAmountFNIPaidByAgreement[$value][0]["TotalAmountFNIPaidByAgreement"];
         }
+
         return $this->render('treasury/agreementList.html.twig', [
             'agreementNumber' => $agreementNumber,
             'agreement' => $agreement,
@@ -81,7 +85,8 @@ class TreasuryController extends AbstractController
             'TotalAmountOfDamageByAgreement' => $TotalAmountOfDamageByAgreement,
             'TotalAmountOfAccountingProvision' => $TotalAmountOfAccountingProvision,
             'AmountCommittedAndNotPaid' => $AmountsCommittedAndNotPaid,
-            'idValue' => $idValue // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
+            'idValue' => $idValue, // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
+            'breakageDeduction' => 4000,
         ]);
     }
 }
