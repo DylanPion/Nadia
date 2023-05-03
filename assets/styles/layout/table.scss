@@ -79,12 +79,6 @@
         }
       }
     }
-
-    .totalLine {
-      color: black;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
   }
 
   tr:hover {
@@ -146,5 +140,13 @@ a {
   a {
     color: white;
     font-size: 0.9rem;
+  }
+}
+
+.totalLine {
+  td {
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 }

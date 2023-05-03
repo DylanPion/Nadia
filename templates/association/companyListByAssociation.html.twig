@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des prêts | Association
+{% block title %}Gestion des prêts | Fiche Société
 {% endblock %}
 {% block body %}
 
@@ -8,7 +8,8 @@
 
 	<div class="table">
 		<table class="table-content">
-			<caption>Tableau de suivi des Sociétés par Associations</caption>
+			<caption>Tableau de suivi des Sociétés par Association</caption>
+			
 			<thead>
 				<tr>
 					<th>Numéro de convention de financement CDC/BPI</th>
@@ -22,7 +23,9 @@
 					<th>Action</th>
 				</tr>
 			</thead>
+			
 			<tbody>
+				
 				{% set totalFniAmountRequested = 0 %}
 				{% set totalAmountPaid = 0 %}
 				{% set totalRemainsToBeReceived = 0 %}
@@ -31,14 +34,17 @@
 				{% set totalAmountDamage = 0 %}
 
 				{% for company in company %}
+
+				{% set FniAmountPaid = company.paymentone + company.paymenttwo %}
+
 					<tr>
 						<td>{{ company.Agreement }}</td>
 						<td style="text-align: left;">{{ company.companyName }}</td>
 						<td>{{ company.FniAmountRequested|number_format(0, '.', ' ') }}
 							€</td>
-						<td>{{ (company.paymentone + company.paymenttwo)|number_format(0, '.', ' ') }}
+						<td>{{ FniAmountPaid|number_format(0, '.', ' ') }}
 							€</td>
-						<td>{{ ((company.paymentone + company.paymenttwo) - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
+						<td>{{ (FniAmountPaid - company.remainsToBeReceived)|number_format(0, '.', ' ') }}
 							€</td>
 						<td>{{company.remainsToBeReceived|number_format(0, '.', ' ')}}
 							€</td>
@@ -59,30 +65,29 @@
 					</tr>
 
 					{% set totalFniAmountRequested = totalFniAmountRequested + company.FniAmountRequested %}
-					{% set totalAmountPaid = totalAmountPaid + company.paymentone + company.paymenttwo %}
-					{% set totalAmountRepaid = totalAmountRepaid + company.paymentone + company.paymenttwo - company.remainsToBeReceived %}
+					{% set totalAmountPaid = totalAmountPaid + FniAmountPaid %}
+					{% set totalAmountRepaid = totalAmountRepaid + FniAmountPaid - company.remainsToBeReceived %}
 					{% set totalRemainsToBeReceived = totalRemainsToBeReceived + company.remainsToBeReceived %}
 					{% set totalAmountProvision = totalAmountProvision + company.totalAmountOfAccountingProvision %}
 					{% set totalAmountDamage = totalAmountDamage + company.totalAmountOfDamage  %}
 
-
 				{% endfor %}
 
-				<tr>
-					<td class="totalLine">Total Général :</td>
-					<td class="totalLine"></td>
-					<td class="totalLine">{{ totalFniAmountRequested|number_format(0, '.', ' ') }}
+				<tr class="totalLine">
+					<td>Total Général :</td>
+					<td></td>
+					<td>{{ totalFniAmountRequested|number_format(0, '.', ' ') }}
 						€</td>
-					<td class="totalLine">{{ totalAmountPaid|number_format(0, '.', ' ') }}
+					<td>{{ totalAmountPaid|number_format(0, '.', ' ') }}
 						€</td>
-					<td class="totalLine">{{totalAmountRepaid|number_format(0, '.', ' ')}}
+					<td>{{totalAmountRepaid|number_format(0, '.', ' ')}}
 						€
 					</td>
-					<td class="totalLine">{{totalRemainsToBeReceived|number_format(0, '.', ' ')}}
+					<td>{{totalRemainsToBeReceived|number_format(0, '.', ' ')}}
+						€</tdclass=>
+					<td>{{totalAmountProvision|number_format(0, '.', ' ')}}
 						€</td>
-					<td class="totalLine">{{totalAmountProvision|number_format(0, '.', ' ')}}
-						€</td>
-					<td class="totalLine">{{totalAmountDamage|number_format(0, '.', ' ')}}
+					<td>{{totalAmountDamage|number_format(0, '.', ' ')}}
 						€</td>
 				</tr>
 			</tbody>

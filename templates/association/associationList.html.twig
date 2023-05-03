@@ -4,64 +4,64 @@
 {% endblock %}
 {% block body %}
 
-	{% include "_sidebar.html.twig" %}
+    {% include "_sidebar.html.twig" %}
 
-	<div class="table">
-		<table class="table-content">
+    <div class="table">
+        <table class="table-content">
+            
 			<caption>Tableau de suivi des Associations</caption>
+            
 			<thead>
-				<tr>
-					<th>Liste des Associations</th>
-					<th>Montant Total engagé</th>
-					<th>Montant Total versé</th>
-					<th>Remboursements reçus à ce jour</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
+                <tr>
+                    <th>Liste des Associations</th>
+                    <th>Montant Total engagé</th>
+                    <th>Montant Total versé</th>
+                    <th>Remboursements reçus à ce jour</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+           
+		    <tbody>
+                {% set totalRequested = 0 %}
+                {% set totalPaid = 0 %}
+                {% set totalReceived = 0 %}
 
+                {% for association in associations %}
+                    
+                    <tr>
+                        <td >{{ association.associationName }}</td>
+                        <td>{{ association.totalFniRequested|number_format(0, '.',  ' ',) }} €</td>
+                        <td>{{ association.totalFniPaid|number_format(0, '.',  ' ',) }} €</td>
+                        <td>{{ association.totalRepaidToDate|number_format(0, '.',  ' ',) }} €</td>
+                        <td>
+                            <a href="{{ path('app_association_display', {id: association.id}) }}" class="infos">
+                                <i class="fa-solid fa-diamond-turn-right"></i>
+                                <span>Liste Des Sociétés</span>
+                            </a>
+                            <a href="{{ path('app_association_edit', {id: association.id}) }}" class="edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span>Éditer</span>
+                            </a>
+                        </td>
+                    </tr>
 
-			<tbody>
-				{% set totalRequested = 0 %}
-				{% set totalPaid = 0 %}
-				{% set totalReceived = 0 %}
+				{% set totalRequested = totalRequested + association.totalFniRequested %}
+				{% set totalPaid = totalPaid + association.totalFniPaid %}
+				{% set totalReceived = totalReceived + association.totalRepaidToDate %}
 
-				{% for association in associationList %}
-					<tr>
-						<td style="text-align: left;">{{ association.getName() }}</td>
-						<td>{{ totals[association.getId()].requested|number_format(0, '.', ' ', ) }}
-							€</td>
-						<td>{{ totals[association.getId()].paid|number_format(0, '.', ' ', ) }}
-							€</td>
-						<td>{{ totals[association.getId()].received|number_format(0, '.',  ' ',)}}
-							€</td>
-						<td>
-							<a href="{{ path('app_association_display', {id: association.id}) }}" class="infos">
-								<i class="fa-solid fa-diamond-turn-right"></i>
-								<span>Liste Des Sociétés</span>
-							</a>
-							<a href="{{ path('app_association_edit', {id: association.id}) }}" class="edit">
-								<i class="fa-solid fa-pen-to-square"></i>
-								<span>Éditer</span>
-							</a>
-						</td>
-					</tr>
-
-					{% set totalRequested = totalRequested + totals[association.getId()].requested %}
-					{% set totalPaid = totalPaid + totals[association.getId()].paid %}
-					{% set totalReceived = totalReceived + totals[association.getId()].received %}
-
-				{% endfor %}
-				<tr>
-					<td class="totalLine">Total Général :</td>
-					<td class="totalLine">{{ totalRequested|number_format(0, '.', ' ', ) }}
-						€</td>
-					<td class="totalLine">{{ totalPaid|number_format(0, '.', ' ', ) }}
-						€</td>
-					<td class="totalLine">{{ totalReceived|number_format(0, '.', ' ', ) }}
-						€</td>
-					<td class="totalLine"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+                {% endfor %}
+                <tr>
+                    <td class="totalLine">Total Général :</td>
+                    <td class="totalLine">{{ totalRequested|number_format(0, '.', ' ', ) }}
+                        €</td>
+                    <td class="totalLine">{{ totalPaid|number_format(0, '.', ' ', ) }}
+                        €</td>
+                    <td class="totalLine">{{ totalReceived|number_format(0, '.', ' ', ) }}
+                        €</td>
+                    <td class="totalLine"></td>
+                </tr>
+            </tbody>
+			
+        </table>
+    </div>
 {% endblock %}

@@ -7,7 +7,6 @@ use App\Form\AssociationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Repository\CompanySheetRepository;
-use App\Repository\WeatherRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,35 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AssociationController extends AbstractController
 {
-    // Affichage de la Liste des Associations.
-    #[Route('/association', name: 'app_association')]
-    public function app_association(AssociationRepository $associationRepository, CompanySheetRepository $companySheetRepository): Response
-    {
-        $associationList = $associationRepository->findAll();
-        $totals = [];
-
-        // On se sert de requête personnalisée du Repository pour calculer le total du FNI Engagé, FNI Versé et Total Remboursé par Association 
-        foreach ($associationList as $association) {
-            $TotalFNIRequestedByAssociation = $companySheetRepository->getTotalAmountRequestedByAssociation($association->getId());
-            $TotalFNIPaidByAssociation = $companySheetRepository->getTotalAmountPaidByAssociation($association->getId());
-            $TotalAmountReceived = $companySheetRepository->getTotalAmountReceivedByAssociation($association->getId());
-            $TotalAmountRepaid = $TotalFNIPaidByAssociation - $TotalAmountReceived;
-
-            $totals[$association->getId()] = [
-                'name' => $association->getName(),
-                'paid' => $TotalFNIPaidByAssociation,
-                'requested' => $TotalFNIRequestedByAssociation,
-                'received' => $TotalAmountRepaid,
-            ];
-        }
-        return $this->render('association/associationList.html.twig', [
-            'associationList' => $associationList,
-            'totals' => $totals,
-        ]);
-    }
-
-
-
     // Création d'une nouvelle Association.
     #[Route('/association/create', name: 'app_association_create')]
     public function app_association_create(Request $request, EntityManagerInterface $em): Response
@@ -55,8 +25,7 @@ class AssociationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $association = $form->getData();
-            $em->persist($association);
+            $em->persist($form->getData());
             $em->flush();
             return $this->redirectToRoute('app_association');
         }
@@ -95,22 +64,23 @@ class AssociationController extends AbstractController
         return $this->redirectToRoute('app_association');
     }
 
+    // Affiche la Liste des Associations.
+    #[Route('/association', name: 'app_association')]
+    public function app_association(AssociationRepository $associationRepository): Response
+    {
+        $associations = $associationRepository->getAssociationTotals();
+        return $this->render('association/associationList.html.twig', [
+            'associations' => $associations,
+        ]);
+    }
 
-    // Affichage de la liste des fiche Société par Association
+    // Affiche la liste des fiche Société par Association
     #[Route('/association/{id}', name: 'app_association_display', requirements: ['page' => '\d+'])]
-    public function app_association_display(
-        $id,
-        CompanySheetRepository $companySheetRepository,
-        AssociationRepository $associationRepository,
-        WeatherRepository $weatherRepository
-    ): Response {
-
+    public function app_association_display($id, CompanySheetRepository $companySheetRepository): Response
+    {
         return $this->render('association/companyListByAssociation.html.twig', [
-            // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet
+            // Le terme 'association' dans find by représente le nom de la colonne qui établie la relation Association/Companysheet cela permet d'afficher les companySheet en fonction d'une association grâce à l'id qui fait la relation entre les deux
             'company' => $companySheetRepository->findBy(array('association' => $id)),
-            'totalAmountOfDamageByCompany' => $weatherRepository->getTotalamountOfDamageByCompany($id),
-            'totalAmountOfAccountingProvisionByCompany' => $weatherRepository->getTotalamountOfAccountingProvision($id),
-            'associationName' => $associationRepository->find($id)->getName(),
         ]);
     }
 }

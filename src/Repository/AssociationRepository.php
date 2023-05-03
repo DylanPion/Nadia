@@ -63,4 +63,20 @@ class AssociationRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // Calcul : FNI Engagé/Payé et le Remboursement Reçu par Associatoin
+    public function getAssociationTotals(): array
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->select('a.id AS id')
+            ->addSelect('a.Name AS associationName')
+            ->addSelect('SUM(cs.FniAmountRequested) AS totalFniRequested')
+            ->addSelect('SUM(cs.PaymentOne + cs.PaymentTwo) AS totalFniPaid')
+            ->addSelect('(SUM(cs.PaymentOne + cs.PaymentTwo) - SUM(cs.remainsToBeReceived)) AS totalRepaidToDate')
+            ->leftJoin('a.Company', 'cs')
+            ->groupBy('a.id');
+
+        return $qb->getQuery()->getResult();
+    }
 }
