@@ -75,17 +75,6 @@ class TotalAmountRepaidToDateRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    // Fonction pour calculer le Montant Reçus des Association par Convention. 
-    public function getTotalAmountRepaidToDateByAgreement($CompanySheet)
-    {
-        $qb = $this->createQueryBuilder('cs')
-            ->select('SUM(cs.TotalAmountRepaidToDate) as TotalAmountRepaidToDateByAgreement')
-            ->where('cs.CompanySheet = :CompanySheet')
-            ->setParameter('CompanySheet', $CompanySheet);
-
-        return $qb->getQuery()->getResult();
-    }
-
     // Fonction pour calculer la somme des Paiement Reçu par Fiche Société
     public function getTotalPaymentReceivedByCompany($CompanySheet)
     {

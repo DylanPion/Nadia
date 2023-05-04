@@ -29,9 +29,7 @@ class ProjectLeaderController extends AbstractController
         }
         return $this->render(
             'projectleader/createProjectLeader.html.twig',
-            [
-                'formView' => $form->createView(),
-            ]
+            ['formView' => $form->createView()]
         );
     }
 }

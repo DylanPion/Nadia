@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CompanySheetRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\ProjectLeader;
+use App\Entity\TotalAmountRepaidToDate;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CompanySheetRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CompanySheetRepository::class)]
 
@@ -29,8 +31,8 @@ class CompanySheet
     #[ORM\OneToMany(mappedBy: 'CompanySheet', targetEntity: ProjectLeader::class)]
     private Collection $projectLeaders;
 
-    // #[ORM\OneToOne(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
-    // private ?TotalAmountRepaidToDate $TotalAmountRepaidToDate = null;
+    #[ORM\OneToMany(mappedBy: 'CompanySheet', targetEntity: TotalAmountRepaidToDate::class)]
+    private Collection $totalAmountRepaidToDate;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateOfCE = null;
@@ -242,6 +244,35 @@ class CompanySheet
             // set the owning side to null (unless already changed)
             if ($projectLeader->getCompanySheet() === $this) {
                 $projectLeader->setCompanySheet(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection<int, TotalAmountRepaidToDate>
+     */
+    public function TotalAmountRepaidToDate(): Collection
+    {
+        return $this->totalAmountRepaidToDate;
+    }
+
+    public function addTotalAmoundRepaidToDate(TotalAmountRepaidToDate $totalAmountRepaidToDate): self
+    {
+        if (!$this->totalAmountRepaidToDate->contains($totalAmountRepaidToDate)) {
+            $this->totalAmountRepaidToDate->add($totalAmountRepaidToDate);
+            $totalAmountRepaidToDate->setCompanySheet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTotalAmoundRepaidToDate(TotalAmountRepaidToDate $totalAmountRepaidToDate): self
+    {
+        if ($this->totalAmountRepaidToDate->removeElement($totalAmountRepaidToDate)) {
+            // set the owning side to null (unless already changed)
+            if ($totalAmountRepaidToDate->getCompanySheet() === $this) {
+                $totalAmountRepaidToDate->setCompanySheet(null);
             }
         }
 

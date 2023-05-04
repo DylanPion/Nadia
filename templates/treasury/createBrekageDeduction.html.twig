@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouvelle Historique de Casse
+{% endblock %}
+
+
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="form">
+		<div class="form-content">
+			<h1>Création d'un nouvelle Historique de Casse</h1>
+			{{form_start(formView)}}
+			{{form_row(formView.BreakageDeduction)}}
+			{{form_row(formView.Button)}}
+			{{form_end(formView)}}
+		</div>
+	</div>
+{% endblock %}

@@ -24,7 +24,7 @@ class TotalAmoundRepaidToDateType extends AbstractType
                 ]
             ])
             ->add('Date', DateType::class, [
-                "label" => "Ajouter une Nouvelle Date",
+                "label" => "Ajouter une la Date du Paiement",
                 'widget' => 'single_text',
                 "attr" => [
                     'class' => 'form-control',

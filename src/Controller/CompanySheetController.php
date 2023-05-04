@@ -22,24 +22,20 @@ class CompanySheetController extends AbstractController
     #[Route('/companysheet/create', name: 'app_companysheet_create')]
     public function app_companysheet_create(Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(CompanySheetType::class, null, [
-            'data_class' => CompanySheet::class,
-        ]);
-
+        $form = $this->createForm(CompanySheetType::class, null, ['data_class' => CompanySheet::class]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $companySheet = $form->getData();
-            // La création d'un TotalAmountRepaidToDate en relation avec une CompanySheet est faites pour initialisé l'échancier à 0 à la date d'aujourd'hui puis le lier à la Société       
-            $totalAmountRepaidToDate = new TotalAmountRepaidToDate();
+            $totalAmountRepaidToDate = new TotalAmountRepaidToDate(); // Créer un Échéancier lier à la Société qui va être créer 
             $totalAmountRepaidToDate->setPayment(0)
-                ->setDate(new DateTime())
+                ->setDate(new DateTime()) // Le paiement et la date sont initialiser à 0 euros à la date d'aujourd'hui
                 ->setCompanySheet($companySheet);
             $em->persist($totalAmountRepaidToDate);
             $em->persist($companySheet);
             $em->flush();
 
-            $id = $companySheet->getId();
+            $id = $companySheet->getId(); // Récupère l'id de la Société qui vient d'être créer pour faire une redirection
             return $this->redirectToRoute('app_companysheet_display', ['id' => $id]);
         }
 
@@ -77,8 +73,8 @@ class CompanySheetController extends AbstractController
         return $this->redirectToRoute('app_association');
     }
 
-    // Création d'un nouveau paiement reçu pour le Total Remboursé
-    #[Route('/companysheet/account/create{id}', name: 'app_companysheet_account_create', requirements: ['id' => '\d+'])]
+    // Création d'un Montant Reçus pour le remboursement
+    #[Route('/companysheet/createAccount/{id}', name: 'app_companysheet_createAccount', requirements: ['id' => '\d+'])]
     public function account($id, Request $request, EntityManagerInterface $em, CompanySheetRepository $companySheetRepository, TotalAmoundRepaidToDateType $totalAmoundRepaidToDateType)
     {
         $totalAmoundRepaidToDateType = new TotalAmountRepaidToDate();
@@ -102,18 +98,15 @@ class CompanySheetController extends AbstractController
     }
 
     // Modification d'un paiement reçu pour le Total Remboursé
-    #[Route(
-        '/companysheet/account/edit/{id}',
-        name: 'app_companysheet_account_edit',
-        requirements: ['id' => '\d+']
-    )]
-    public function edit($id, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDateRepository $totalAmoundRepaidToDateRepository)
+    #[Route('/companysheet/account/edit/{id}', name: 'app_companysheet_accountEdit', requirements: ['id' => '\d+'])]
+    public function edit($id, Request $request, EntityManagerInterface $em, TotalAmountRepaidToDate $totalAmoundRepaidToDate)
     {
-        $totalAmoundRepaidToDate = $totalAmoundRepaidToDateRepository->find($id);
         $form = $this->createForm(TotalAmoundRepaidToDateType::class, $totalAmoundRepaidToDate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $totalAmoundRepaidToDate = $form->getData();
+            $em->persist($totalAmoundRepaidToDate);
             $em->flush();
 
             return $this->redirectToRoute('app_companysheet_display', ['id' => $totalAmoundRepaidToDate->getCompanySheet()->getId()]);
@@ -126,55 +119,47 @@ class CompanySheetController extends AbstractController
 
     // Affichage d'une fiche société 
     #[Route('/companysheet/{id}', name: 'app_companysheet_display', requirements: ['page' => '\d+'])]
-    public function app_companysheet_display($id, CompanySheetRepository $companySheetRepository, CompanySheet $companySheet, TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository, EntityManagerInterface $em, WeatherRepository $weatherRepository): Response
-    {
-        // Récupération de la liste des project leader dans un tableau
-        $projectLeaderList = $companySheet->getProjectLeaders();
-        $projectLeaderNameList = [];
-        foreach ($projectLeaderList as $projectLeaderName) {
-            $projectLeaderNameList[] = $projectLeaderName->getName();
-        }
-
-        $FniAmountRequested = ($companySheet->getPaymentOne() + $companySheet->getPaymentTwo());
-        $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
-        $totalAmountRepaid =  $FniAmountRequested - $totalPaymentReceived;
-
+    public function displayCompanySheet(
+        int $id,
+        CompanySheetRepository $companySheetRepository,
+        TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository,
+        EntityManagerInterface $em,
+        WeatherRepository $weatherRepository
+    ): Response {
         // Récupérer l'entité CompanySheet
-        $companySheet = $em->getRepository(CompanySheet::class)->find($id);
+        $companySheet = $companySheetRepository->find($id);
 
-        if (!$companySheet) {
-            throw $this->createNotFoundException('Aucune entreprise trouvée pour cet identifiant : ' . $id);
-        }
+        // Calculer le montant total de l'indemnisation
+        $fniAmountPaid = $companySheet->getPaymentOne() + $companySheet->getPaymentTwo();
+        $totalPaymentReceived = $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
+        $totalAmountRepaid = $fniAmountPaid - $totalPaymentReceived;
 
-        // Affecter la valeur de la variable `totalAmountRepaid` à `remainsToBeReceived`
+        // Mettre à jour le montant restant à recevoir
         $companySheet->setRemainsToBeReceived($totalAmountRepaid);
 
-        //Sauvegarde la donnée du montant total de la Casse
-        $totalAmountOfDamageByCompany = $companySheet->setTotalAmountOfDamage($weatherRepository->getTotalamountOfDamageByCompany($id));
-        $em->persist($totalAmountOfDamageByCompany);
+        // Mettre à jour le montant total des dégâts
+        $companySheet->setTotalAmountOfDamage($weatherRepository->getTotalamountOfDamageByCompany($id));
+
+        // Mettre à jour le montant total de la provision comptable
+        $companySheet->setTotalAmountOfAccountingProvision($weatherRepository->getTotalamountOfAccountingProvision($id));
+
+        // Enregistrer les modifications
         $em->flush();
 
-        // Sauvegarde la donnée du montant Total de la Casse
-        $totalAmountOfAccountingByCompany = $companySheet->setTotalAmountOfAccountingProvision($weatherRepository->getTotalamountOfAccountingProvision($id));
-        $em->persist($totalAmountOfAccountingByCompany);
-        $em->flush();
-
-        // Sauvegarde la valeur du Reste à Reçevoir si il change dû à un nouveau montant reçu 
-        $test = $companySheetRepository->find($id);
-        $remainsToBeReceived = $companySheet->getFNIAmountRequested() - $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
-        $test->setRemainsToBeReceived($remainsToBeReceived);
-
-        $em->flush();
+        // Préparer les données pour l'affichage
+        $projectLeaderNameList = $companySheet->getProjectLeaders()->map(fn ($projectLeader) => $projectLeader->getName())->toArray();
+        $remainsToBeReceived = $fniAmountPaid - $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
 
         return $this->render('companySheet/displayCompanySheet.html.twig', [
-            'company' => $companySheetRepository->find($id),
+            'company' => $companySheet,
             'projectleadername' => $projectLeaderNameList,
-            'associationName' => $companySheetRepository->find($id)->getAssociation()->getName(),
+            'associationName' => $companySheet->getAssociation()->getName(),
             'totalAmountRepaid' => $totalAmountRepaidToDateRepository->getTotalAmountRepaidToDateById($id),
-            'totalPaymentReceived' => $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id),
-            'weather' => $weatherRepository->findBy(array('CompanySheet' => $id)),
-            'totalAmountOfDamage' => $weatherRepository->getTotalamountOfDamageByCompany($id),
-            'totalAmountOfAccountingProvision' => $weatherRepository->getTotalamountOfAccountingProvision($id)
+            'totalPaymentReceived' => $totalPaymentReceived,
+            'weather' => $weatherRepository->findBy(['CompanySheet' => $id]),
+            'totalAmountOfDamage' => $companySheet->getTotalAmountOfDamage(),
+            'totalAmountOfAccountingProvision' => $companySheet->getTotalAmountOfAccountingProvision(),
+            'remainsToBeReceived' => $remainsToBeReceived,
         ]);
     }
 }

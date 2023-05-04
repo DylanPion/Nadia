@@ -2,31 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\Association;
+use App\Entity\BreakageDeduction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class AssociationType extends AbstractType
+class BreakageDeductionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name', TextType::class, [
-                'label' => 'Nom de l\'Assocation :',
-                "attr" => ["placeholder" => "Entrez le nom de la nouvelle Association"]
+            ->add('BreakageDeduction', IntegerType::class, [
+                'label' => 'Historique de Casse :',
+                "attr" => ["placeholder" => "Entrez l\'Historique de Casse"]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Valider la Nouvelle Association'
+                'label' => 'Créer le nouvelle Historique de Casse'
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Association::class,
+            'data_class' => BreakageDeduction::class,
         ]);
     }
 }

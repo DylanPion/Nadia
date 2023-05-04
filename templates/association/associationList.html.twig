@@ -50,15 +50,15 @@
 				{% set totalReceived = totalReceived + association.totalRepaidToDate %}
 
                 {% endfor %}
-                <tr>
-                    <td class="totalLine">Total Général :</td>
-                    <td class="totalLine">{{ totalRequested|number_format(0, '.', ' ', ) }}
+                <tr class="totalLine">
+                    <td >Total Général :</td>
+                    <td>{{ totalRequested|number_format(0, '.', ' ', ) }}
+                        €</tdass=>
+                    <td>{{ totalPaid|number_format(0, '.', ' ', ) }}
+                        €</td=>
+                    <td>{{ totalReceived|number_format(0, '.', ' ', ) }}
                         €</td>
-                    <td class="totalLine">{{ totalPaid|number_format(0, '.', ' ', ) }}
-                        €</td>
-                    <td class="totalLine">{{ totalReceived|number_format(0, '.', ' ', ) }}
-                        €</td>
-                    <td class="totalLine"></td>
+                    <td></td>
                 </tr>
             </tbody>
 			

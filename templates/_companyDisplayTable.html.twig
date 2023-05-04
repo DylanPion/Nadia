@@ -1,0 +1,93 @@
+
+<div class="tableTotalAmountRepaid">
+	<table class="table-content">
+		<caption>Tableau de suivi des remboursements :</caption>
+		<thead>
+			<tr>
+				<th>Date des rembrts</th>
+				<th>Montant Reçus</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for total in totalAmountRepaid %}
+				<tr>
+					<td>{{total.Date| date ("d/m/Y")}}</td>
+					<td>{{total.Payment|number_format(0, '.', ' ')}}
+						€</td>
+					<td>
+						<a href="{{path('app_companysheet_accountEdit', {id: total.id})}}">
+							<i class="fa-solid fa-pen-to-square"></i>
+							<span>Modifier le paiement reçu</span>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td class="totalLine">Montant Engagé :
+					{{company.fniamountrequested|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Total Reçu :
+					{{totalPaymentReceived|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">Reste à Reçevoir :
+					{{((company.paymentone + company.paymenttwo) - totalPaymentReceived)|number_format(0, '.', ' ')}}
+					€</td>
+			</tr>
+			<tr></tr>
+		</tbody>
+	</table>
+	<table class="table-content">
+		<caption>Tableau de suivi Météo</caption>
+		<thead>
+			<tr>
+				<th>Année Météo</th>
+				<th>Dernier Jour de l'année</th>
+				<th>Nbre Impayés</th>
+				<th>Echelle Evaluation</th>
+				<th>%Tage Provision</th>
+				<th>Liquidation</th>
+				<th>Date de Liquidation</th>
+				<th>Garantie BPI Déclenchée</th>
+				<th>Commentaires</th>
+				<th>Montant de la Provision Comptable</th>
+				<th>Montant de la Casse</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for weather in weather %}
+				<tr>
+					<td>{{weather.weatherYear| date ("Y")}}</td>
+					<td>{{weather.DateOfTheLastDayOfTheYear| date ("d/m/Y")}}</td>
+					<td>{{weather.unpaidNumber}}</td>
+					<td>{{weather.assessmentScale}}</td>
+					<td>{{weather.retainerPercentage}}</td>
+					<td>{{weather.loanStatus}}</td>
+					<td>{{weather.liquidationDate| date ("d/m/Y")}}</td>
+					<td>{{weather.bpiGuarantee}}</td>
+					<td>{{weather.comment}}</td>
+					<td>{{weather.amountOfAccountingProvision|number_format(0, '.', ' ')}}
+						€</td>
+					<td>{{weather.amountOfDamage|number_format(0, '.', ' ')}}
+						€</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td class="totalLine">Total :</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="totalLine">{{totalAmountOfAccountingProvision|number_format(0, '.', ' ')}}
+					€</td>
+				<td class="totalLine">{{totalAmountOfDamage|number_format(0, '.', ' ')}}
+					€</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

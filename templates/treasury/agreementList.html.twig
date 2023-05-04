@@ -37,6 +37,7 @@
                 {% set TotalOfTotalAmountOfAccountingProvision = 0 %}
 
                 {% for i in idValue %}
+
                     <tr>
                         <td>{{ agreementNumber[i] }}</td>
                         <td>{{ agreement[i].amountRequestedForTheAgreement|number_format(0, '.', ' ') }}
@@ -70,21 +71,21 @@
                     {% set TotalOfTotalAmountOfAccountingProvision = TotalOfTotalAmountOfAccountingProvision + TotalAmountOfAccountingProvision[i] %}
                     
                 {% endfor %}
-                <tr>
-                    <td class="totalLine">Total Général :</td>
-                    <td class="totalLine">{{TotalAmountRequestedForTheAgreement|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalCashFund|number_format(0,'.',' ')}} €</td>
-                    <td class="totalLine">{{TotalTreasury|number_format(0, '', ' ')}} €</td>
-                    <td class="totalLine">{{TotalFniAmountRequested|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalFniPaid|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalAmountRepaid|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalAmountCommittedAndNotPaid|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalOfTotalAmountOfDamageByAgreement|number_format(0, '.', ' ')}} €</td>
-                    <td class="totalLine">{{TotalOfTotalAmountOfAccountingProvision|number_format(0, '.', ' ')}} €</td>
+                <tr class="totalLine">
+                    <td>Total Général :</td>
+                    <td>{{TotalAmountRequestedForTheAgreement|number_format(0, '.', ' ')}} €</td>
+                    <td>{{TotalCashFund|number_format(0,'.',' ')}} €</td>
+                    <td>{{TotalTreasury|number_format(0, '', ' ')}} €</tdclass=>
+                    <td>{{TotalFniAmountRequested|number_format(0, '.', ' ')}} €</tdlass=>
+                    <td>{{TotalFniPaid|number_format(0, '.', ' ')}} €</td>
+                    <td>{{TotalAmountRepaid|number_format(0, '.', ' ')}} €</td=>
+                    <td>{{TotalAmountCommittedAndNotPaid|number_format(0, '.', ' ')}} €</td=>
+                    <td>{{TotalOfTotalAmountOfDamageByAgreement|number_format(0, '.', ' ')}} €</td>
+                    <td>{{TotalOfTotalAmountOfAccountingProvision|number_format(0, '.', ' ')}} €</tdass=>
                 </tr>
-                <tr>
-                    <td class="totalLine">Déduction casse :</td>
-                    <td class="totalLine">{{(breakageDeduction + TotalOfTotalAmountOfDamageByAgreement)|number_format(0, '.', ' ')}} €</td>
+                <tr class="totalLine">
+                    <td>Déduction casse :</td>
+                    <td>{{(breakageDeduction.breakageDeduction + TotalOfTotalAmountOfDamageByAgreement)|number_format(0, '.', ' ')}} €</td=>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -94,21 +95,25 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td class="totalLine">Total du Mt disponible du fond :</td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
-                    <td class="totalLine"></td>
+                <tr class="totalLine">
+                    <td>Total du Mt disponible du fond :</tdlass=>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                <tr>
-                    <td class="totalLine">Historique de Casse :</td>
-                    <td class="totalLine">{{breakageDeduction|number_format(0, '.', ' ')}} €</td>
+                <tr class="totalLine">
+                    <td>Historique de Casse :</td>
+                    {% if breakageDeduction %}
+                    <td{{breakageDeduction.breakageDeduction|number_format(0, '.', ' ')}} €</td>
+                    {% else %}
+                    <td>0 €</td>
+                    {% endif %}
                 </tr>
             </tbody>
         </table>

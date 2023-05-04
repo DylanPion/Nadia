@@ -27,7 +27,7 @@ class AccountType extends AbstractType
                 "attr" => ["placeholder" => "Solde du cpte 4671 au 31/12"]
             ])
             ->add('Button', SubmitType::class, [
-                'label' => 'Valider la nouvelle Comptabilité'
+                'label' => 'Créer la nouvelle Comptabilité'
             ]);
     }
 

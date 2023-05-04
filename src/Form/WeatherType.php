@@ -20,6 +20,8 @@ class WeatherType extends AbstractType
             ->add('weatherYear', DateType::class, [
                 'label' => 'Année Météo',
                 'widget' => 'single_text',
+                'format' => 'yyyy',
+                'html5' => false,
                 "attr" => [
                     'placeholder' => 'Entrez l\'Année Météo',
                     'class' => 'form-control',

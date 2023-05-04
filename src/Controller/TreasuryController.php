@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Agreement;
-use App\Entity\BreakageDeduction;
 use App\Form\AgreementType;
+use App\Entity\BreakageDeduction;
+use App\Form\BreakageDeductionType;
 use App\Repository\AgreementRepository;
 use App\Repository\BreakageDeductionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
-use App\Service\BreakageDeductionService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,7 +42,7 @@ class TreasuryController extends AbstractController
 
     // Affichage des convention
     #[Route('/treasury/agreementList', name: 'app_treasury_agreementList')]
-    public function agreementCard(CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository)
+    public function agreementCard(CompanySheetRepository $companySheetRepository, AgreementRepository $agreementRepository, BreakageDeductionRepository $breakageDeductionRepository)
     {
         // idValueAgreement est une fonction du Agreement Repository. C'est un tableau contenant la liste des Id de la table Agreement 
         $idValue = $agreementRepository->idValueAgreement();
@@ -56,37 +56,68 @@ class TreasuryController extends AbstractController
             $agreementNumber[$value] = $agreementRepository->find($value)->getNumber();
 
             // Utilise la fonction du Repository pour calculer le Total FNI engagé par convention
-            $TotalAmountRequestedByAgreement[$value] = $companySheetRepository->getTotalAmountRequestedByAgreement($value);
+            $totalAmountRequestedByAgreement[$value] = $companySheetRepository->getTotalAmountRequestedByAgreement($value);
 
             // Utilise la fonction du Repository pour calculer le Total FNI versé par convention
-            $TotalAmountFNIPaidByAgreement[$value] = $companySheetRepository->getTotalAmountFNIPaidByAgreement($value);
+            $totalAmountFNIPaidByAgreement[$value] = $companySheetRepository->getTotalAmountFNIPaidByAgreement($value);
 
             // Utilise la fonction du Repository pour calculer le Total des Casses
-            $TotalAmountOfDamageByAgreement[$value] = $companySheetRepository->getTotalAmountOfCaseByAgreement($value);
+            $totalAmountOfDamageByAgreement[$value] = $companySheetRepository->getTotalAmountOfCaseByAgreement($value);
 
             // Utilise la fonction du Repository pour calculer le Total des Provisions
-            $TotalAmountOfAccountingProvision[$value] = $companySheetRepository->getTotalAmountOfAccountingProvisionByAgreement($value);
+            $totalAmountOfAccountingProvision[$value] = $companySheetRepository->getTotalAmountOfAccountingProvisionByAgreement($value);
 
 
             // Utilise la fonction du Repository pour calculer le Total des Remboursement reçus par convetion 
-            $TotalAmountRepaidByAgreement[$value] =
+            $totalAmountRepaidByAgreement[$value] =
                 $companySheetRepository->getTotalAmountRepaidByAgreement($value);
 
             // Calcul le Montant engagé et non versé 
-            $AmountsCommittedAndNotPaid[$value] = $TotalAmountRequestedByAgreement[$value][0]['TotalAmountRequestedByAgreement'] - $TotalAmountFNIPaidByAgreement[$value][0]["TotalAmountFNIPaidByAgreement"];
+            $amountsCommittedAndNotPaid[$value] = $totalAmountRequestedByAgreement[$value][0]['TotalAmountRequestedByAgreement'] - $totalAmountFNIPaidByAgreement[$value][0]["TotalAmountFNIPaidByAgreement"];
+        };
+
+        // Récupération de la seule instance de BreakageDeduction
+        $breakageDeduction = $breakageDeductionRepository->findAll()[0] ?? null;
+
+        // Si aucune instance n'existe, redirection vers une page pour en créer une
+        if ($breakageDeduction === null) {
+            return $this->redirectToRoute('app_create_breakage_deduction');
         }
 
         return $this->render('treasury/agreementList.html.twig', [
             'agreementNumber' => $agreementNumber,
             'agreement' => $agreement,
-            'TotalAmountRequestedByAgreement' => $TotalAmountRequestedByAgreement,
-            'TotalAmountFNIPaidByAgreement' => $TotalAmountFNIPaidByAgreement,
-            'TotalAmountRepaidByAgreement' => $TotalAmountRepaidByAgreement,
-            'TotalAmountOfDamageByAgreement' => $TotalAmountOfDamageByAgreement,
-            'TotalAmountOfAccountingProvision' => $TotalAmountOfAccountingProvision,
-            'AmountCommittedAndNotPaid' => $AmountsCommittedAndNotPaid,
+            'TotalAmountRequestedByAgreement' => $totalAmountRequestedByAgreement,
+            'TotalAmountFNIPaidByAgreement' => $totalAmountFNIPaidByAgreement,
+            'TotalAmountRepaidByAgreement' => $totalAmountRepaidByAgreement,
+            'TotalAmountOfDamageByAgreement' => $totalAmountOfDamageByAgreement,
+            'TotalAmountOfAccountingProvision' => $totalAmountOfAccountingProvision,
+            'AmountCommittedAndNotPaid' => $amountsCommittedAndNotPaid,
             'idValue' => $idValue, // cela nous permettra de faire une boucle avec les valeurs de idValue pour afficher nos données
-            'breakageDeduction' => 4000,
+            'breakageDeduction' => $breakageDeduction,
         ]);
+    }
+
+    #[Route('/treasury/createBreakageDeduction', name: 'app_create_breakage_deduction')]
+    public function createBreakageDeduction(EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(BreakageDeductionType::class, null, ['data_class' => BreakageDeduction::class]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($form->getData());
+            $em->flush();
+            return $this->redirectToRoute('app_treasury_agreementList');
+        }
+
+        return $this->render('treasury/createBrekageDeduction.html.twig', [
+            'formView' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/treasury/editBreakageDeduction', name: 'app_edit_breakage_deduction')]
+    public function editBreakageDeduction(EntityManagerInterface $em, Request $request)
+    {
     }
 }

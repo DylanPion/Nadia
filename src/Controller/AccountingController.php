@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AccountingController extends AbstractController
 {
+    // Affichage Tableau Pointage (Comptabilité)
     #[Route('/accounting', name: 'app_accounting')]
     public function index(AccountRepository $accountRepository): Response
     {
@@ -36,8 +37,7 @@ class AccountingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $account = $form->getData();
-            $year = new DateTime();
-            $account->setYear($year)
+            $account->setYear(new DateTime())
                 ->setTotalAmountFniPaid($companySheetRepository->getTotalFNIAmountPaid())
                 ->setTotalAmountRepaidToDate($companySheetRepository->getTotalAmountRepaidToDate());
             $em->persist($account);

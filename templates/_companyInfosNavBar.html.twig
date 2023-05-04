@@ -1,0 +1,123 @@
+<div class="companyInfos">
+		<nav>
+			<ul>
+				<li class="nav-link">
+					<a href="#" class="tablink" onclick="openTab(event,'companyCard')">
+						Fiche sté
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href="#" class="tablink" onclick="openTab(event, 'requestedCard')">
+						Engagement
+					</a>
+				</li>
+				<li class="nav-link">
+					<a href="#" class="tablink" onclick="openTab(event, 'payCard')">
+						Versement
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="card-container">
+			<div class="tabcontent" id="companyCard">
+				<div class="card">
+					<div>
+						<ul>
+							<li>
+								<span>Nom de la Socité :</span>
+								{{company.companyName}}</li>
+							<li>
+								<span>Association :</span>
+								{{associationName}}</li>
+							<li>
+								<span>Année CE :</span>
+								{{company.dateOfCe | date (" d/m/y")}}</li>
+
+							{% for name in projectleadername %}
+								<li>
+									<span>Nom Prénom des Lauréats :</span>
+									{{name}}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div>
+						<ul>
+							<li>
+								<span>Numéro de convention de financement CDC/BPI :</span>
+								{{company.Agreement}}</li>
+						</ul>
+					</li>
+				</div>
+			</div>
+		</div>
+
+		<div class="tabcontent" id="requestedCard">
+			<div class="card">
+				<div>
+					<ul>
+						<li>
+							<span>Début du début de rembroust :</span>
+							{{company.repaymentstartdate | date (" d/m/y")}}
+						</li>
+						<li>
+							<span>Montant engagé :</span>
+							{{company.fniamountrequested|number_format(0, '.', ' ')}}
+							€
+						</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>
+							<span>Date de fin de rembourst :</span>
+							{{company.repaymentenddate | date (" d/m/y")}}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tabcontent" id="payCard">
+			<div class="card">
+				<div>
+					<ul>
+						<li>
+							<span>Date du 1er verst :</span>
+							{{company.paymentonedate | date (" d/m/y")}}
+						</li>
+						<li>
+							<span>Date du 2nd verst :</span>
+							{{company.paymenttwodate | date (" d/m/Y") }}
+						</li>
+						<li>
+							<span>Reste à verser :</span>
+							{{(company.fniamountrequested - company.paymentone - company.paymenttwo)|number_format(0, '.', ' ')}}
+							€
+						</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li>
+							<span>Montant du verst 1 :</span>
+							{{company.paymentone|number_format(0, '.', ' ')}}
+							€
+						</li>
+						<li>
+							<span>Montant du verst 2 :</span>
+							{{company.paymenttwo|number_format(0, '.', ' ')}}
+							€
+						</li>
+
+						<li>
+							<span>Total versé :</span>
+							{{(company.paymentone + company.paymenttwo)|number_format(0, '.', ' ')}}
+							€
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
