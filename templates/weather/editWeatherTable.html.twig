@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer le Tableau Météo
+{% endblock %}
+
+
+{% block body %}
+
+	{% include "_sidebar.html.twig" %}
+
+	<div class="form">
+		<div class="form-content">
+			<h1>Modification du Tableau Météo</h1>
+			{{form_start(formView)}}
+			{{form_row(formView.accountingProvision5)}}
+			{{form_row(formView.accountingProvision4)}}
+			{{form_row(formView.accountingProvision3)}}
+			{{form_row(formView.accountingProvision2)}}
+			{{form_row(formView.accountingProvision1)}}
+			{{form_row(formView.accountingProvision0)}}
+			{{form_row(formView.Button)}}
+			{{form_end(formView)}}
+		</div>
+	</div>
+{% endblock %}

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TotalAmountRepaidToDateRepository;
 use App\Repository\WeatherRepository;
+use App\Repository\WeatherTableRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CompanySheetController extends AbstractController
@@ -124,7 +125,8 @@ class CompanySheetController extends AbstractController
         CompanySheetRepository $companySheetRepository,
         TotalAmountRepaidToDateRepository $totalAmountRepaidToDateRepository,
         EntityManagerInterface $em,
-        WeatherRepository $weatherRepository
+        WeatherRepository $weatherRepository,
+        WeatherTableRepository $weatherTableRepository
     ): Response {
         // Récupérer l'entité CompanySheet
         $companySheet = $companySheetRepository->find($id);
@@ -150,6 +152,15 @@ class CompanySheetController extends AbstractController
         $projectLeaderNameList = $companySheet->getProjectLeaders()->map(fn ($projectLeader) => $projectLeader->getName())->toArray();
         $remainsToBeReceived = $fniAmountPaid - $totalAmountRepaidToDateRepository->getTotalPaymentReceivedByCompany($id);
 
+        // Récupération de la seule instance de WreakageTable
+        $weatherTableRepository = $weatherTableRepository->findAll()[0] ?? null; // Permet de Récupérer la première ligne de la table 
+
+        // Si aucune instance n'existe, redirection vers une page pour en créer une
+        if ($weatherTableRepository === null) {
+            return $this->redirectToRoute('app_weatherTableCreate');
+        }
+
+
         return $this->render('companySheet/displayCompanySheet.html.twig', [
             'company' => $companySheet,
             'projectleadername' => $projectLeaderNameList,
@@ -160,6 +171,7 @@ class CompanySheetController extends AbstractController
             'totalAmountOfDamage' => $companySheet->getTotalAmountOfDamage(),
             'totalAmountOfAccountingProvision' => $companySheet->getTotalAmountOfAccountingProvision(),
             'remainsToBeReceived' => $remainsToBeReceived,
+            'weatherTable' => $weatherTableRepository
         ]);
     }
 }

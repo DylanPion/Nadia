@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Weather;
+use App\Entity\WeatherTable;
+use App\Form\WeatherTableType;
 use App\Form\WeatherType;
 use App\Service\WeatherService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
+use App\Repository\WeatherTableRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +17,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WeatherController extends AbstractController
 {
-    #[Route('/weather', name: 'app_weather')]
-    public function index(): Response
+    #[Route('/weatherTableCreate', name: 'app_weatherTableCreate')]
+    public function weatherTableCreate(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('weather/index.html.twig', [
-            'controller_name' => 'WeatherController',
+        $form = $this->createForm(WeatherTableType::class, null, [
+            'data_class' => WeatherTable::class
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($form->getData());
+            $em->flush();
+            return $this->redirectToRoute('app_association');
+        }
+
+        return $this->render('weather/createWeatherTable.html.twig', [
+            'formView' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/weatherTableEdit', name: 'app_weatherTableEdit')]
+    public function weatherTableEdit(Request $request, EntityManagerInterface $em, WeatherTableRepository $weatherTableRepository): Response
+    {
+        $weatherTable = $weatherTableRepository->findAll()[0];
+        $form = $this->createForm(WeatherTableType::class, $weatherTable);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_association');
+        }
+
+        return $this->render('weather/editWeatherTable.html.twig', [
+            'formView' => $form->createView(),
         ]);
     }
 

@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Agreement;
 use App\Form\AgreementType;
+use App\Form\WeatherTableType;
 use App\Entity\BreakageDeduction;
 use App\Form\BreakageDeductionType;
 use App\Repository\AgreementRepository;
-use App\Repository\BreakageDeductionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CompanySheetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\BreakageDeductionRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -77,7 +78,7 @@ class TreasuryController extends AbstractController
         };
 
         // Récupération de la seule instance de BreakageDeduction
-        $breakageDeduction = $breakageDeductionRepository->findAll()[0] ?? null;
+        $breakageDeduction = $breakageDeductionRepository->findAll()[0] ?? null; // Permet de Récupérer la première ligne de la table 
 
         // Si aucune instance n'existe, redirection vers une page pour en créer une
         if ($breakageDeduction === null) {
@@ -117,7 +118,21 @@ class TreasuryController extends AbstractController
     }
 
     #[Route('/treasury/editBreakageDeduction', name: 'app_edit_breakage_deduction')]
-    public function editBreakageDeduction(EntityManagerInterface $em, Request $request)
+    public function editBreakageDeduction(EntityManagerInterface $em, Request $request, BreakageDeductionRepository $breakageDeductionRepository)
     {
+        $breakageDeduction = $breakageDeductionRepository->findAll()[0];
+        $form = $this->createForm(BreakageDeductionType::class, $breakageDeduction);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_treasury_agreementList');
+        }
+
+        return $this->render('treasury/editBrekageDeduction.html.twig', [
+            'formView' => $form->createView(),
+        ]);
     }
 }

@@ -22,6 +22,7 @@
                     <th>Montants Engagés et non versés</th>
                     <th>Montants Total des Casses</th>
                     <th>Montants Total des Provisions</th>
+                    <th>Total du MT Disponible du FOnd</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,13 +39,14 @@
 
                 {% for i in idValue %}
 
+                {% set treasuryAvailable = ((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])%}
                     <tr>
                         <td>{{ agreementNumber[i] }}</td>
                         <td>{{ agreement[i].amountRequestedForTheAgreement|number_format(0, '.', ' ') }}
                             €</td>
                         <td>{{ agreement[i].cashFund|number_format(0, '.', ' ') }}
                             €</td>
-                        <td>{{ ((agreement[i].cashFund) - ( TotalAmountFNIPaidByAgreement[i][0]["TotalAmountFNIPaidByAgreement"]) + TotalAmountRepaidByAgreement[i] - AmountCommittedAndNotPaid[i])|number_format(0, '.', ' ') }}
+                        <td>{{ treasuryAvailable|number_format(0, '.', ' ') }}
                             €</td>
                         <td>{{ TotalAmountRequestedByAgreement[i][0]['TotalAmountRequestedByAgreement']|number_format(0, '.', ' ') }}
                             €</td>
@@ -58,7 +60,6 @@
                             €</td>
                         <td>{{ TotalAmountOfAccountingProvision[i]|number_format(0, '.', ' ') }}
                             €</td>
-                    </tr>
 
                     {% set TotalAmountRequestedForTheAgreement = TotalAmountRequestedForTheAgreement + agreement[i].amountRequestedForTheAgreement %}
                     {% set TotalCashFund = TotalCashFund + agreement[i].cashFund %}
@@ -70,6 +71,8 @@
                     {% set TotalOfTotalAmountOfDamageByAgreement = TotalOfTotalAmountOfDamageByAgreement + TotalAmountOfDamageByAgreement[i] %}
                     {% set TotalOfTotalAmountOfAccountingProvision = TotalOfTotalAmountOfAccountingProvision + TotalAmountOfAccountingProvision[i] %}
                     
+                        <td>{{(treasuryAvailable - (breakageDeduction.BreakageDeduction + TotalOfTotalAmountOfDamageByAgreement))|number_format(0, '.', ' ')}} €</td>
+                    </tr>
                 {% endfor %}
                 <tr class="totalLine">
                     <td>Total Général :</td>
@@ -85,7 +88,7 @@
                 </tr>
                 <tr class="totalLine">
                     <td>Déduction casse :</td>
-                    <td>{{(breakageDeduction.breakageDeduction + TotalOfTotalAmountOfDamageByAgreement)|number_format(0, '.', ' ')}} €</td=>
+                    <td>{{(breakageDeduction.BreakageDeduction + TotalOfTotalAmountOfDamageByAgreement)|number_format(0, '.', ' ')}} €</td=>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -95,25 +98,10 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr class="totalLine">
-                    <td>Total du Mt disponible du fond :</tdlass=>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    
                 <tr class="totalLine">
                     <td>Historique de Casse :</td>
-                    {% if breakageDeduction %}
-                    <td{{breakageDeduction.breakageDeduction|number_format(0, '.', ' ')}} €</td>
-                    {% else %}
-                    <td>0 €</td>
-                    {% endif %}
+                    <td>{{breakageDeduction.BreakageDeduction|number_format(0, '.', ' ')}} €</td>
                 </tr>
             </tbody>
         </table>
